@@ -4,6 +4,15 @@ version = "0.1.0"
 description = "Companion code for the book 'Quantum Computing in Action' (Manning) — hands-on experiments with Qiskit"
 readme = "README.md"
 requires-python = ">=3.14"
+keywords = [
+    "quantum-computing",
+    "qiskit",
+    "manning",
+    "book-companion",
+    "quantum-algorithms",
+    "quantum-programming",
+    "ibm-quantum",
+]
 dependencies = [
     "qiskit>=2.5.2",
 ]
