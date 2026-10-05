@@ -41,9 +41,9 @@ Each sample also renders diagrams to `build/`:
 
 | Chapter | Diagrams |
 |---------|----------|
-| 1 | `time-complexity.png` — classical vs. Shor curves |
-| 2 | `random-bits-circuit.png`, `random-bits-counts.png`, `random-bits-bloch.png` |
-| 3 | `pauli-x.png`, `pauli-x-bloch.png` (before/after the flip) |
+| 1 | `ch01-time-complexity.png` — classical vs. Shor curves |
+| 2 | `ch02-random-bits-circuit.png`, `ch02-random-bits-counts.png`, `ch02-random-bits-bloch.png` |
+| 3 | `ch03-pauli-x.png`, `ch03-pauli-x-bloch.png` (before/after the flip) |
 
 ## Dark mode
 

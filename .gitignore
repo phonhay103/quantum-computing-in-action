@@ -7,8 +7,9 @@ __pycache__/
 .venv/
 venv/
 
-# Packaging / build
-build/
+# Packaging / build (generated diagrams in build/ are tracked)
+build/*
+!build/*.png
 dist/
 *.egg-info/
 

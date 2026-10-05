@@ -90,9 +90,9 @@ seed — it is genuinely random.
     console.print("[muted]The two counts land near 5000/5000, confirming the 50/50 superposition.[/muted]")
 
     console.print(Panel(str(random_bit_circuit().draw("text")), title="Random-bit circuit", border_style="bits"))
-    circuit_path = render_circuit(random_bit_circuit(), "build/random-bits-circuit.png")
-    counts_path = render_counts({"0": zeros, "1": ones}, "build/random-bits-counts.png", title="10000 random bits")
-    bloch_path = render_bloch([("after H", superposed)], "build/random-bits-bloch.png", title="Superposition state")
+    circuit_path = render_circuit(random_bit_circuit(), "build/ch02-random-bits-circuit.png")
+    counts_path = render_counts({"0": zeros, "1": ones}, "build/ch02-random-bits-counts.png", title="10000 random bits")
+    bloch_path = render_bloch([("after H", superposed)], "build/ch02-random-bits-bloch.png", title="Superposition state")
     console.print("Saved diagrams:")
     for path in (circuit_path, counts_path, bloch_path):
         console.print(f"  [path]{path}[/path]")

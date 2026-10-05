@@ -50,7 +50,7 @@ def sample(
 def plot(
     start: float = 1e-6,
     stop: float = 20.0,
-    output: str | Path = "build/time-complexity.png",
+    output: str | Path = "build/ch01-time-complexity.png",
 ) -> Path:
     """Plot the classical and Shor time-complexity curves and save them to ``output``."""
     import matplotlib

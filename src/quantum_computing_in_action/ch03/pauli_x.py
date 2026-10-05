@@ -43,7 +43,7 @@ def measure_pauli_x() -> int:
     return 1 if counts.get("1", 0) else 0
 
 
-def draw(output: str | Path = "build/pauli-x.png") -> Path:
+def draw(output: str | Path = "build/ch03-pauli-x.png") -> Path:
     """Render the circuit on a dark background and save it to ``output``."""
     return render_circuit(pauli_x_circuit(), output)
 
@@ -83,7 +83,7 @@ measurement `M` that writes the outcome into the classical bit `c`.
     circuit_path = draw()
     bloch_path = render_bloch(
         [("before: |0>", initial), ("after X: |1>", flipped)],
-        "build/pauli-x-bloch.png",
+        "build/ch03-pauli-x-bloch.png",
         title="Pauli-X flips the qubit",
     )
     console.print("Saved diagrams:")
