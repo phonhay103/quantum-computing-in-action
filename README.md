@@ -1,5 +1,8 @@
 # quantum-computing-in-action
 
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+[![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-2ea44f.svg)](https://phonhay103.github.io/quantum-computing-in-action/)
+
 Companion code for **[_Quantum Computing in Action_](https://www.manning.com/books/quantum-computing-in-action)**
 by Johan Vos (Manning, January 2022 · ISBN 9781617296321 · 264 pages).
 
@@ -7,6 +10,21 @@ Hands-on experiments in quantum computing with [Qiskit](https://www.ibm.com/quan
 The book teaches the concepts using the Java-based [Strange](https://github.com/gluonhq/strange)
 simulator; this repository reimplements the same ideas in Python with Qiskit.
 Console output is formatted with [Rich](https://github.com/Textualize/rich).
+
+## 📖 Buy the book
+
+This repository is **companion material — not a replacement for the book**. The full
+explanations, exercises, and narrative live in the original work:
+
+> **[_Quantum Computing in Action_](https://www.manning.com/books/quantum-computing-in-action)**
+> by **Johan Vos** — Manning, January 2022.
+> ISBN 9781617296321 · 264 pages.
+> Available from [Manning](https://www.manning.com/books/quantum-computing-in-action)
+> and on [LiveBook](https://livebook.manning.com/book/quantum-computing-in-action/).
+
+If these samples help you, **please buy a copy**. Purchasing the book is the best way
+to support the author and the publisher, and it gives you the context that this code
+only illustrates.
 
 ## About the book
 
@@ -122,3 +140,47 @@ make clean     # remove caches/artifacts
 │   └── ch03/pauli_x.py
 └── tests/
 ```
+
+## Disclaimer
+
+- **Unofficial and independent.** This project is **not affiliated with, authorized,
+  endorsed by, or sponsored by** Johan Vos, Manning Publications, IBM, or the Qiskit
+  and Strange projects. It is a personal, educational reimplementation.
+- **Educational use only.** The code reimplements a *subset* of the book's ideas in
+  Python/Qiskit and covers only chapters 1–3. It may contain mistakes or simplifications;
+  always prefer the book as the authoritative source.
+- **No warranty.** The code and notes are provided **"AS IS"**, without warranty of any
+  kind. You are responsible for how you use them; the maintainers accept no liability
+  for any loss or damage arising from their use.
+- **Book content.** The title *Quantum Computing in Action*, the book's text, figures,
+  and exercises are the property of the author and publisher. This repository only
+  *references* the book and does not reproduce its content.
+- **Trademarks.** "Qiskit" and "IBM" are trademarks of IBM; "Strange" belongs to its
+  authors (Gluon); "Manning" is a trademark of Manning Publications. All trademarks are
+  used for identification only and belong to their respective owners.
+
+## License
+
+The original code, documentation, and diagrams in this repository are released under the
+**Apache License 2.0** — see [LICENSE](LICENSE) for the full text.
+
+```text
+Copyright 2026 the quantum-computing-in-action contributors
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
+
+> **Note:** the license applies **only** to the material created in this repository.
+> The book's own content remains © Johan Vos / Manning Publications and is **not**
+> covered by it.
+

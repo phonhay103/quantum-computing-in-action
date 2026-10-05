@@ -3,6 +3,8 @@ name = "quantum-computing-in-action"
 version = "0.1.0"
 description = "Companion code for the book 'Quantum Computing in Action' (Manning) — hands-on experiments with Qiskit"
 readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
 requires-python = ">=3.14"
 keywords = [
     "quantum-computing",
