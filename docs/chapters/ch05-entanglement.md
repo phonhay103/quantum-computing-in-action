@@ -27,34 +27,40 @@ The new ingredient is a gate that acts on **two** qubits: the **controlled-NOT**
 (`CNOT`). It has a **control** qubit and a **target** qubit, and it flips the
 target exactly when the control is `1`.
 
-Take qubit 0 as the control and qubit 1 as the target. Writing states as
-`|q1 q0⟩` (the book's label order), the truth table is:
+We write two-qubit states as `|c t⟩` with the **control first** and the **target
+second** — the usual textbook order. The truth table is then:
 
-| Input | Output |
+| Input `\|c t⟩` | Output `\|c t⟩` |
 |-------|--------|
 | `\|00⟩` | `\|00⟩` |
-| `\|01⟩` | `\|11⟩` |
-| `\|10⟩` | `\|10⟩` |
-| `\|11⟩` | `\|01⟩` |
+| `\|01⟩` | `\|01⟩` |
+| `\|10⟩` | `\|11⟩` |
+| `\|11⟩` | `\|10⟩` |
 
-The control is the rightmost character and the target the leftmost. In `|01⟩` the
-control `q0` is `1`, so the target `q1` flips and the state becomes `|11⟩`; when
-the control is `0` (`|00⟩`, `|10⟩`) nothing happens.
+In `|10⟩` the control is `1`, so the target flips and the state becomes `|11⟩`;
+when the control is `0` (`|00⟩`, `|01⟩`) nothing happens.
 
 Like every quantum gate, `CNOT` is **reversible** and **unitary**. In the basis
 order `|00⟩, |01⟩, |10⟩, |11⟩` its matrix is
 
-$$CNOT = \begin{bmatrix}1&0&0&0\\ 0&0&0&1\\ 0&0&1&0\\ 0&1&0&0\end{bmatrix}$$
+$$CNOT = \begin{bmatrix}1&0&0&0\\ 0&1&0&0\\ 0&0&0&1\\ 0&0&1&0\end{bmatrix}$$
 
 Applying it twice gives the identity, so `CNOT·CNOT = I`.
+
+!!! note "A note on bit order (Qiskit)"
+    Qiskit stores amplitudes in the *opposite* (little-endian) bit order: in a
+    `Statevector` label the rightmost character is qubit 0. The sample therefore
+    calls `cx(1, 0)` — control qubit 1, target qubit 0 — to realise the
+    control-first convention used here. The printed `|q1 q0⟩` labels already put
+    the control first, so nothing else changes.
 
 ## Bell states
 
 Entanglement appears when `CNOT` acts on a superposition. Start with both qubits
-in `|00⟩`, apply a Hadamard to qubit 0, then `CNOT(0,1)`:
+in `|00⟩`, apply a Hadamard to the **control**, then `CNOT`:
 
-$$H(0):\quad \frac{|00\rangle + |10\rangle}{\sqrt{2}}
-  \quad\xrightarrow{\;CNOT(0,1)\;}\quad \frac{|00\rangle + |11\rangle}{\sqrt{2}}$$
+$$H(\text{control}):\quad \frac{|00\rangle + |10\rangle}{\sqrt{2}}
+  \quad\xrightarrow{\;CNOT\;}\quad \frac{|00\rangle + |11\rangle}{\sqrt{2}}$$
 
 The result is a **Bell state** (also called an EPR pair). It cannot be written as
 `|a⟩|b⟩` for any single-qubit states `a` and `b` — that is exactly what
@@ -121,14 +127,15 @@ the **correlations**.
 
 ![Bell-state circuit](../assets/ch05-bell-circuit.png){ width="460" }
 
-Qubit 0 gets a Hadamard, then `CNOT(0,1)` correlates the two qubits, and both are
-measured. This little circuit is the standard way to *create* entanglement.
+The **control** qubit gets a Hadamard, then `CNOT` correlates it with the
+**target**, and both are measured. This little circuit is the standard way to
+*create* entanglement.
 
 ### The CNOT circuit
 
 ![CNOT circuit](../assets/ch05-cnot-circuit.png){ width="460" }
 
-The bare `CNOT(0,1)`. On its own it never creates a superposition — it only
+The bare `CNOT`. On its own it never creates a superposition — it only
 correlates qubits that are already in one.
 
 ### What you measure (Bell state)

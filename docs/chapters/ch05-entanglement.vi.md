@@ -27,34 +27,39 @@ Thành phần mới là một cổng tác động lên **hai** qubit: **controll
 (`CNOT`). Nó có một qubit **điều khiển** và một qubit **đích**, và lật qubit đích
 đúng khi qubit điều khiển bằng `1`.
 
-Lấy qubit 0 làm điều khiển và qubit 1 làm đích. Viết trạng thái là `|q1 q0⟩` (thứ
-tự nhãn của sách), bảng chân trị là:
+Ta viết trạng thái hai qubit là `|c t⟩` với **điều khiển trước** và **đích sau** —
+thứ tự quen thuộc trong giáo trình. Bảng chân trị khi đó là:
 
-| Đầu vào | Đầu ra |
+| Đầu vào `\|c t⟩` | Đầu ra `\|c t⟩` |
 |---------|--------|
 | `\|00⟩` | `\|00⟩` |
-| `\|01⟩` | `\|11⟩` |
-| `\|10⟩` | `\|10⟩` |
-| `\|11⟩` | `\|01⟩` |
+| `\|01⟩` | `\|01⟩` |
+| `\|10⟩` | `\|11⟩` |
+| `\|11⟩` | `\|10⟩` |
 
-Điều khiển là ký tự bên phải và đích là ký tự bên trái. Trong `|01⟩`, điều khiển
-`q0` bằng `1`, nên đích `q1` bị lật và trạng thái thành `|11⟩`; khi điều khiển
-bằng `0` (`|00⟩`, `|10⟩`) thì không có gì xảy ra.
+Trong `|10⟩`, điều khiển bằng `1`, nên đích bị lật và trạng thái thành `|11⟩`;
+khi điều khiển bằng `0` (`|00⟩`, `|01⟩`) thì không có gì xảy ra.
 
 Như mọi cổng lượng tử, `CNOT` **khả nghịch** và **unitary**. Trong thứ tự cơ sở
 `|00⟩, |01⟩, |10⟩, |11⟩`, ma trận của nó là
 
-$$CNOT = \begin{bmatrix}1&0&0&0\\ 0&0&0&1\\ 0&0&1&0\\ 0&1&0&0\end{bmatrix}$$
+$$CNOT = \begin{bmatrix}1&0&0&0\\ 0&1&0&0\\ 0&0&0&1\\ 0&0&1&0\end{bmatrix}$$
 
 Áp nó hai lần cho ma trận đơn vị, nên `CNOT·CNOT = I`.
+
+!!! note "Lưu ý về thứ tự bit (Qiskit)"
+    Qiskit lưu biên độ theo thứ tự bit *ngược lại* (little-endian): trong nhãn
+    `Statevector`, ký tự bên phải là qubit 0. Vì vậy ví dụ gọi `cx(1, 0)` — điều
+    khiển qubit 1, đích qubit 0 — để có quy ước điều-khiển-trước dùng ở đây. Nhãn
+    `|q1 q0⟩` in ra đã đặt điều khiển ở trước, nên không có gì khác thay đổi.
 
 ## Trạng thái Bell
 
 Rối lượng tử xuất hiện khi `CNOT` tác động lên một chồng chập. Bắt đầu với cả hai
-qubit ở `|00⟩`, áp Hadamard lên qubit 0, rồi `CNOT(0,1)`:
+qubit ở `|00⟩`, áp Hadamard lên **điều khiển**, rồi `CNOT`:
 
-$$H(0):\quad \frac{|00\rangle + |10\rangle}{\sqrt{2}}
-  \quad\xrightarrow{\;CNOT(0,1)\;}\quad \frac{|00\rangle + |11\rangle}{\sqrt{2}}$$
+$$H(\text{điều khiển}):\quad \frac{|00\rangle + |10\rangle}{\sqrt{2}}
+  \quad\xrightarrow{\;CNOT\;}\quad \frac{|00\rangle + |11\rangle}{\sqrt{2}}$$
 
 Kết quả là một **trạng thái Bell** (còn gọi là cặp EPR). Nó không thể viết thành
 `|a⟩|b⟩` với bất kỳ trạng thái một-qubit `a`, `b` nào — đó đúng là ý nghĩa của
@@ -121,15 +126,15 @@ Cả hai hệ đều trông "ngẫu nhiên" nếu bạn chỉ liếc một qubit
 
 ![Mạch trạng thái Bell](../assets/ch05-bell-circuit.png){ width="460" }
 
-Qubit 0 nhận một Hadamard, rồi `CNOT(0,1)` tương quan hai qubit, và cả hai được
-đo. Mạch nhỏ này là cách chuẩn để *tạo* rối lượng tử.
+Qubit **điều khiển** nhận một Hadamard, rồi `CNOT` tương quan nó với qubit
+**đích**, và cả hai được đo. Mạch nhỏ này là cách chuẩn để *tạo* rối lượng tử.
 
 ### Mạch CNOT
 
 ![Mạch CNOT](../assets/ch05-cnot-circuit.png){ width="460" }
 
-`CNOT(0,1)` trần. Một mình nó không bao giờ tạo chồng chập — nó chỉ tương quan các
-qubit vốn đã ở trong chồng chập.
+`CNOT` trần. Một mình nó không bao giờ tạo chồng chập — nó chỉ tương quan các qubit
+vốn đã ở trong chồng chập.
 
 ### Đo ra gì (trạng thái Bell)
 

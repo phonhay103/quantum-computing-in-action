@@ -11,9 +11,15 @@ Qubit-order convention
 ----------------------
 
 Following the book's labels, a two-qubit state is written ``|q1 q0>``: the
-**leftmost** character is qubit 1 and the rightmost is qubit 0. Qiskit uses the
-same string order for ``Statevector`` labels, so :func:`ket` and
-:func:`tensor` agree with Qiskit's ``Statevector``.
+**leftmost** character is qubit 1 and the rightmost is qubit 0. For the
+controlled-NOT gate the leftmost qubit is the **control** and the rightmost is
+the **target**, the usual textbook convention.
+
+Qiskit stores amplitudes in the *opposite* (little-endian) bit order: in a
+``Statevector`` label the rightmost character is qubit 0. So to apply a
+control-first ``CNOT`` in a Qiskit circuit we call ``qc.cx(1, 0)`` (control
+qubit 1, target qubit 0). :func:`ket` and :func:`tensor` still agree with
+Qiskit's ``Statevector`` labels.
 """
 
 from __future__ import annotations
@@ -28,18 +34,25 @@ BASIS_LABELS: tuple[str, ...] = ("00", "01", "10", "11")
 #: The Pauli-X gate as a matrix (used to prepare definite states).
 X: np.ndarray = np.array([[0, 1], [1, 0]], dtype=complex)
 
-#: The controlled-NOT gate ``CNOT`` with control qubit 0 and target qubit 1.
+#: The controlled-NOT gate ``CNOT`` in the **usual textbook convention**: the
+#: control is the first (leftmost) qubit and the target is the second
+#: (rightmost) one. It flips the target when the control is ``1``:
+#: ``|10> -> |11>`` and ``|11> -> |10>``, leaving ``|00>`` and ``|01>``
+#: untouched.
 #:
-#: It flips the target when the control is ``1``: ``|01> -> |11>`` and
-#: ``|11> -> |01>``, leaving ``|00>`` and ``|10>`` untouched. In the basis order
-#: ``|00>, |01>, |10>, |11>`` it is the matrix below, matching
-#: ``qiskit.circuit.library.CXGate``.
+#: In the basis order ``|00>, |01>, |10>, |11>`` it is the matrix below.
+#:
+#: .. note::
+#:    Qiskit uses the *opposite* (little-endian) bit order internally: in a
+#:    ``Statevector`` label the rightmost character is qubit 0. To realise this
+#:    control-first convention in a Qiskit circuit we therefore use
+#:    ``qc.cx(1, 0)`` (control qubit 1, target qubit 0), not ``qc.cx(0, 1)``.
 CNOT: np.ndarray = np.array(
     [
         [1, 0, 0, 0],
+        [0, 1, 0, 0],
         [0, 0, 0, 1],
         [0, 0, 1, 0],
-        [0, 1, 0, 0],
     ],
     dtype=complex,
 )

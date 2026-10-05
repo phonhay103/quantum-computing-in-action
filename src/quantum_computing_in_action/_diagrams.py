@@ -33,10 +33,14 @@ def _bloch_vector(state: Statevector) -> list[float]:
     return [float(state.expectation_value(Pauli(axis)).real) for axis in ("X", "Y", "Z")]
 
 
-def render_circuit(circuit: QuantumCircuit, output: str | Path) -> Path:
-    """Render a quantum circuit diagram on a dark background."""
+def render_circuit(circuit: QuantumCircuit, output: str | Path, *, reverse_bits: bool = False) -> Path:
+    """Render a quantum circuit diagram on a dark background.
+
+    ``reverse_bits=True`` draws the highest-indexed qubit at the top, so a
+    circuit can be shown in the conventional "control first" order.
+    """
     path = _prepare(output)
-    circuit.draw("mpl", filename=str(path), style=DARK_CIRCUIT_STYLE)
+    circuit.draw("mpl", filename=str(path), style=DARK_CIRCUIT_STYLE, reverse_bits=reverse_bits)
     return path
 
 

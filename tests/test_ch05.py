@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from qiskit.circuit.library import CXGate
+from qiskit import QuantumCircuit
 from qiskit.quantum_info import Operator
 
 from quantum_computing_in_action.ch05 import (
@@ -63,9 +63,9 @@ def test_classical_two_coins_use_all_four_outcomes() -> None:
 def test_cnot_truth_table() -> None:
     assert cnot_truth_table() == [
         ("00", "00"),
-        ("01", "11"),
-        ("10", "10"),
-        ("11", "01"),
+        ("01", "01"),
+        ("10", "11"),
+        ("11", "10"),
     ]
 
 
@@ -86,7 +86,15 @@ def test_draw_writes_file(tmp_path) -> None:
 
 
 def test_cnot_matrix_matches_qiskit() -> None:
-    assert np.allclose(states.CNOT, Operator(CXGate()).data)
+    circuit = QuantumCircuit(2)
+    circuit.cx(1, 0)
+    assert np.allclose(states.CNOT, Operator(circuit).data)
+
+
+def test_cnot_matrix_flips_the_target() -> None:
+    assert np.allclose(states.CNOT @ states.ket("10"), states.ket("11"))
+    assert np.allclose(states.CNOT @ states.ket("11"), states.ket("10"))
+    assert np.allclose(states.CNOT @ states.ket("01"), states.ket("01"))
 
 
 def test_ket_and_tensor_agree() -> None:

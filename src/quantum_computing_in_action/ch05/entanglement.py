@@ -22,15 +22,16 @@ from quantum_computing_in_action.ch05 import states
 
 
 def _bell_preparation() -> QuantumCircuit:
-    """A two-qubit circuit that prepares the Bell state ``(|00> + |11>) / sqrt(2)``.
+    """Prepare the Bell state ``(|00> + |11>) / sqrt(2)``.
 
-    A Hadamard on qubit 0 puts it in superposition, then ``CNOT(0, 1)`` flips
-    qubit 1 exactly when qubit 0 is ``1``. The two qubits can no longer be
-    described separately.
+    A Hadamard on the **control** qubit puts it in superposition, then ``CNOT``
+    flips the **target** exactly when the control is ``1``. We use ``cx(1, 0)``
+    so the leftmost label character (qubit 1) is the control, the usual textbook
+    convention; Qiskit's own bit order is reversed.
     """
     circuit = QuantumCircuit(2, 2)
-    circuit.h(0)
-    circuit.cx(0, 1)
+    circuit.h(1)
+    circuit.cx(1, 0)
     return circuit
 
 
@@ -114,20 +115,24 @@ def _label_circuit(label: str) -> QuantumCircuit:
 
 
 def cnot_circuit() -> QuantumCircuit:
-    """A bare ``CNOT(0, 1)`` circuit with measurements (used for the truth table)."""
+    """A bare ``CNOT`` circuit with measurements (control first, target second)."""
     circuit = QuantumCircuit(2, 2)
-    circuit.cx(0, 1)
+    circuit.cx(1, 0)
     circuit.measure(0, 0)
     circuit.measure(1, 1)
     return circuit
 
 
 def cnot_truth_table() -> list[tuple[str, str]]:
-    """Return ``(input, output)`` pairs for ``CNOT(0, 1)`` on the four basis states."""
+    """Return ``(input, output)`` pairs for ``CNOT`` on the four basis states.
+
+    The leftmost label character is the control and the rightmost is the target,
+    so the table is ``00->00``, ``01->01``, ``10->11`` and ``11->10``.
+    """
     table: list[tuple[str, str]] = []
     for label in states.BASIS_LABELS:
         circuit = _label_circuit(label)
-        circuit.cx(0, 1)
+        circuit.cx(1, 0)
         probabilities = Statevector.from_instruction(circuit).probabilities_dict()
         output = max(probabilities, key=lambda key: probabilities[key])
         table.append((label, str(output)))
@@ -135,9 +140,13 @@ def cnot_truth_table() -> list[tuple[str, str]]:
 
 
 def draw(output: str | Path = "build/ch05-bell-circuit.png", *, cnot: bool = False) -> Path:
-    """Render the Bell circuit (or the bare CNOT circuit) and save it to ``output``."""
+    """Render the Bell circuit (or the bare CNOT circuit) and save it to ``output``.
+
+    The circuit is drawn with the highest-indexed qubit on top, so the control
+    (qubit 1) appears above the target (qubit 0) — the conventional picture.
+    """
     circuit = cnot_circuit() if cnot else bell_circuit()
-    return render_circuit(circuit, output)
+    return render_circuit(circuit, output, reverse_bits=True)
 
 
 def _amplitude_matrix(state: Statevector) -> np.ndarray:
@@ -155,7 +164,11 @@ basis states: `|00>`, `|01>`, `|10>`, `|11>`.
 The **CNOT gate** has a control and a target. It flips the target exactly when
 the control is `1`. Applied after a Hadamard, it produces a **Bell state**:
 
-`H(0)` then `CNOT(0,1)`  ->  `(|00> + |11>) / sqrt(2)`
+`H` on the control, then `CNOT`  ->  `(|00> + |11>) / sqrt(2)`
+
+The state labels use the usual textbook order — **control first, target
+second**. (Qiskit stores bits the other way round internally, so the code calls
+`cx(1, 0)` to get this convention.)
 
 Measure this state and you only ever see `00` or `11` — never `01` or `10`. The
 two qubits are **entangled**: each looks 50/50 on its own, yet their outcomes are
@@ -174,14 +187,14 @@ produce all four outcomes with equal probability.
         "Chapter 5 — step by step",
         [
             ("Prepare two qubits in |00>", "both qubits definite"),
-            ("Apply H to qubit 0", "qubit 0 becomes 50/50, qubit 1 stays |0>"),
-            ("Apply CNOT(0,1)", "qubit 1 becomes correlated with qubit 0"),
+            ("Apply H to the control qubit", "the control becomes 50/50, the target stays |0>"),
+            ("Apply CNOT", "the target becomes correlated with the control"),
             ("Measure both", "only 00 or 11, each about half the time"),
         ],
     )
 
     console.rule("The CNOT truth table")
-    truth = Table(title="CNOT(0,1): flip the target when the control is 1", header_style="heading")
+    truth = Table(title="CNOT (control first): flip the target when the control is 1", header_style="heading")
     truth.add_column("input", style="bits")
     truth.add_column("output", style="value")
     for input_label, output_label in table:
@@ -211,8 +224,12 @@ produce all four outcomes with equal probability.
     )
     console.print("[muted]The Bell qubits are correlated; the independent qubits and coins are not.[/muted]")
 
-    console.print(Panel(str(bell_circuit().draw("text")), title="Bell circuit", border_style="bits"))
-    console.print(Panel(str(cnot_circuit().draw("text")), title="CNOT(0,1)", border_style="bits"))
+    console.print(
+        Panel(str(bell_circuit().draw("text", reverse_bits=True)), title="Bell circuit", border_style="bits")
+    )
+    console.print(
+        Panel(str(cnot_circuit().draw("text", reverse_bits=True)), title="CNOT (control first)", border_style="bits")
+    )
 
     circuit_path = draw()
     cnot_path = draw("build/ch05-cnot-circuit.png", cnot=True)
