@@ -22,6 +22,20 @@ degree or advanced math required. Topics covered:
 See the full [table of contents](https://livebook.manning.com/book/quantum-computing-in-action/contents)
 and the [author's page](https://www.manning.com/authors/johan-vos).
 
+## Chapters
+
+Python/Qiskit ports of the book's Java samples. Each chapter can be run with
+`uv run python -m quantum_computing_in_action <chapter>` or the matching `make` target.
+
+| Chapter | Topic | Module | Run |
+|---------|-------|--------|-----|
+| 1 | Factoring time complexity (classical vs. Shor) | `quantum_computing_in_action.ch01.time_complexity` | `make ch01` |
+| 2 | "Hello World" — random bits | `quantum_computing_in_action.ch02.random_bits` | `make ch02` |
+| 3 | Qubits and the Pauli-X gate | `quantum_computing_in_action.ch03.pauli_x` | `make ch03` |
+
+Chapter 1 writes `build/time-complexity.png`; chapter 3 can render the circuit
+with `quantum_computing_in_action.ch03.pauli_x.draw()`.
+
 ## Requirements
 
 - [uv](https://docs.astral.sh/uv/)
@@ -47,6 +61,9 @@ make sync      # install dependencies
 make lint      # ruff + ty
 make format    # ruff formatter
 make test      # pytest
+make ch01      # run chapter 1
+make ch02      # run chapter 2
+make ch03      # run chapter 3
 make clean     # remove caches/artifacts
 ```
 
@@ -57,5 +74,9 @@ make clean     # remove caches/artifacts
 ├── Makefile
 ├── pyproject.toml
 ├── src/quantum_computing_in_action/
+│   ├── __main__.py
+│   ├── ch01/time_complexity.py
+│   ├── ch02/random_bits.py
+│   └── ch03/pauli_x.py
 └── tests/
 ```

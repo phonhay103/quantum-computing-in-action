@@ -1,4 +1,4 @@
-.PHONY: help install sync lint format test clean
+.PHONY: help install sync lint format test clean ch01 ch02 ch03
 
 # Default target
 .DEFAULT_GOAL := help
@@ -23,6 +23,15 @@ format: ## Format code with Ruff
 
 test: ## Run the test suite with pytest
 	uv run pytest tests/
+
+ch01: ## Run chapter 1 (factoring time complexity)
+	uv run python -m quantum_computing_in_action ch01
+
+ch02: ## Run chapter 2 (random bits)
+	uv run python -m quantum_computing_in_action ch02
+
+ch03: ## Run chapter 3 (Pauli-X gate)
+	uv run python -m quantum_computing_in_action ch03
 
 clean: ## Remove caches and build artifacts
 	rm -rf .pytest_cache .ruff_cache .ty dist build
