@@ -45,10 +45,10 @@ nav:
   - Home: index.md
   - Getting started: getting-started.md
   - Chapters:
-      - "Chapter 1 — Factoring time complexity": chapters/ch01-time-complexity.md
-      - "Chapter 2 — Random bits": chapters/ch02-random-bits.md
-      - "Chapter 3 — The Pauli-X gate": chapters/ch03-pauli-x.md
-      - "Chapter 4 — The Hadamard gate": chapters/ch04-hadamard.md
+      - "Chapter 1 — Evolution, revolution, or hype?": chapters/ch01-evolution-revolution-hype.md
+      - "Chapter 2 — Hello World, quantum computing style": chapters/ch02-hello-world.md
+      - "Chapter 3 — Qubits and quantum gates": chapters/ch03-qubits-and-gates.md
+      - "Chapter 4 — Superposition": chapters/ch04-superposition.md
   - Reference: reference.md
 
 markdown_extensions:
@@ -92,10 +92,10 @@ plugins:
             Home: Trang chủ
             Getting started: Bắt đầu
             Chapters: Các chương
-            "Chapter 1 — Factoring time complexity": "Chương 1 — Độ phức tạp thời gian phân tích thừa số"
-            "Chapter 2 — Random bits": "Chương 2 — Bit ngẫu nhiên"
-            "Chapter 3 — The Pauli-X gate": "Chương 3 — Cổng Pauli-X"
-            "Chapter 4 — The Hadamard gate": "Chương 4 — Cổng Hadamard"
+            "Chapter 1 — Evolution, revolution, or hype?": "Chương 1 — Tiến hoá, cách mạng, hay cường điệu?"
+            "Chapter 2 — Hello World, quantum computing style": "Chương 2 — Hello World kiểu điện toán lượng tử"
+            "Chapter 3 — Qubits and quantum gates": "Chương 3 — Qubit và cổng lượng tử"
+            "Chapter 4 — Superposition": "Chương 4 — Chồng chập"
             Reference: Tham chiếu
 
 extra_javascript:

@@ -1,8 +1,12 @@
+import numpy as np
 import pytest
+from qiskit.circuit.library import HGate, XGate
+from qiskit.quantum_info import Operator
 
 from quantum_computing_in_action.ch04 import (
     double_hadamard_circuit,
     draw,
+    matrices,
     random_bit,
     repeat_double_hadamard,
     repeat_single_hadamard,
@@ -53,3 +57,35 @@ def test_draw_writes_file(tmp_path) -> None:
     output = tmp_path / "ch04-hadamard.png"
     assert draw(output) == output
     assert output.exists()
+
+
+def test_x_matrix_matches_qiskit() -> None:
+    assert np.allclose(matrices.X, Operator(XGate()).data)
+
+
+def test_h_matrix_matches_qiskit() -> None:
+    assert np.allclose(matrices.H, Operator(HGate()).data)
+
+
+def test_h_squared_is_identity() -> None:
+    assert matrices.is_identity(matrices.H @ matrices.H)
+
+
+def test_x_squared_is_identity() -> None:
+    assert matrices.is_identity(matrices.X @ matrices.X)
+
+
+def test_compose_two_hadamards_is_identity() -> None:
+    assert matrices.is_identity(matrices.compose([matrices.H, matrices.H]))
+
+
+def test_apply_hadamard_to_zero_gives_even_superposition() -> None:
+    state = matrices.apply(matrices.H, matrices.state_vector(1, 0))
+    p0, p1 = matrices.probabilities(state)
+    assert p0 == pytest.approx(0.5)
+    assert p1 == pytest.approx(0.5)
+
+
+def test_apply_pauli_x_swaps_amplitudes() -> None:
+    state = matrices.apply(matrices.X, matrices.state_vector(1, 0))
+    assert matrices.probabilities(state) == pytest.approx((0.0, 1.0))

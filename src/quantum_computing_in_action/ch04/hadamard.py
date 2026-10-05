@@ -7,9 +7,16 @@ from pathlib import Path
 from qiskit import QuantumCircuit
 from qiskit.quantum_info import Statevector
 from rich.panel import Panel
+from rich.table import Table
 
 from quantum_computing_in_action._console import console, explain, steps
-from quantum_computing_in_action._diagrams import render_bloch, render_circuit, render_counts
+from quantum_computing_in_action._diagrams import (
+    render_bloch,
+    render_circuit,
+    render_counts,
+    render_matrices,
+)
+from quantum_computing_in_action.ch04 import matrices
 
 
 def _single_hadamard() -> QuantumCircuit:
@@ -55,6 +62,14 @@ def _sampled_counts(circuit: QuantumCircuit, shots: int) -> dict[str, int]:
 def _probabilities(state: Statevector) -> str:
     probs = state.probabilities_dict()
     return f"P(0) = {float(probs.get('0', 0.0)):.2f}, P(1) = {float(probs.get('1', 0.0)):.2f}"
+
+
+def _format_matrix(matrix) -> str:
+    rows = []
+    for row in matrix:
+        cells = (f"{value.real:+.2f}" if abs(value.imag) < 1e-9 else f"{value:+.2f}" for value in row)
+        rows.append("[ " + "  ".join(cells) + " ]")
+    return "\n".join(rows)
 
 
 def random_bit() -> int:
@@ -106,6 +121,15 @@ quantum gate is reversible, and `H` is its own inverse:
 So `H·H|0> = |0>`: the second gate *undoes* the first, the superposition
 disappears, and measuring always returns `0` again. The canvas below shows both
 the random single-`H` case and the deterministic double-`H` case.
+
+Under the hood, a single qubit is a **state vector** `[alpha, beta]` and every
+gate is a **2x2 matrix** that multiplies it. The Pauli-X and Hadamard gates are
+therefore
+
+`X = [[0, 1], [1, 0]]        H = 1/sqrt(2) * [[1, 1], [1, -1]]`
+
+and `H·H` is the identity matrix — the matrix way of saying "two Hadamards
+cancel".
 """,
     )
 
@@ -142,6 +166,23 @@ the random single-`H` case and the deterministic double-`H` case.
     console.print(Panel(str(single_hadamard_circuit().draw("text")), title="Single H", border_style="bits"))
     console.print(Panel(str(double_hadamard_circuit().draw("text")), title="H then H", border_style="bits"))
 
+    console.rule("Gates as matrices")
+    matrix_table = Table(title="Gates as 2x2 matrices (state = alpha|0> + beta|1>)")
+    matrix_table.add_column("gate", style="bits")
+    matrix_table.add_column("matrix", style="value")
+    matrix_table.add_row("X", _format_matrix(matrices.X))
+    matrix_table.add_row("H", _format_matrix(matrices.H))
+    matrix_table.add_row("H·H", _format_matrix(matrices.H @ matrices.H))
+    console.print(matrix_table)
+
+    zero = matrices.state_vector(1, 0)
+    superposed_vector = matrices.apply(matrices.H, zero)
+    p0, p1 = matrices.probabilities(superposed_vector)
+    console.print(
+        f"H|0> = [{superposed_vector[0]:.2f}, {superposed_vector[1]:.2f}]  ->  P(0) = {p0:.2f}, P(1) = {p1:.2f}"
+    )
+    console.print("[muted]A gate is a matrix; the state is a vector; measuring squares the amplitudes.[/muted]")
+
     circuit_path = draw("build/ch04-hadamard-circuit.png")
     double_circuit_path = draw("build/ch04-hadamard2-circuit.png", double=True)
     bloch_path = render_bloch(
@@ -151,8 +192,20 @@ the random single-`H` case and the deterministic double-`H` case.
     )
     counts_path = render_counts(single, "build/ch04-hadamard-counts.png", title="1000 runs of H")
     double_counts_path = render_counts(double, "build/ch04-hadamard2-counts.png", title="1000 runs of H·H")
+    matrix_path = render_matrices(
+        [("X", matrices.X), ("H", matrices.H), ("H·H = I", matrices.H @ matrices.H)],
+        "build/ch04-gate-matrices.png",
+        title="Gates as 2x2 matrices",
+    )
     console.print("Saved diagrams:")
-    for path in (circuit_path, double_circuit_path, bloch_path, counts_path, double_counts_path):
+    for path in (
+        circuit_path,
+        double_circuit_path,
+        bloch_path,
+        counts_path,
+        double_counts_path,
+        matrix_path,
+    ):
         console.print(f"  [path]{path}[/path]")
 
 

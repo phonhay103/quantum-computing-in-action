@@ -1,9 +1,19 @@
-# Chapter 2 — Random bits
+# Chapter 2 — Hello World, quantum computing style
 
 !!! abstract "In one sentence"
     Put a qubit into **superposition** with a Hadamard gate, then measure it, and
     you get `0` or `1` with equal probability — randomness that comes from
     physics, not from a hidden algorithm.
+
+## Why "Hello World"?
+
+Every programming language starts with a program that prints `Hello, World!`:
+small enough to type, but it proves the whole toolchain works. Quantum computing
+needs the same kind of first program.
+
+The twist is that the smallest *interesting* quantum program does something a
+classical one cannot: it produces a **truly random bit**. That is the quantum
+"Hello World" — one qubit, one gate, one measurement.
 
 ## Classical bits vs. qubits
 
@@ -85,6 +95,8 @@ measurements.
 
 ## The code behind this chapter
 
-The sample that draws the circuit, the histogram, and the Bloch sphere lives in
+The book's sample uses the high-level `Classic.randomBit()` call; the Python port
+opens up that call into the explicit `H`-then-measure circuit so the mechanism is
+visible. It lives in
 [`src/quantum_computing_in_action/ch02/random_bits.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch02/random_bits.py).
 Run it with `make ch02`.

@@ -51,8 +51,15 @@ def plot(
     start: float = 1e-6,
     stop: float = 20.0,
     output: str | Path = "build/ch01-time-complexity.png",
+    *,
+    include_shor: bool = True,
 ) -> Path:
-    """Plot the classical and Shor time-complexity curves and save them to ``output``."""
+    """Plot the factoring time-complexity curves and save them to ``output``.
+
+    With ``include_shor=True`` (the default) both the classical and Shor curves
+    are drawn. Set it to ``False`` to draw the classical curve alone, mirroring
+    the book's second chart.
+    """
     import matplotlib
 
     matplotlib.use("Agg")
@@ -61,12 +68,13 @@ def plot(
     path = Path(output)
     path.parent.mkdir(parents=True, exist_ok=True)
 
+    curves = [(classical_factoring_time, "classical")]
+    if include_shor:
+        curves.append((shor_factoring_time, "shor"))
+
     with plt.style.context(DARK_PLOT_STYLE):
         fig, ax = plt.subplots(figsize=(8, 6))
-        for function, label in (
-            (classical_factoring_time, "classical"),
-            (shor_factoring_time, "shor"),
-        ):
+        for function, label in curves:
             xs, ys = zip(*sample(function, start, stop), strict=True)
             ax.plot(xs, ys, label=label)
 
@@ -120,8 +128,14 @@ The table below compares the two estimates; the chart plots them.
         "[muted]Read the table by column: as bits grow, the classical cost explodes while Shor's stays modest.[/muted]"
     )
 
-    path = plot()
-    console.print(f"\nSaved plot to [path]{path}[/path]")
+    combined = plot()
+    classical_only = plot(
+        output="build/ch01-time-complexity-classical.png",
+        include_shor=False,
+    )
+    console.print("Saved plots:")
+    console.print(f"  [path]{combined}[/path] — classical vs. Shor")
+    console.print(f"  [path]{classical_only}[/path] — classical alone")
 
 
 if __name__ == "__main__":

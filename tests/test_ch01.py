@@ -37,3 +37,9 @@ def test_plot_writes_file(tmp_path) -> None:
     output = tmp_path / "chart.png"
     assert plot(output=output) == output
     assert output.exists()
+
+
+def test_plot_classical_only_writes_file(tmp_path) -> None:
+    output = tmp_path / "classical.png"
+    assert plot(output=output, include_shor=False) == output
+    assert output.exists()

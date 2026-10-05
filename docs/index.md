@@ -18,12 +18,14 @@ diagram so you can *see* what the maths describes.
 
 ## The chapters covered
 
+Chapter titles follow the book's table of contents.
+
 | Chapter | Idea in one line | Diagrams |
 |---------|------------------|----------|
-| [1 — Factoring time complexity](chapters/ch01-time-complexity.md) | Quantum computers promise a speed-up because Shor's algorithm is polynomial while the best classical method is exponential | [classical vs. Shor](chapters/ch01-time-complexity.md#the-diagram) |
-| [2 — Random bits](chapters/ch02-random-bits.md) | A qubit in superposition returns genuinely random `0`/`1` on measurement | [circuit, counts, Bloch](chapters/ch02-random-bits.md#the-diagrams) |
-| [3 — The Pauli-X gate](chapters/ch03-pauli-x.md) | A single-qubit gate flips `\|0⟩` to `\|1⟩` deterministically | [circuit, Bloch](chapters/ch03-pauli-x.md#the-diagrams) |
-| [4 — The Hadamard gate](chapters/ch04-hadamard.md) | `H` creates an even superposition, and `H` twice cancels it back to `\|0⟩` | [circuits, Bloch, counts](chapters/ch04-hadamard.md#the-diagrams) |
+| [1 — Evolution, revolution, or hype?](chapters/ch01-evolution-revolution-hype.md) | Quantum computing is an evolution with a revolutionary speed-up for a narrow set of problems, such as factoring | [classical vs. Shor, classical alone](chapters/ch01-evolution-revolution-hype.md#the-diagrams) |
+| [2 — Hello World, quantum computing style](chapters/ch02-hello-world.md) | A qubit in superposition returns genuinely random `0`/`1` on measurement | [circuit, counts, Bloch](chapters/ch02-hello-world.md#the-diagrams) |
+| [3 — Qubits and quantum gates](chapters/ch03-qubits-and-gates.md) | Qubits are the basic unit and gates are reversible operations; `X` flips `\|0⟩` to `\|1⟩` deterministically | [circuits, Bloch, counts](chapters/ch03-qubits-and-gates.md#the-diagrams) |
+| [4 — Superposition](chapters/ch04-superposition.md) | A state is a vector and a gate is a matrix; `H` creates an even superposition and `H·H` cancels it | [circuits, Bloch, counts, matrices](chapters/ch04-superposition.md#the-diagrams) |
 
 ## Diagram gallery
 
@@ -32,7 +34,8 @@ a figure always tells you where it came from.
 
 ### Chapter 1 — classical vs. Shor
 
-![Classical vs. Shor factoring time](assets/ch01-time-complexity.png){ width="520" }
+![Classical vs. Shor factoring time](assets/ch01-time-complexity.png){ width="460" }
+![The classical curve on its own](assets/ch01-time-complexity-classical.png){ width="460" }
 
 ### Chapter 2 — random bits
 
@@ -40,22 +43,25 @@ a figure always tells you where it came from.
 ![Measurement counts](assets/ch02-random-bits-counts.png){ width="360" }
 ![Superposition on the Bloch sphere](assets/ch02-random-bits-bloch.png){ width="360" }
 
-### Chapter 3 — the Pauli-X gate
+### Chapter 3 — qubits and gates
 
 ![Pauli-X circuit](assets/ch03-pauli-x.png){ width="360" }
-![Qubit before and after X](assets/ch03-pauli-x-bloch.png){ width="520" }
+![Two Pauli-X gates](assets/ch03-pauli-x2-circuit.png){ width="360" }
+![Qubit before, after X, and after X·X](assets/ch03-pauli-x-bloch.png){ width="620" }
 
-### Chapter 4 — the Hadamard gate
+### Chapter 4 — superposition
 
 ![Single Hadamard circuit](assets/ch04-hadamard-circuit.png){ width="360" }
 ![Two Hadamard gates](assets/ch04-hadamard2-circuit.png){ width="360" }
 ![Superposition created and cancelled on the Bloch sphere](assets/ch04-hadamard-bloch.png){ width="560" }
+![X, H, and H·H as matrices](assets/ch04-gate-matrices.png){ width="560" }
 
 ## Where to go next
 
 - New here? Start with **[Getting started](getting-started.md)** to run the
   samples and regenerate the diagrams.
-- Want the concepts only? Jump straight to **[Chapter 1](chapters/ch01-time-complexity.md)**.
+- Want the concepts only? Jump straight to
+  **[Chapter 1](chapters/ch01-evolution-revolution-hype.md)**.
 - Looking for the code that produces a figure? See the
   **[Reference](reference.md)** table, which maps each chapter to its module,
   CLI command, and diagrams.

@@ -903,6 +903,7 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "matplotlib" },
+    { name = "numpy" },
     { name = "pylatexenc" },
     { name = "qiskit" },
     { name = "rich" },
@@ -920,6 +921,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "matplotlib", specifier = ">=3.11.2" },
+    { name = "numpy", specifier = ">=2.0" },
     { name = "pylatexenc", specifier = ">=2.11" },
     { name = "qiskit", specifier = ">=2.5.2" },
     { name = "rich", specifier = ">=15.0.0" },

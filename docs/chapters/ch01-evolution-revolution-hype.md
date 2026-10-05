@@ -1,9 +1,50 @@
-# Chapter 1 — Factoring time complexity
+# Chapter 1 — Evolution, revolution, or hype?
 
 !!! abstract "In one sentence"
-    Quantum computers matter because **Shor's algorithm factors large numbers in
-    polynomial time**, while the best known classical algorithm needs
+    Quantum computing is a genuine **evolution** of computing, but it is not a
+    drop-in replacement: it matters because **Shor's algorithm factors large
+    numbers in polynomial time**, while the best known classical algorithm needs
     *exponential* time — and modern encryption assumes that fact is hard.
+
+## The evolution of computing
+
+Classical computing has grown for decades by making transistors smaller: more
+switches, faster clocks, cheaper work. That run is slowing down. Transistors are
+now a few atoms wide, and shrinking further runs into heat and quantum effects.
+
+Quantum computing is the next step in that evolution, but it changes the *kind*
+of machine we build. Instead of more classical switches, it uses **qubits** and
+the rules of quantum mechanics — superposition, interference, and entanglement —
+to compute in ways a classical computer cannot imitate efficiently.
+
+## Revolution or hype?
+
+Both words get used, so it helps to separate the two:
+
+| Claim | Verdict |
+|-------|---------|
+| "Quantum computers are faster at everything" | **Hype** — for most everyday tasks they are not |
+| "Some specific problems get a dramatic speed-up" | **Revolution** — factoring, search, simulation |
+| "You can use one today for production" | **Hype** — today's machines are small and noisy |
+| "The theory is sound and improving fast" | **Revolution** — the algorithms are real |
+
+The honest summary: a **revolution for a narrow set of problems**, not a
+universal speed-up. Knowing *which* problems is the whole point of this book.
+
+## Where quantum computers help
+
+The applications that motivate the field fall into a few families:
+
+- **Cryptography** — Shor's algorithm breaks RSA-style public-key encryption;
+  quantum key distribution and post-quantum crypto respond to that threat.
+- **Simulation** — molecules and materials are quantum systems; a quantum
+  computer can model them natively (chemistry, drug discovery, materials).
+- **Search and optimisation** — Grover's algorithm speeds up unstructured
+  search and many optimisation problems.
+- **Sampling and machine learning** — still early, but an active area.
+
+The first three are the ones with the clearest algorithmic advantage, and they
+are exactly the algorithms this book walks through.
 
 ## Why factoring is the hook
 
@@ -14,7 +55,8 @@ very hard. "Hard" here is measured in **time**: how the work grows as the number
 gets bigger.
 
 If factoring suddenly became fast, a lot of encryption would become fast to
-break. This chapter is about *how much* faster a quantum computer can make it.
+break. This is the most dramatic example of the evolution/revolution question, so
+the chapter starts here.
 
 ## Measuring difficulty: how cost grows with size
 
@@ -59,11 +101,15 @@ method explodes far more violently.
     error-corrected quantum computer. The chapter is about the *asymptotic
     promise*, not about breaking RSA on current hardware.
 
-## The diagram
+## The diagrams
 
-![Classical vs. Shor factoring time](../assets/ch01-time-complexity.png){ width="560" }
+The book draws **two** charts: one comparing both algorithms, and one showing the
+classical curve on its own so its shape is not hidden by the much lower Shor
+curve.
 
-The chart plots both estimates against the number of bits:
+![Classical vs. Shor factoring time](../assets/ch01-time-complexity.png){ width="520" }
+
+![The classical curve on its own](../assets/ch01-time-complexity-classical.png){ width="520" }
 
 - The **classical** curve (yellow) climbs steeply — it is the exponential wall.
 - The **Shor** curve (green) stays low and almost flat by comparison — this is
@@ -76,17 +122,19 @@ The widening gap between the two curves *is* the quantum speed-up.
 When you run the chapter it prints a table of estimates for 4, 8, 16, 32 and
 64 bits. Reading down the columns makes the two growth rates concrete: the
 classical column balloons to enormous numbers while the Shor column stays
-comparatively modest. The figure above is the same story as a picture.
+comparatively modest. The figures above tell the same story as a picture.
 
 ## Key takeaways
 
-- Factoring difficulty is where quantum computing's reputation begins.
+- Quantum computing is an **evolution** with a **revolutionary** speed-up for a
+  narrow set of problems — not a universal faster computer.
+- The clearest wins are cryptography, quantum simulation, and search.
 - Classical GNFS is **super-polynomial**; Shor is **polynomial** (`b³`).
 - The speed-up is about *asymptotic growth*, not present-day machines.
 - This is exactly why post-quantum cryptography is an active field.
 
 ## The code behind this chapter
 
-The sample that produces the table and the figure lives in
+The sample that produces the table and the figures lives in
 [`src/quantum_computing_in_action/ch01/time_complexity.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch01/time_complexity.py).
 Run it with `make ch01`.

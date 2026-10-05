@@ -9,6 +9,7 @@ from __future__ import annotations
 from collections.abc import Mapping, Sequence
 from pathlib import Path
 
+import numpy as np
 from qiskit import QuantumCircuit
 from qiskit.quantum_info import Pauli, Statevector
 
@@ -82,6 +83,40 @@ def render_bloch(
             plot_bloch_vector(_bloch_vector(state), title=label, ax=ax)
         if title is not None:
             fig.suptitle(title)
+        fig.savefig(path)
+        plt.close(fig)
+    return path
+
+
+def render_matrices(
+    matrices: Sequence[tuple[str, np.ndarray]],
+    output: str | Path,
+    *,
+    title: str | None = None,
+) -> Path:
+    """Render gate matrices as labelled heatmaps on a dark background."""
+    path = _prepare(output)
+    from matplotlib import pyplot as plt
+
+    with plt.style.context(DARK_PLOT_STYLE):
+        columns = len(matrices)
+        fig, axes = plt.subplots(1, columns, figsize=(3.2 * columns, 3.6))
+        axes = np.atleast_1d(axes)
+        for ax, (label, matrix) in zip(axes, matrices, strict=True):
+            values = np.real_if_close(matrix)
+            image = ax.imshow(values, cmap="coolwarm", vmin=-1, vmax=1)
+            ax.set_title(label)
+            ax.set_xticks(range(matrix.shape[1]))
+            ax.set_yticks(range(matrix.shape[0]))
+            for row in range(matrix.shape[0]):
+                for column in range(matrix.shape[1]):
+                    value = matrix[row, column]
+                    text = f"{value.real:.2f}" if abs(value.imag) < 1e-9 else f"{value:.2f}"
+                    ax.text(column, row, text, ha="center", va="center", color="white", fontsize=9)
+            fig.colorbar(image, ax=ax, fraction=0.046)
+        if title is not None:
+            fig.suptitle(title)
+        fig.tight_layout()
         fig.savefig(path)
         plt.close(fig)
     return path

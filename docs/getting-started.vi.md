@@ -2,7 +2,7 @@
 
 Trang này chỉ nói về cách **chạy các ví dụ** và **vẽ lại sơ đồ**. Muốn hiểu kiến
 thức điện toán lượng tử, hãy bắt đầu từ
-[Chương 1](chapters/ch01-time-complexity.md).
+[Chương 1](chapters/ch01-evolution-revolution-hype.md).
 
 ## Yêu cầu
 
@@ -29,18 +29,21 @@ các sơ đồ đã lưu.
 uv run python -m quantum_computing_in_action ch01
 uv run python -m quantum_computing_in_action ch02
 uv run python -m quantum_computing_in_action ch03
+uv run python -m quantum_computing_in_action ch04
 
 # hoặc qua make
 make ch01
 make ch02
 make ch03
+make ch04
 ```
 
 | Chương | Lệnh | Sơ đồ ghi vào `build/` |
 |--------|------|------------------------|
-| 1 | `make ch01` | `ch01-time-complexity.png` |
+| 1 | `make ch01` | `ch01-time-complexity.png`, `ch01-time-complexity-classical.png` |
 | 2 | `make ch02` | `ch02-random-bits-circuit.png`, `ch02-random-bits-counts.png`, `ch02-random-bits-bloch.png` |
-| 3 | `make ch03` | `ch03-pauli-x.png`, `ch03-pauli-x-bloch.png` |
+| 3 | `make ch03` | `ch03-pauli-x.png`, `ch03-pauli-x2-circuit.png`, `ch03-pauli-x-bloch.png`, `ch03-pauli-x-counts.png`, `ch03-pauli-x2-counts.png` |
+| 4 | `make ch04` | `ch04-hadamard-circuit.png`, `ch04-hadamard2-circuit.png`, `ch04-hadamard-bloch.png`, `ch04-hadamard-counts.png`, `ch04-hadamard2-counts.png`, `ch04-gate-matrices.png` |
 
 ## Phát triển
 
@@ -67,10 +70,11 @@ make clean      # xoá cache và sản phẩm đã sinh
 ├── src/quantum_computing_in_action/
 │   ├── __main__.py              # CLI: python -m quantum_computing_in_action <chapter>
 │   ├── _console.py              # giao diện console tối dùng chung
-│   ├── _diagrams.py             # bộ vẽ mạch / biểu đồ / Bloch
+│   ├── _diagrams.py             # bộ vẽ mạch / biểu đồ / Bloch / ma trận
 │   ├── ch01/time_complexity.py
 │   ├── ch02/random_bits.py
-│   └── ch03/pauli_x.py
+│   ├── ch03/pauli_x.py
+│   └── ch04/                    # hadamard.py + matrices.py
 └── tests/
 ```
 

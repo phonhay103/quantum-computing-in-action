@@ -49,21 +49,21 @@ print a numbered, step-by-step breakdown (including the state after each
 operation). Run a chapter with
 `uv run python -m quantum_computing_in_action <chapter>` or the matching `make` target.
 
-| Chapter | Topic | Module | Run |
-|---------|-------|--------|-----|
-| 1 | Factoring time complexity (classical vs. Shor) | `quantum_computing_in_action.ch01.time_complexity` | `make ch01` |
-| 2 | "Hello World" — random bits | `quantum_computing_in_action.ch02.random_bits` | `make ch02` |
-| 3 | Qubits and the Pauli-X gate | `quantum_computing_in_action.ch03.pauli_x` | `make ch03` |
-| 4 | The Hadamard gate — creating and cancelling superposition | `quantum_computing_in_action.ch04.hadamard` | `make ch04` |
+| Chapter | Topic (book title) | Module | Run |
+|---------|--------------------|--------|-----|
+| 1 | Evolution, revolution, or hype? | `quantum_computing_in_action.ch01.time_complexity` | `make ch01` |
+| 2 | Hello World, quantum computing style | `quantum_computing_in_action.ch02.random_bits` | `make ch02` |
+| 3 | Qubits and quantum gates | `quantum_computing_in_action.ch03.pauli_x` | `make ch03` |
+| 4 | Superposition | `quantum_computing_in_action.ch04.hadamard` (+ `ch04.matrices`) | `make ch04` |
 
 Each sample also renders diagrams to `build/`:
 
 | Chapter | Diagrams |
 |---------|----------|
-| 1 | `ch01-time-complexity.png` — classical vs. Shor curves |
+| 1 | `ch01-time-complexity.png` (classical vs. Shor), `ch01-time-complexity-classical.png` |
 | 2 | `ch02-random-bits-circuit.png`, `ch02-random-bits-counts.png`, `ch02-random-bits-bloch.png` |
-| 3 | `ch03-pauli-x.png`, `ch03-pauli-x-bloch.png` (before/after the flip) |
-| 4 | `ch04-hadamard-circuit.png`, `ch04-hadamard2-circuit.png`, `ch04-hadamard-bloch.png`, `ch04-hadamard-counts.png`, `ch04-hadamard2-counts.png` |
+| 3 | `ch03-pauli-x.png`, `ch03-pauli-x2-circuit.png`, `ch03-pauli-x-bloch.png`, `ch03-pauli-x-counts.png`, `ch03-pauli-x2-counts.png` |
+| 4 | `ch04-hadamard-circuit.png`, `ch04-hadamard2-circuit.png`, `ch04-hadamard-bloch.png`, `ch04-hadamard-counts.png`, `ch04-hadamard2-counts.png`, `ch04-gate-matrices.png` |
 
 ## Documentation
 
@@ -141,7 +141,7 @@ make clean     # remove caches/artifacts
 │   ├── ch01/time_complexity.py
 │   ├── ch02/random_bits.py
 │   ├── ch03/pauli_x.py
-│   └── ch04/hadamard.py
+│   └── ch04/                 # hadamard.py + matrices.py
 └── tests/
 ```
 
@@ -151,7 +151,7 @@ make clean     # remove caches/artifacts
   endorsed by, or sponsored by** Johan Vos, Manning Publications, IBM, or the Qiskit
   and Strange projects. It is a personal, educational reimplementation.
 - **Educational use only.** The code reimplements a *subset* of the book's ideas in
-  Python/Qiskit and covers only chapters 1–3. It may contain mistakes or simplifications;
+  Python/Qiskit and covers only chapters 1–4. It may contain mistakes or simplifications;
   always prefer the book as the authoritative source.
 - **No warranty.** The code and notes are provided **"AS IS"**, without warranty of any
   kind. You are responsible for how you use them; the maintainers accept no liability

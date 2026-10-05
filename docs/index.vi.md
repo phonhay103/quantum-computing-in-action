@@ -17,12 +17,14 @@ kết quả của mỗi ví dụ thành sơ đồ để bạn *nhìn thấy* đi
 
 ## Các chương được trình bày
 
+Tên chương bám theo mục lục của sách.
+
 | Chương | Ý tưởng trong một câu | Sơ đồ |
 |--------|-----------------------|-------|
-| [1 — Độ phức tạp thời gian phân tích thừa số](chapters/ch01-time-complexity.md) | Máy tính lượng tử hứa hẹn tăng tốc vì thuật toán Shor có độ phức tạp đa thức, còn phương pháp cổ điển tốt nhất là hàm mũ | [cổ điển so với Shor](chapters/ch01-time-complexity.md) |
-| [2 — Bit ngẫu nhiên](chapters/ch02-random-bits.md) | Qubit ở trạng thái chồng chập cho ra `0`/`1` thực sự ngẫu nhiên khi đo | [mạch, biểu đồ, Bloch](chapters/ch02-random-bits.md) |
-| [3 — Cổng Pauli-X](chapters/ch03-pauli-x.md) | Một cổng một-qubit lật `\|0⟩` thành `\|1⟩` một cách tất định | [mạch, Bloch](chapters/ch03-pauli-x.md) |
-| [4 — Cổng Hadamard](chapters/ch04-hadamard.md) | `H` tạo chồng chập đều, và hai lần `H` sẽ xoá nó đưa về `\|0⟩` | [mạch, Bloch, số lần đo](chapters/ch04-hadamard.md) |
+| [1 — Tiến hoá, cách mạng, hay cường điệu?](chapters/ch01-evolution-revolution-hype.md) | Điện toán lượng tử là một bước tiến hoá với tăng tốc cách mạng cho một nhóm bài toán hẹp, ví dụ phân tích thừa số | [cổ điển so với Shor, cổ điển riêng](chapters/ch01-evolution-revolution-hype.md) |
+| [2 — Hello World kiểu điện toán lượng tử](chapters/ch02-hello-world.md) | Qubit ở trạng thái chồng chập cho ra `0`/`1` thực sự ngẫu nhiên khi đo | [mạch, biểu đồ, Bloch](chapters/ch02-hello-world.md) |
+| [3 — Qubit và cổng lượng tử](chapters/ch03-qubits-and-gates.md) | Qubit là đơn vị cơ bản và cổng là phép toán khả nghịch; `X` lật `\|0⟩` thành `\|1⟩` tất định | [mạch, Bloch, số lần đo](chapters/ch03-qubits-and-gates.md) |
+| [4 — Chồng chập](chapters/ch04-superposition.md) | Trạng thái là vector và cổng là ma trận; `H` tạo chồng chập đều và `H·H` xoá nó | [mạch, Bloch, số lần đo, ma trận](chapters/ch04-superposition.md) |
 
 ## Thư viện sơ đồ
 
@@ -31,7 +33,8 @@ cho biết nó đến từ đâu.
 
 ### Chương 1 — cổ điển so với Shor
 
-![Độ phức tạp cổ điển so với Shor](assets/ch01-time-complexity.png){ width="520" }
+![Độ phức tạp cổ điển so với Shor](assets/ch01-time-complexity.png){ width="460" }
+![Đường cổ điển riêng lẻ](assets/ch01-time-complexity-classical.png){ width="460" }
 
 ### Chương 2 — bit ngẫu nhiên
 
@@ -39,20 +42,23 @@ cho biết nó đến từ đâu.
 ![Số lần đo được](assets/ch02-random-bits-counts.png){ width="360" }
 ![Chồng chập trên mặt cầu Bloch](assets/ch02-random-bits-bloch.png){ width="360" }
 
-### Chương 3 — cổng Pauli-X
+### Chương 3 — qubit và cổng
 
 ![Mạch Pauli-X](assets/ch03-pauli-x.png){ width="360" }
-![Qubit trước và sau cổng X](assets/ch03-pauli-x-bloch.png){ width="520" }
+![Hai cổng Pauli-X](assets/ch03-pauli-x2-circuit.png){ width="360" }
+![Qubit trước, sau X, và sau X·X](assets/ch03-pauli-x-bloch.png){ width="620" }
 
-### Chương 4 — cổng Hadamard
+### Chương 4 — chồng chập
 
 ![Mạch Hadamard đơn](assets/ch04-hadamard-circuit.png){ width="360" }
 ![Hai cổng Hadamard](assets/ch04-hadamard2-circuit.png){ width="360" }
 ![Chồng chập được tạo và xoá trên mặt cầu Bloch](assets/ch04-hadamard-bloch.png){ width="560" }
+![X, H và H·H dưới dạng ma trận](assets/ch04-gate-matrices.png){ width="560" }
 
 ## Đi tiếp ở đâu
 
 - Mới bắt đầu? Xem **[Bắt đầu](getting-started.md)** để chạy ví dụ và vẽ lại sơ đồ.
-- Chỉ muốn phần khái niệm? Đi thẳng tới **[Chương 1](chapters/ch01-time-complexity.md)**.
+- Chỉ muốn phần khái niệm? Đi thẳng tới
+  **[Chương 1](chapters/ch01-evolution-revolution-hype.md)**.
 - Tìm mã tạo ra một hình? Xem bảng trong **[Tham chiếu](reference.md)**, ánh xạ mỗi
   chương với module, lệnh CLI và sơ đồ của nó.

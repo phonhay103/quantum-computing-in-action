@@ -2,7 +2,7 @@
 
 This page is only about **running the samples** and **regenerating the
 diagrams**. For the quantum-computing concepts, start at
-[Chapter 1](chapters/ch01-time-complexity.md).
+[Chapter 1](chapters/ch01-evolution-revolution-hype.md).
 
 ## Requirements
 
@@ -29,18 +29,21 @@ results, and the paths of the diagrams it saved.
 uv run python -m quantum_computing_in_action ch01
 uv run python -m quantum_computing_in_action ch02
 uv run python -m quantum_computing_in_action ch03
+uv run python -m quantum_computing_in_action ch04
 
 # or via make
 make ch01
 make ch02
 make ch03
+make ch04
 ```
 
 | Chapter | Command | Diagrams written to `build/` |
 |---------|---------|------------------------------|
-| 1 | `make ch01` | `ch01-time-complexity.png` |
+| 1 | `make ch01` | `ch01-time-complexity.png`, `ch01-time-complexity-classical.png` |
 | 2 | `make ch02` | `ch02-random-bits-circuit.png`, `ch02-random-bits-counts.png`, `ch02-random-bits-bloch.png` |
-| 3 | `make ch03` | `ch03-pauli-x.png`, `ch03-pauli-x-bloch.png` |
+| 3 | `make ch03` | `ch03-pauli-x.png`, `ch03-pauli-x2-circuit.png`, `ch03-pauli-x-bloch.png`, `ch03-pauli-x-counts.png`, `ch03-pauli-x2-counts.png` |
+| 4 | `make ch04` | `ch04-hadamard-circuit.png`, `ch04-hadamard2-circuit.png`, `ch04-hadamard-bloch.png`, `ch04-hadamard-counts.png`, `ch04-hadamard2-counts.png`, `ch04-gate-matrices.png` |
 
 ## Development
 
@@ -67,10 +70,11 @@ make clean     # remove caches and generated artifacts
 ├── src/quantum_computing_in_action/
 │   ├── __main__.py              # CLI: python -m quantum_computing_in_action <chapter>
 │   ├── _console.py              # shared dark console theme
-│   ├── _diagrams.py             # reusable circuit / counts / Bloch renderers
+│   ├── _diagrams.py             # reusable circuit / counts / Bloch / matrix renderers
 │   ├── ch01/time_complexity.py
 │   ├── ch02/random_bits.py
-│   └── ch03/pauli_x.py
+│   ├── ch03/pauli_x.py
+│   └── ch04/                    # hadamard.py + matrices.py
 └── tests/
 ```
 
