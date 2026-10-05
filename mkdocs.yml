@@ -48,6 +48,7 @@ nav:
       - "Chapter 1 — Factoring time complexity": chapters/ch01-time-complexity.md
       - "Chapter 2 — Random bits": chapters/ch02-random-bits.md
       - "Chapter 3 — The Pauli-X gate": chapters/ch03-pauli-x.md
+      - "Chapter 4 — The Hadamard gate": chapters/ch04-hadamard.md
   - Reference: reference.md
 
 markdown_extensions:
@@ -94,6 +95,7 @@ plugins:
             "Chapter 1 — Factoring time complexity": "Chương 1 — Độ phức tạp thời gian phân tích thừa số"
             "Chapter 2 — Random bits": "Chương 2 — Bit ngẫu nhiên"
             "Chapter 3 — The Pauli-X gate": "Chương 3 — Cổng Pauli-X"
+            "Chapter 4 — The Hadamard gate": "Chương 4 — Cổng Hadamard"
             Reference: Tham chiếu
 
 extra_javascript:

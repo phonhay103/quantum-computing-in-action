@@ -54,6 +54,7 @@ operation). Run a chapter with
 | 1 | Factoring time complexity (classical vs. Shor) | `quantum_computing_in_action.ch01.time_complexity` | `make ch01` |
 | 2 | "Hello World" — random bits | `quantum_computing_in_action.ch02.random_bits` | `make ch02` |
 | 3 | Qubits and the Pauli-X gate | `quantum_computing_in_action.ch03.pauli_x` | `make ch03` |
+| 4 | The Hadamard gate — creating and cancelling superposition | `quantum_computing_in_action.ch04.hadamard` | `make ch04` |
 
 Each sample also renders diagrams to `build/`:
 
@@ -62,6 +63,7 @@ Each sample also renders diagrams to `build/`:
 | 1 | `ch01-time-complexity.png` — classical vs. Shor curves |
 | 2 | `ch02-random-bits-circuit.png`, `ch02-random-bits-counts.png`, `ch02-random-bits-bloch.png` |
 | 3 | `ch03-pauli-x.png`, `ch03-pauli-x-bloch.png` (before/after the flip) |
+| 4 | `ch04-hadamard-circuit.png`, `ch04-hadamard2-circuit.png`, `ch04-hadamard-bloch.png`, `ch04-hadamard-counts.png`, `ch04-hadamard2-counts.png` |
 
 ## Documentation
 
@@ -118,6 +120,7 @@ make test      # pytest
 make ch01      # run chapter 1
 make ch02      # run chapter 2
 make ch03      # run chapter 3
+make ch04      # run chapter 4
 make docs      # build the documentation site
 make clean     # remove caches/artifacts
 ```
@@ -137,7 +140,8 @@ make clean     # remove caches/artifacts
 │   ├── _diagrams.py
 │   ├── ch01/time_complexity.py
 │   ├── ch02/random_bits.py
-│   └── ch03/pauli_x.py
+│   ├── ch03/pauli_x.py
+│   └── ch04/hadamard.py
 └── tests/
 ```
 

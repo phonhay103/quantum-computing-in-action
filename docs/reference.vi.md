@@ -10,6 +10,7 @@ module trỏ tới mã; muốn hiểu *khái niệm*, hãy theo liên kết chư
 | [1](chapters/ch01-time-complexity.md) | Độ phức tạp thời gian phân tích thừa số | [`ch01/time_complexity.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch01/time_complexity.py) | `make ch01` |
 | [2](chapters/ch02-random-bits.md) | Bit ngẫu nhiên từ chồng chập | [`ch02/random_bits.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch02/random_bits.py) | `make ch02` |
 | [3](chapters/ch03-pauli-x.md) | Cổng Pauli-X | [`ch03/pauli_x.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch03/pauli_x.py) | `make ch03` |
+| [4](chapters/ch04-hadamard.md) | Cổng Hadamard | [`ch04/hadamard.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch04/hadamard.py) | `make ch04` |
 
 CLI nhận id của chương:
 
@@ -32,6 +33,11 @@ biết nó đến từ đâu.
 | `ch02-random-bits-bloch.png` | 2 | Chồng chập trên mặt cầu Bloch |
 | `ch03-pauli-x.png` | 3 | Mạch: `X` rồi đo |
 | `ch03-pauli-x-bloch.png` | 3 | Qubit trước và sau khi lật |
+| `ch04-hadamard-circuit.png` | 4 | Mạch: một `H` rồi đo |
+| `ch04-hadamard2-circuit.png` | 4 | Mạch: `H`, `H`, rồi đo |
+| `ch04-hadamard-bloch.png` | 4 | (\|0⟩ → sau `H` → sau `H·H`) |
+| `ch04-hadamard-counts.png` | 4 | Biểu đồ 1000 lần chạy `H` |
+| `ch04-hadamard2-counts.png` | 4 | Biểu đồ 1000 lần chạy `H·H` (toàn `0`) |
 
 ## Ký hiệu dùng trong ghi chú
 

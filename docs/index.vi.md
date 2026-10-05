@@ -22,6 +22,7 @@ kết quả của mỗi ví dụ thành sơ đồ để bạn *nhìn thấy* đi
 | [1 — Độ phức tạp thời gian phân tích thừa số](chapters/ch01-time-complexity.md) | Máy tính lượng tử hứa hẹn tăng tốc vì thuật toán Shor có độ phức tạp đa thức, còn phương pháp cổ điển tốt nhất là hàm mũ | [cổ điển so với Shor](chapters/ch01-time-complexity.md) |
 | [2 — Bit ngẫu nhiên](chapters/ch02-random-bits.md) | Qubit ở trạng thái chồng chập cho ra `0`/`1` thực sự ngẫu nhiên khi đo | [mạch, biểu đồ, Bloch](chapters/ch02-random-bits.md) |
 | [3 — Cổng Pauli-X](chapters/ch03-pauli-x.md) | Một cổng một-qubit lật `\|0⟩` thành `\|1⟩` một cách tất định | [mạch, Bloch](chapters/ch03-pauli-x.md) |
+| [4 — Cổng Hadamard](chapters/ch04-hadamard.md) | `H` tạo chồng chập đều, và hai lần `H` sẽ xoá nó đưa về `\|0⟩` | [mạch, Bloch, số lần đo](chapters/ch04-hadamard.md) |
 
 ## Thư viện sơ đồ
 
@@ -42,6 +43,12 @@ cho biết nó đến từ đâu.
 
 ![Mạch Pauli-X](assets/ch03-pauli-x.png){ width="360" }
 ![Qubit trước và sau cổng X](assets/ch03-pauli-x-bloch.png){ width="520" }
+
+### Chương 4 — cổng Hadamard
+
+![Mạch Hadamard đơn](assets/ch04-hadamard-circuit.png){ width="360" }
+![Hai cổng Hadamard](assets/ch04-hadamard2-circuit.png){ width="360" }
+![Chồng chập được tạo và xoá trên mặt cầu Bloch](assets/ch04-hadamard-bloch.png){ width="560" }
 
 ## Đi tiếp ở đâu
 

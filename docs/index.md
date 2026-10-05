@@ -23,6 +23,7 @@ diagram so you can *see* what the maths describes.
 | [1 — Factoring time complexity](chapters/ch01-time-complexity.md) | Quantum computers promise a speed-up because Shor's algorithm is polynomial while the best classical method is exponential | [classical vs. Shor](chapters/ch01-time-complexity.md#the-diagram) |
 | [2 — Random bits](chapters/ch02-random-bits.md) | A qubit in superposition returns genuinely random `0`/`1` on measurement | [circuit, counts, Bloch](chapters/ch02-random-bits.md#the-diagrams) |
 | [3 — The Pauli-X gate](chapters/ch03-pauli-x.md) | A single-qubit gate flips `\|0⟩` to `\|1⟩` deterministically | [circuit, Bloch](chapters/ch03-pauli-x.md#the-diagrams) |
+| [4 — The Hadamard gate](chapters/ch04-hadamard.md) | `H` creates an even superposition, and `H` twice cancels it back to `\|0⟩` | [circuits, Bloch, counts](chapters/ch04-hadamard.md#the-diagrams) |
 
 ## Diagram gallery
 
@@ -43,6 +44,12 @@ a figure always tells you where it came from.
 
 ![Pauli-X circuit](assets/ch03-pauli-x.png){ width="360" }
 ![Qubit before and after X](assets/ch03-pauli-x-bloch.png){ width="520" }
+
+### Chapter 4 — the Hadamard gate
+
+![Single Hadamard circuit](assets/ch04-hadamard-circuit.png){ width="360" }
+![Two Hadamard gates](assets/ch04-hadamard2-circuit.png){ width="360" }
+![Superposition created and cancelled on the Bloch sphere](assets/ch04-hadamard-bloch.png){ width="560" }
 
 ## Where to go next
 
