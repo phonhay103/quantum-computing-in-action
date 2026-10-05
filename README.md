@@ -11,6 +11,10 @@ The book teaches the concepts using the Java-based [Strange](https://github.com/
 simulator; this repository reimplements the same ideas in Python with Qiskit.
 Console output is formatted with [Rich](https://github.com/Textualize/rich).
 
+**Scope.** This repository uses only two things from the book: its **source code**
+(the Java samples ported to Python/Qiskit) and its **table of contents** (which the
+chapter list follows).
+
 ## 📖 Buy the book
 
 This repository is **companion material — not a replacement for the book**. The full

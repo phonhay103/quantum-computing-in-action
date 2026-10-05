@@ -7,7 +7,8 @@ của Johan Vos, cho những chương đã được chuyển sang Python với
 
 Sách dạy điện toán lượng tử bằng bộ mô phỏng [Strange](https://github.com/gluonhq/strange)
 viết bằng Java. Kho mã này giữ nguyên mạch kể chuyện đó nhưng dùng Qiskit, và vẽ
-kết quả của mỗi ví dụ thành sơ đồ để bạn *nhìn thấy* điều mà toán học mô tả.
+kết quả của mỗi ví dụ thành sơ đồ để bạn *nhìn thấy* điều mà toán học mô tả. Nó chỉ
+dùng hai thứ từ sách: **mã nguồn** và **mục lục**.
 
 !!! note "Ghi chú này là gì — và không phải là gì"
     Các trang này trình bày **kiến thức điện toán lượng tử** của từng chương:
