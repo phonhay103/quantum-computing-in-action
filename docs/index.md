@@ -8,9 +8,10 @@ by Johan Vos, for the chapters ported to Python with
 The book teaches quantum computing with the Java-based
 [Strange](https://github.com/gluonhq/strange) simulator. This repository keeps the
 same narrative but uses Qiskit, and renders the result of each sample as a
-diagram so you can *see* what the maths describes. It draws on only three public
-sources: the book's **source code**, its **table of contents**, and the information
-on its [Manning page](https://www.manning.com/books/quantum-computing-in-action).
+diagram so you can *see* what the maths describes. It draws on only two public
+sources: the book's **source code** and its
+[Manning page](https://www.manning.com/books/quantum-computing-in-action), which
+includes the table of contents.
 
 !!! note "What these notes are — and are not"
     These pages cover the **quantum-computing knowledge** of each chapter:
