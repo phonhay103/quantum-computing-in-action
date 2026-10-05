@@ -160,19 +160,21 @@ make clean     # remove caches/artifacts
 
 - **Unofficial and independent.** This project is **not affiliated with, authorized,
   endorsed by, or sponsored by** Johan Vos, Manning Publications, IBM, or the Qiskit
-  and Strange projects. It is a personal, educational reimplementation.
-- **Educational use only.** The code reimplements a *subset* of the book's ideas in
-  Python/Qiskit and covers only chapters 1–4. It may contain mistakes or simplifications;
-  always prefer the book as the authoritative source.
+  and Strange projects. It is a personal, educational companion project.
+- **Scope.** This repository uses only the book's **source code** and **table of
+  contents**: the Java samples are reimplemented in Python/Qiskit, and the chapter list
+  follows the book's TOC. The explanations, diagrams, and prose here are original
+  companion material.
+- **Educational use only.** The code ports chapters 1–4 and outlines the remaining
+  chapters in the docs. It covers a *subset* of the book's material and may contain
+  mistakes or simplifications; always treat the book as the authoritative source.
 - **No warranty.** The code and notes are provided **"AS IS"**, without warranty of any
   kind. You are responsible for how you use them; the maintainers accept no liability
   for any loss or damage arising from their use.
-- **Book content.** The title *Quantum Computing in Action*, the book's text, figures,
-  and exercises are the property of the author and publisher. This repository only
-  *references* the book and does not reproduce its content.
 - **Trademarks.** "Qiskit" and "IBM" are trademarks of IBM; "Strange" belongs to its
-  authors (Gluon); "Manning" is a trademark of Manning Publications. All trademarks are
-  used for identification only and belong to their respective owners.
+  authors (Gluon); "Manning" is a trademark of Manning Publications. The title
+  *Quantum Computing in Action* and all other marks belong to their respective owners
+  and are used for identification only.
 
 ## Acknowledgements
 
