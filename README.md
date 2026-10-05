@@ -37,18 +37,21 @@ operation). Run a chapter with
 | 2 | "Hello World" — random bits | `quantum_computing_in_action.ch02.random_bits` | `make ch02` |
 | 3 | Qubits and the Pauli-X gate | `quantum_computing_in_action.ch03.pauli_x` | `make ch03` |
 
-Chapter 1 writes `build/time-complexity.png`; chapter 3 can render the circuit
-with `quantum_computing_in_action.ch03.pauli_x.draw()`.
+Each sample also renders diagrams to `build/`:
+
+| Chapter | Diagrams |
+|---------|----------|
+| 1 | `time-complexity.png` — classical vs. Shor curves |
+| 2 | `random-bits-circuit.png`, `random-bits-counts.png`, `random-bits-bloch.png` |
+| 3 | `pauli-x.png`, `pauli-x-bloch.png` (before/after the flip) |
 
 ## Dark mode
 
 Output is designed for dark terminals. Console text uses a dark-friendly
 [Rich](https://github.com/Textualize/rich) theme (defined in
-`quantum_computing_in_action._console`), and the generated images render on
-dark backgrounds:
-
-- `build/time-complexity.png` (chapter 1) uses matplotlib's `dark_background` style.
-- `build/pauli-x.png` (chapter 3) uses Qiskit's `iqp-dark` circuit style.
+`quantum_computing_in_action._console`), and every diagram is rendered on a dark
+background (matplotlib's `dark_background` style and Qiskit's `iqp-dark` circuit
+style), via the helpers in `quantum_computing_in_action._diagrams`.
 
 ## Requirements
 
@@ -90,6 +93,7 @@ make clean     # remove caches/artifacts
 ├── src/quantum_computing_in_action/
 │   ├── __main__.py
 │   ├── _console.py
+│   ├── _diagrams.py
 │   ├── ch01/time_complexity.py
 │   ├── ch02/random_bits.py
 │   └── ch03/pauli_x.py

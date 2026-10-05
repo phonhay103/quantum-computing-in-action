@@ -4,8 +4,10 @@ from __future__ import annotations
 
 from qiskit import QuantumCircuit
 from qiskit.quantum_info import Statevector
+from rich.panel import Panel
 
 from quantum_computing_in_action._console import console, explain, steps
+from quantum_computing_in_action._diagrams import render_bloch, render_circuit, render_counts
 
 
 def _hadamard_circuit() -> QuantumCircuit:
@@ -86,6 +88,14 @@ seed — it is genuinely random.
     console.print(f"Generate one random bit, which can be 0 or 1. Result = [value]{first}[/value]")
     console.print(f"Generated 10000 random bits, [zero]{zeros}[/zero] of them were 0, and [one]{ones}[/one] were 1.")
     console.print("[muted]The two counts land near 5000/5000, confirming the 50/50 superposition.[/muted]")
+
+    console.print(Panel(str(random_bit_circuit().draw("text")), title="Random-bit circuit", border_style="bits"))
+    circuit_path = render_circuit(random_bit_circuit(), "build/random-bits-circuit.png")
+    counts_path = render_counts({"0": zeros, "1": ones}, "build/random-bits-counts.png", title="10000 random bits")
+    bloch_path = render_bloch([("after H", superposed)], "build/random-bits-bloch.png", title="Superposition state")
+    console.print("Saved diagrams:")
+    for path in (circuit_path, counts_path, bloch_path):
+        console.print(f"  [path]{path}[/path]")
 
 
 if __name__ == "__main__":

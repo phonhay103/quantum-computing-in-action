@@ -8,7 +8,8 @@ from qiskit import QuantumCircuit
 from qiskit.quantum_info import Statevector
 from rich.panel import Panel
 
-from quantum_computing_in_action._console import DARK_CIRCUIT_STYLE, console, explain, steps
+from quantum_computing_in_action._console import console, explain, steps
+from quantum_computing_in_action._diagrams import render_bloch, render_circuit
 
 
 def _x_circuit() -> QuantumCircuit:
@@ -44,14 +45,7 @@ def measure_pauli_x() -> int:
 
 def draw(output: str | Path = "build/pauli-x.png") -> Path:
     """Render the circuit on a dark background and save it to ``output``."""
-    import matplotlib
-
-    matplotlib.use("Agg")
-
-    path = Path(output)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    pauli_x_circuit().draw("mpl", filename=str(path), style=DARK_CIRCUIT_STYLE)
-    return path
+    return render_circuit(pauli_x_circuit(), output)
 
 
 def main() -> None:
@@ -86,8 +80,15 @@ measurement `M` that writes the outcome into the classical bit `c`.
 
     console.print(f"Value = [value]{value}[/value]")
     console.print(Panel(str(pauli_x_circuit().draw("text")), title="Pauli-X circuit", border_style="bits"))
-    path = draw()
-    console.print(f"Saved circuit render to [path]{path}[/path]")
+    circuit_path = draw()
+    bloch_path = render_bloch(
+        [("before: |0>", initial), ("after X: |1>", flipped)],
+        "build/pauli-x-bloch.png",
+        title="Pauli-X flips the qubit",
+    )
+    console.print("Saved diagrams:")
+    for path in (circuit_path, bloch_path):
+        console.print(f"  [path]{path}[/path]")
 
 
 if __name__ == "__main__":
