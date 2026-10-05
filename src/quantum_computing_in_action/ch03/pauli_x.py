@@ -8,7 +8,7 @@ from qiskit import QuantumCircuit
 from qiskit.quantum_info import Statevector
 from rich.panel import Panel
 
-from quantum_computing_in_action._console import DARK_CIRCUIT_STYLE, console
+from quantum_computing_in_action._console import DARK_CIRCUIT_STYLE, console, explain
 
 
 def pauli_x_circuit() -> QuantumCircuit:
@@ -45,6 +45,22 @@ def draw(output: str | Path = "build/pauli-x.png") -> Path:
 
 
 def main() -> None:
+    explain(
+        "Chapter 3 — The Pauli-X gate",
+        """
+The qubit starts in state `|0>`. The **Pauli-X gate** flips it to `|1>` — the
+quantum equivalent of a classical `NOT` gate:
+
+`X|0> = |1>      X|1> = |0>`
+
+Because there is no superposition here, measuring always returns the same
+answer: `1`. The result is deterministic, not random.
+
+The circuit below reads left to right: an `X` gate on qubit `q`, then a
+measurement `M` that writes the outcome into the classical bit `c`.
+""",
+    )
+
     console.print(f"Value = [value]{measure_pauli_x()}[/value]")
     console.print(Panel(str(pauli_x_circuit().draw("text")), title="Pauli-X circuit", border_style="bits"))
     path = draw()

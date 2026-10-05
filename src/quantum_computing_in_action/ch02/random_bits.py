@@ -5,7 +5,7 @@ from __future__ import annotations
 from qiskit import QuantumCircuit
 from qiskit.quantum_info import Statevector
 
-from quantum_computing_in_action._console import console
+from quantum_computing_in_action._console import console, explain
 
 
 def random_bit_circuit() -> QuantumCircuit:
@@ -40,12 +40,27 @@ def random_bit() -> int:
 
 
 def main() -> None:
+    explain(
+        "Chapter 2 — Random bits from a qubit",
+        """
+A qubit starts in state `|0>`. A **Hadamard gate** (`H`) puts it into an equal
+superposition of `|0>` and `|1>`:
+
+`H|0> = (|0> + |1>) / sqrt(2)`
+
+Measuring collapses that superposition, giving `0` or `1` with a 50% chance.
+Unlike a normal `random()` function, the outcome is not determined by a hidden
+seed — it is genuinely random.
+""",
+    )
+
     console.rule("Using Qiskit to generate random bits")
     console.print(f"Generate one random bit, which can be 0 or 1. Result = [value]{random_bit()}[/value]")
     bits = random_bits(10000)
     zeros = bits.count(0)
     ones = bits.count(1)
     console.print(f"Generated 10000 random bits, [zero]{zeros}[/zero] of them were 0, and [one]{ones}[/one] were 1.")
+    console.print("[muted]The two counts land near 5000/5000, confirming the 50/50 superposition.[/muted]")
 
 
 if __name__ == "__main__":

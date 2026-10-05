@@ -8,7 +8,7 @@ from pathlib import Path
 
 from rich.table import Table
 
-from quantum_computing_in_action._console import DARK_PLOT_STYLE, console
+from quantum_computing_in_action._console import DARK_PLOT_STYLE, console, explain
 
 TimeFunction = Callable[[float], float]
 
@@ -80,6 +80,21 @@ def plot(
 
 
 def main() -> None:
+    explain(
+        "Chapter 1 — Why quantum computing matters",
+        """
+Factoring a large integer is **hard for classical computers**. The best known
+classical algorithm (the general number field sieve) grows roughly
+*exponentially* with the number of bits, so doubling the bits makes the job
+dramatically harder.
+
+Shor's quantum algorithm factors in **polynomial time** — `O(b^3)`. That is the
+reason quantum computers threaten RSA encryption.
+
+The table below compares the two estimates; the chart plots them.
+""",
+    )
+
     table = Table(title="Time required to factor an n-bit number")
     table.add_column("bits", justify="right", style="bits")
     table.add_column("classical", justify="right", style="classical")
@@ -91,6 +106,10 @@ def main() -> None:
             f"{shor_factoring_time(bits):.3e}",
         )
     console.print(table)
+    console.print(
+        "[muted]Read the table by column: as bits grow, the classical cost explodes while Shor's stays modest.[/muted]"
+    )
+
     path = plot()
     console.print(f"\nSaved plot to [path]{path}[/path]")
 
