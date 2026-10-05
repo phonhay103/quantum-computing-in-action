@@ -159,6 +159,15 @@ make clean     # remove caches/artifacts
   authors (Gluon); "Manning" is a trademark of Manning Publications. All trademarks are
   used for identification only and belong to their respective owners.
 
+## Acknowledgements
+
+This repository was **created by [OpenCode](https://opencode.ai) and
+[DeepSeek V4.1 Flash](https://www.deepseek.com)**:
+
+- **[OpenCode](https://opencode.ai)** — the open-source AI coding agent that
+  generated the code, the bilingual documentation, and the diagrams.
+- **[DeepSeek V4.1 Flash](https://www.deepseek.com)** — the model driving OpenCode.
+
 ## License
 
 The original code, documentation, and diagrams in this repository are released under the

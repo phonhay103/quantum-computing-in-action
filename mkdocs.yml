@@ -110,4 +110,5 @@ extra:
 copyright: >-
   Companion code for <em>Quantum Computing in Action</em> by Johan Vos (Manning) ·
   <a href="https://www.manning.com/books/quantum-computing-in-action">please buy the book</a> ·
+  created by <a href="https://opencode.ai">OpenCode</a> and DeepSeek V4.1 Flash ·
   code licensed <a href="https://github.com/phonhay103/quantum-computing-in-action/blob/main/LICENSE">Apache-2.0</a>
