@@ -1,6 +1,26 @@
 # quantum-computing-in-action
 
+Companion code for **[_Quantum Computing in Action_](https://www.manning.com/books/quantum-computing-in-action)**
+by Johan Vos (Manning, January 2022 · ISBN 9781617296321 · 264 pages).
+
 Hands-on experiments in quantum computing with [Qiskit](https://www.ibm.com/quantum/qiskit).
+The book teaches the concepts using the Java-based [Strange](https://github.com/gluonhq/strange)
+simulator; this repository reimplements the same ideas in Python with Qiskit.
+
+## About the book
+
+A gentle introduction to quantum computing for working developers — no physics
+degree or advanced math required. Topics covered:
+
+- Core concepts of quantum computing
+- Qubits and quantum gates
+- Superposition, entanglement, and hybrid computing
+- Quantum algorithms including Shor's, Deutsch–Jozsa, and Grover's search
+- Quantum communication and quantum repeaters
+- From hardware to high-level languages and simulators
+
+See the full [table of contents](https://livebook.manning.com/book/quantum-computing-in-action/contents)
+and the [author's page](https://www.manning.com/authors/johan-vos).
 
 ## Requirements
 
