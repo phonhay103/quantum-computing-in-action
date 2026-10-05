@@ -11,9 +11,10 @@ The book teaches the concepts using the Java-based [Strange](https://github.com/
 simulator; this repository reimplements the same ideas in Python with Qiskit.
 Console output is formatted with [Rich](https://github.com/Textualize/rich).
 
-**Scope.** This repository uses only two things from the book: its **source code**
-(the Java samples ported to Python/Qiskit) and its **table of contents** (which the
-chapter list follows).
+**Scope.** This repository is built from only three public sources: the book's
+**source code** (the Java samples ported to Python/Qiskit), its **table of contents**
+(which the chapter list follows), and the information on the book's
+[Manning page](https://www.manning.com/books/quantum-computing-in-action).
 
 ## 📖 Buy the book
 
@@ -32,18 +33,22 @@ only illustrates.
 
 ## About the book
 
-A gentle introduction to quantum computing for working developers — no physics
-degree or advanced math required. Topics covered:
+A gentle, practical introduction to quantum computing for developers — no physics
+degree or advanced math required. Using the Java-based Strange simulator, the book
+walks from core concepts to real algorithms. Per its
+[Manning page](https://www.manning.com/books/quantum-computing-in-action), it covers:
 
-- Core concepts of quantum computing
+- An introduction to the core concepts of quantum computing
 - Qubits and quantum gates
 - Superposition, entanglement, and hybrid computing
 - Quantum algorithms including Shor's, Deutsch–Jozsa, and Grover's search
-- Quantum communication and quantum repeaters
-- From hardware to high-level languages and simulators
 
-See the full [table of contents](https://livebook.manning.com/book/quantum-computing-in-action/contents)
-and the [author's page](https://www.manning.com/authors/johan-vos).
+### Resources
+
+- [Table of contents](https://livebook.manning.com/book/quantum-computing-in-action/contents)
+- [Source code](https://github.com/johanvos/quantumjava) — the Java samples this repository ports
+- [Manning product page](https://www.manning.com/books/quantum-computing-in-action)
+- [Author's page](https://www.manning.com/authors/johan-vos)
 
 ## Chapters
 
@@ -161,10 +166,12 @@ make clean     # remove caches/artifacts
 - **Unofficial and independent.** This project is **not affiliated with, authorized,
   endorsed by, or sponsored by** Johan Vos, Manning Publications, IBM, or the Qiskit
   and Strange projects. It is a personal, educational companion project.
-- **Scope.** This repository uses only the book's **source code** and **table of
-  contents**: the Java samples are reimplemented in Python/Qiskit, and the chapter list
-  follows the book's TOC. The explanations, diagrams, and prose here are original
-  companion material.
+- **Sources.** This repository is derived from only three public sources: the book's
+  **source code** (the Java samples, published by the author), its **table of
+  contents**, and the information on the book's
+  [Manning page](https://www.manning.com/books/quantum-computing-in-action). The
+  Python/Qiskit ports, explanations, diagrams, and prose here are original companion
+  material.
 - **Educational use only.** The code ports chapters 1–4 and outlines the remaining
   chapters in the docs. It covers a *subset* of the book's material and may contain
   mistakes or simplifications; always treat the book as the authoritative source.
@@ -207,6 +214,4 @@ limitations under the License.
 ```
 
 > **Note:** the license applies **only** to the material created in this repository.
-> The book's own content remains © Johan Vos / Manning Publications and is **not**
-> covered by it.
 
