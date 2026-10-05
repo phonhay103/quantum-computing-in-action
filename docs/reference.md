@@ -11,6 +11,13 @@ The module links point to the code; for the *concepts*, follow the chapter links
 | [2](chapters/ch02-hello-world.md) | Hello World, quantum computing style | [`ch02/random_bits.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch02/random_bits.py) | `make ch02` |
 | [3](chapters/ch03-qubits-and-gates.md) | Qubits and quantum gates | [`ch03/pauli_x.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch03/pauli_x.py) | `make ch03` |
 | [4](chapters/ch04-superposition.md) | Superposition | [`ch04/hadamard.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch04/hadamard.py), [`ch04/matrices.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch04/matrices.py) | `make ch04` |
+| [5](chapters/ch05-entanglement.md) | Entanglement | — | planned |
+| [6](chapters/ch06-quantum-networking.md) | Quantum networking: The basics | — | planned |
+| [7](chapters/ch07-helloworld-explained.md) | Our HelloWorld, explained | — | planned |
+| [8](chapters/ch08-secure-communication.md) | Secure communication using quantum computing | — | planned |
+| [9](chapters/ch09-deutsch-jozsa.md) | Deutsch–Jozsa algorithm | — | planned |
+| [10](chapters/ch10-grovers-search.md) | Grover's search algorithm | — | planned |
+| [11](chapters/ch11-shors-algorithm.md) | Shor's algorithm | — | planned |
 
 The CLI takes the chapter id:
 

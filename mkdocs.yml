@@ -49,6 +49,13 @@ nav:
       - "Chapter 2 — Hello World, quantum computing style": chapters/ch02-hello-world.md
       - "Chapter 3 — Qubits and quantum gates": chapters/ch03-qubits-and-gates.md
       - "Chapter 4 — Superposition": chapters/ch04-superposition.md
+      - "Chapter 5 — Entanglement": chapters/ch05-entanglement.md
+      - "Chapter 6 — Quantum networking: The basics": chapters/ch06-quantum-networking.md
+      - "Chapter 7 — Our HelloWorld, explained": chapters/ch07-helloworld-explained.md
+      - "Chapter 8 — Secure communication using quantum computing": chapters/ch08-secure-communication.md
+      - "Chapter 9 — Deutsch–Jozsa algorithm": chapters/ch09-deutsch-jozsa.md
+      - "Chapter 10 — Grover's search algorithm": chapters/ch10-grovers-search.md
+      - "Chapter 11 — Shor's algorithm": chapters/ch11-shors-algorithm.md
   - Reference: reference.md
 
 markdown_extensions:
@@ -96,6 +103,13 @@ plugins:
             "Chapter 2 — Hello World, quantum computing style": "Chương 2 — Hello World kiểu điện toán lượng tử"
             "Chapter 3 — Qubits and quantum gates": "Chương 3 — Qubit và cổng lượng tử"
             "Chapter 4 — Superposition": "Chương 4 — Chồng chập"
+            "Chapter 5 — Entanglement": "Chương 5 — Rối lượng tử"
+            "Chapter 6 — Quantum networking: The basics": "Chương 6 — Mạng lượng tử: những điều cơ bản"
+            "Chapter 7 — Our HelloWorld, explained": "Chương 7 — HelloWorld của chúng ta, giải thích"
+            "Chapter 8 — Secure communication using quantum computing": "Chương 8 — Truyền thông an toàn bằng điện toán lượng tử"
+            "Chapter 9 — Deutsch–Jozsa algorithm": "Chương 9 — Thuật toán Deutsch–Jozsa"
+            "Chapter 10 — Grover's search algorithm": "Chương 10 — Thuật toán tìm kiếm của Grover"
+            "Chapter 11 — Shor's algorithm": "Chương 11 — Thuật toán Shor"
             Reference: Tham chiếu
 
 extra_javascript:

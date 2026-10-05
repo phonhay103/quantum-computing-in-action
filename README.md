@@ -55,6 +55,13 @@ operation). Run a chapter with
 | 2 | Hello World, quantum computing style | `quantum_computing_in_action.ch02.random_bits` | `make ch02` |
 | 3 | Qubits and quantum gates | `quantum_computing_in_action.ch03.pauli_x` | `make ch03` |
 | 4 | Superposition | `quantum_computing_in_action.ch04.hadamard` (+ `ch04.matrices`) | `make ch04` |
+| 5 | Entanglement | — | planned |
+| 6 | Quantum networking: The basics | — | planned |
+| 7 | Our HelloWorld, explained | — | planned |
+| 8 | Secure communication using quantum computing | — | planned |
+| 9 | Deutsch–Jozsa algorithm | — | planned |
+| 10 | Grover's search algorithm | — | planned |
+| 11 | Shor's algorithm | — | planned |
 
 Each sample also renders diagrams to `build/`:
 

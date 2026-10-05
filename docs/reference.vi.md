@@ -11,6 +11,13 @@ module trỏ tới mã; muốn hiểu *khái niệm*, hãy theo liên kết chư
 | [2](chapters/ch02-hello-world.md) | Hello World kiểu điện toán lượng tử | [`ch02/random_bits.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch02/random_bits.py) | `make ch02` |
 | [3](chapters/ch03-qubits-and-gates.md) | Qubit và cổng lượng tử | [`ch03/pauli_x.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch03/pauli_x.py) | `make ch03` |
 | [4](chapters/ch04-superposition.md) | Chồng chập | [`ch04/hadamard.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch04/hadamard.py), [`ch04/matrices.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch04/matrices.py) | `make ch04` |
+| [5](chapters/ch05-entanglement.md) | Rối lượng tử | — | planned |
+| [6](chapters/ch06-quantum-networking.md) | Mạng lượng tử: những điều cơ bản | — | planned |
+| [7](chapters/ch07-helloworld-explained.md) | HelloWorld của chúng ta, giải thích | — | planned |
+| [8](chapters/ch08-secure-communication.md) | Truyền thông an toàn bằng điện toán lượng tử | — | planned |
+| [9](chapters/ch09-deutsch-jozsa.md) | Thuật toán Deutsch–Jozsa | — | planned |
+| [10](chapters/ch10-grovers-search.md) | Thuật toán tìm kiếm của Grover | — | planned |
+| [11](chapters/ch11-shors-algorithm.md) | Thuật toán Shor | — | planned |
 
 CLI nhận id của chương:
 
