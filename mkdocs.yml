@@ -44,6 +44,7 @@ theme:
 nav:
   - Home: index.md
   - Getting started: getting-started.md
+  - Foundations: foundations.md
   - Chapters:
       - "Chapter 1 — Evolution, revolution, or hype?": chapters/ch01-evolution-revolution-hype.md
       - "Chapter 2 — Hello World, quantum computing style": chapters/ch02-hello-world.md
@@ -98,6 +99,7 @@ plugins:
           nav_translations:
             Home: Trang chủ
             Getting started: Bắt đầu
+            Foundations: Kiến thức nền
             Chapters: Các chương
             "Chapter 1 — Evolution, revolution, or hype?": "Chương 1 — Tiến hoá, cách mạng, hay cường điệu?"
             "Chapter 2 — Hello World, quantum computing style": "Chương 2 — Hello World kiểu điện toán lượng tử"

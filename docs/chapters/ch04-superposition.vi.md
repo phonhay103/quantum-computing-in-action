@@ -13,12 +13,24 @@ hai trạng thái cơ sở cùng một lúc:
 $$|\psi\rangle = \alpha\,|0\rangle + \beta\,|1\rangle$$
 
 Các số `α` và `β` được gọi là **biên độ**. Chúng không phải xác suất — có thể âm,
-thậm chí là số phức — nhưng bình phương chúng sẽ cho xác suất.
+thậm chí là số phức — nhưng bình phương độ lớn của chúng sẽ cho xác suất (xem
+[số phức và pha](../foundations.md)).
 
 Điều khiến chuyện này quan trọng là quy mô. Hai bit cổ điển chỉ giữ được một trong
-bốn giá trị tại một thời điểm; hai *qubit* có thể giữ tổ hợp có trọng số của cả bốn.
-Thêm qubit, lượng dữ liệu được mô tả tăng **theo hàm mũ**, trong khi số qubit chỉ
-tăng tuyến tính. Đó là nguyên liệu thô mà mọi thuật toán lượng tử khai thác.
+bốn giá trị tại một thời điểm; hai *qubit* có thể giữ tổ hợp có trọng số của cả bốn
+(trạng thái chung của chúng được dựng từ **tích tensor** của hai qubit). Thêm qubit,
+số biên độ tăng **theo hàm mũ**, trong khi số qubit chỉ tăng tuyến tính. Đó là
+nguyên liệu thô mà mọi thuật toán lượng tử khai thác.
+
+!!! note "Bạn không thể đọc hết chúng"
+    Có `2^n` biên độ **không** có nghĩa là bạn đọc được `2^n` giá trị cùng lúc.
+    Phép đo chỉ trả về một kết quả duy nhất; chồng chập cho thuật toán nhiều biên
+    độ để thao tác, nhưng việc của thuật toán là lái các xác suất — qua giao thoa —
+    sao cho kết quả bạn *đọc được* chính là đáp án.
+
+Chồng chập còn phụ thuộc **cơ sở**: cùng một trạng thái có thể "xác định" trong cơ
+sở này nhưng "chồng chập" trong cơ sở khác. Xuyên suốt ghi chú, cơ sở là
+`{|0⟩, |1⟩}` trừ khi nói khác.
 
 ## Trạng thái như một vector
 
@@ -32,7 +44,10 @@ $$|\psi\rangle = \begin{bmatrix}\alpha\\ \beta\end{bmatrix}, \qquad
 Đây là bức tranh *vector trạng thái*: trạng thái là một điểm trong không gian hai
 chiều, và **quy tắc Born** biến các phần tử thành xác suất đo:
 
-$$P(0) = |\alpha|^2, \qquad P(1) = |\beta|^2, \qquad P(0) + P(1) = 1$$
+$$P(0) = |\alpha|^2, \qquad P(1) = |\beta|^2, \qquad |\alpha|^2 + |\beta|^2 = 1$$
+
+Phương trình cuối là **chuẩn hoá**: tổng xác suất phải bằng 1, nên các biên độ bị
+ràng buộc — về độ lớn bình phương, chúng cộng lại đúng bằng 1.
 
 ## Cổng như những ma trận
 
@@ -77,7 +92,14 @@ $$H = \frac{1}{\sqrt{2}}\begin{bmatrix}1 & 1\\ 1 & -1\end{bmatrix}$$
 $$H\,|0\rangle = \frac{1}{\sqrt{2}}\begin{bmatrix}1\\ 1\end{bmatrix}
   = \frac{|0\rangle + |1\rangle}{\sqrt{2}}$$
 
-hỗn hợp đều, nên đo sẽ ra `0` hoặc `1` với xác suất mỗi bên 50%.
+hỗn hợp đều, nên đo sẽ ra `0` hoặc `1` với xác suất mỗi bên 50%. Áp lên `|1⟩` cho
+hỗn hợp đều *kia*, chỉ khác ở dấu trừ:
+
+$$H\,|1\rangle = \frac{|0\rangle - |1\rangle}{\sqrt{2}} = |-\rangle$$
+
+Dấu trừ đó là một **pha tương đối** (xem [số phức và pha](../foundations.md)). Cả
+hai trạng thái đều đo 50/50, nhưng chúng khác nhau — và sự khác biệt đó chính là
+thứ khiến giao thoa khả thi.
 
 ## `H` là nghịch đảo của chính nó
 
@@ -108,11 +130,13 @@ Sự tương phản này là điểm cốt lõi của chương: **áp dụng m�
 bạn trở lại điểm xuất phát**, và tính ngẫu nhiên xuất hiện sau một `H` sẽ biến mất
 sau cái thứ hai.
 
-!!! info "Đọc các sơ đồ cùng nhau"
-    Kết quả một-`H` và hai-`H` là hai nửa của cùng một ý tưởng. `H` quay trạng
-    thái 90° trên mặt cầu Bloch: một `H` hạ cánh xuống đường xích đạo (ngẫu nhiên),
-    hai `H` quay tổng cộng 180° và trở lại cực (xác định). Theo ngôn ngữ ma trận,
-    180° đó đơn giản là `H·H = I`.
+!!! info "Sự triệt tiêu đến từ đâu — giao thoa"
+    Kết quả một-`H` và hai-`H` là hai nửa của cùng một ý tưởng. Cổng `H` thứ hai cho
+    trạng thái hai đường dẫn tới mỗi kết quả, và dấu trừ trong `H|1⟩` khiến một số
+    đường đó hướng ngược nhau. Với `|1⟩`, hai đóng góp triệt tiêu; với `|0⟩`, chúng
+    cộng hưởng — nên `H·H|0⟩ = |0⟩`. Trên mặt cầu Bloch, một `H` đưa trạng thái từ
+    cực xuống đường xích đạo (ngẫu nhiên); `H` thứ hai đưa nó trở lại cực (xác
+    định). Theo ngôn ngữ ma trận, chuyến khứ hồi đó đơn giản là `H·H = I`.
 
 ## Các sơ đồ
 

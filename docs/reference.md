@@ -57,10 +57,13 @@ always shows where it came from.
 | Symbol | Meaning |
 |--------|---------|
 | `\|0⟩`, `\|1⟩` | The two basis states of a qubit |
+| `\|ψ⟩` | A general (arbitrary) single-qubit state |
+| `\|+⟩`, `\|−⟩` | The two even superpositions `(\|0⟩ ± \|1⟩)/√2` |
 | `(a\|0⟩ + b\|1⟩)` | A superposition with amplitudes `a` and `b` |
 | `[α, β]` | The same state written as a column vector |
 | `H` | Hadamard gate — creates an even superposition |
 | `X` | Pauli-X gate — flips `\|0⟩ ↔ \|1⟩` |
+| `I` | The identity operation — "do nothing" |
 | `U` | A generic gate, written as a 2×2 matrix |
 | `P(0)`, `P(1)` | Measurement probabilities (Born rule: amplitude squared) |
 | Bloch sphere | Geometric picture of a single qubit's state |

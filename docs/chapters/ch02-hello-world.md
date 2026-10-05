@@ -26,7 +26,7 @@ throughout the book:
 - a **superposition**, e.g. `(|0⟩ + |1⟩) / √2` — an even mixture of the two
 
 The symbols `|…⟩` are just a labelling convention; the physics is in the
-coefficients.
+coefficients (see [bits, qubits, and Dirac notation](../foundations.md#bits-qubits-and-dirac-notation)).
 
 ## The Hadamard gate
 
@@ -35,8 +35,9 @@ The **Hadamard gate** (`H`) is the standard way to create an even superposition:
 $$H\,|0\rangle = \frac{|0\rangle + |1\rangle}{\sqrt{2}}$$
 
 If the qubit starts in `|0⟩`, a single `H` puts it into a state that is exactly
-half `|0⟩` and half `|1⟩`. The `1/√2` factors are what make the probabilities
-add up to 1 (see the Born rule below).
+half `|0⟩` and half `|1⟩`. The `1/√2` factors are **amplitudes**, not
+probabilities (see [amplitudes and the Born rule](../foundations.md#amplitudes-probabilities-and-the-born-rule));
+squaring them is what makes the probabilities add up to 1.
 
 ## Measurement and the Born rule
 
@@ -47,8 +48,8 @@ the square of that state's coefficient — the **Born rule**:
 $$P(0) = \left|\tfrac{1}{\sqrt{2}}\right|^2 = \tfrac{1}{2}, \qquad
   P(1) = \left|\tfrac{1}{\sqrt{2}}\right|^2 = \tfrac{1}{2}$$
 
-Run the experiment once and you get a single bit. Run it thousands of times and
-the two outcomes appear in nearly equal numbers.
+Run the experiment once and you get a single bit. Run it many times — take many
+**shots** — and the two outcomes appear in nearly equal numbers.
 
 !!! info "Why this is *genuinely* random"
     A classical `random()` function is usually **pseudo-random**: it looks
@@ -63,7 +64,8 @@ the two outcomes appear in nearly equal numbers.
 
 ![Random-bit circuit](../assets/ch02-random-bits-circuit.png){ width="420" }
 
-Reading left to right: the qubit `q` starts in `|0⟩`, an `H` gate puts it into
+A circuit is read left to right (see [the circuit model](../foundations.md#the-circuit-model)):
+the qubit `q` starts in `|0⟩`, an `H` gate puts it into
 superposition, and the measurement `M` writes the collapsed value into the
 classical bit `c`.
 
@@ -79,7 +81,9 @@ wobble you would get from 10,000 fair coin flips.
 
 ![Superposition on the Bloch sphere](../assets/ch02-random-bits-bloch.png){ width="420" }
 
-The **Bloch sphere** is a geometric picture of a single qubit's state. Its north
+The **Bloch sphere** is a geometric picture of a single qubit's state, described
+by two angles `θ` and `φ` (see [the Bloch sphere](../foundations.md#the-bloch-sphere)).
+Its north
 pole is `|0⟩` and its south pole is `|1⟩`. `H|0⟩` lands exactly on the equator,
 pointing along the **+X** axis — the visual signature of an even 50/50
 superposition. A state sitting on the equator is what guarantees balanced

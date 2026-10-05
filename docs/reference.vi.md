@@ -11,13 +11,13 @@ module trỏ tới mã; muốn hiểu *khái niệm*, hãy theo liên kết chư
 | [2](chapters/ch02-hello-world.md) | Hello World kiểu điện toán lượng tử | [`ch02/random_bits.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch02/random_bits.py) | `make ch02` |
 | [3](chapters/ch03-qubits-and-gates.md) | Qubit và cổng lượng tử | [`ch03/pauli_x.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch03/pauli_x.py) | `make ch03` |
 | [4](chapters/ch04-superposition.md) | Chồng chập | [`ch04/hadamard.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch04/hadamard.py), [`ch04/matrices.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch04/matrices.py) | `make ch04` |
-| [5](chapters/ch05-entanglement.md) | Rối lượng tử | — | planned |
-| [6](chapters/ch06-quantum-networking.md) | Mạng lượng tử: những điều cơ bản | — | planned |
-| [7](chapters/ch07-helloworld-explained.md) | HelloWorld của chúng ta, giải thích | — | planned |
-| [8](chapters/ch08-secure-communication.md) | Truyền thông an toàn bằng điện toán lượng tử | — | planned |
-| [9](chapters/ch09-deutsch-jozsa.md) | Thuật toán Deutsch–Jozsa | — | planned |
-| [10](chapters/ch10-grovers-search.md) | Thuật toán tìm kiếm của Grover | — | planned |
-| [11](chapters/ch11-shors-algorithm.md) | Thuật toán Shor | — | planned |
+| [5](chapters/ch05-entanglement.md) | Rối lượng tử | — | dự kiến |
+| [6](chapters/ch06-quantum-networking.md) | Mạng lượng tử: những điều cơ bản | — | dự kiến |
+| [7](chapters/ch07-helloworld-explained.md) | HelloWorld của chúng ta, giải thích | — | dự kiến |
+| [8](chapters/ch08-secure-communication.md) | Truyền thông an toàn bằng điện toán lượng tử | — | dự kiến |
+| [9](chapters/ch09-deutsch-jozsa.md) | Thuật toán Deutsch–Jozsa | — | dự kiến |
+| [10](chapters/ch10-grovers-search.md) | Thuật toán tìm kiếm của Grover | — | dự kiến |
+| [11](chapters/ch11-shors-algorithm.md) | Thuật toán Shor | — | dự kiến |
 
 CLI nhận id của chương:
 
@@ -57,10 +57,13 @@ biết nó đến từ đâu.
 | Ký hiệu | Ý nghĩa |
 |---------|---------|
 | `\|0⟩`, `\|1⟩` | Hai trạng thái cơ sở của qubit |
+| `\|ψ⟩` | Trạng thái một-qubit tổng quát (bất kỳ) |
+| `\|+⟩`, `\|−⟩` | Hai chồng chập đều `(\|0⟩ ± \|1⟩)/√2` |
 | `(a\|0⟩ + b\|1⟩)` | Chồng chập với biên độ `a` và `b` |
 | `[α, β]` | Cùng trạng thái đó viết dưới dạng vector cột |
 | `H` | Cổng Hadamard — tạo chồng chập đều |
 | `X` | Cổng Pauli-X — lật `\|0⟩ ↔ \|1⟩` |
+| `I` | Phép đơn vị — "không làm gì" |
 | `U` | Cổng tổng quát, viết dưới dạng ma trận 2×2 |
 | `P(0)`, `P(1)` | Xác suất đo (quy tắc Born: biên độ bình phương) |
 | Mặt cầu Bloch | Hình học mô tả trạng thái của một qubit |

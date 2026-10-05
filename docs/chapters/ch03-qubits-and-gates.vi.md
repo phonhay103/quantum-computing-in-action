@@ -25,17 +25,30 @@ trạng thái **chồng chập** — tổ hợp có trọng số của cả hai.
 đó để tạo bit ngẫu nhiên. Ở đây ta tập trung vào việc đơn giản nhất mà một cổng có
 thể làm: chuyển qubit gọn gàng giữa hai trạng thái cơ sở.
 
+Ghi nhớ một con số về quy mô để dùng sau: `n` qubit được mô tả bởi `2^n` biên độ,
+nên số lượng này nhân đôi với mỗi qubit thêm vào. Sự tăng trưởng đó là nguyên liệu
+thô của Chương 4 và các chương sau.
+
 ## Cổng có tính khả nghịch
 
 Một thuộc tính định hình của cổng lượng tử là chúng **khả nghịch**: thông tin không
-bao giờ bị ném đi. Mỗi cổng đều có nghịch đảo khôi phục trạng thái trước đó.
+bao giờ bị ném đi. Mỗi cổng đều có nghịch đảo khôi phục trạng thái trước đó. Điều
+này tương phản với các cổng cổ điển quen thuộc — `AND` nhận hai đầu vào nhưng chỉ
+trả một đầu ra, nên không thể khôi phục đầu vào từ đầu ra. Về mặt toán học, tính
+khả nghịch nghĩa là cổng là một ma trận **unitary**
+(xem [vector, ma trận và cổng unitary](../foundations.md)), điều Chương 4 sẽ trình
+bày rõ.
 
 - Nghịch đảo của `X` chính là `X`: `X·X = I`.
 - Nghịch đảo của `H` cũng chính là `H` (Chương 4).
 
 Ở đây `I` là phép **đơn vị** — "không làm gì". Tính khả nghịch này không phải chi
-tiết vụn; nó là thứ cho phép các mạch lượng tử được dựng lên rồi hoàn tác, và là
-cầu nối tới bức tranh ma trận ở Chương 4.
+tiết vụn; nó là thứ cho phép các mạch lượng tử được dựng lên rồi hoàn tác.
+
+!!! note "Phép đo là ngoại lệ"
+    Cổng thì khả nghịch, nhưng **phép đo** thì không: nó làm sụp trạng thái và chỉ
+    để lại một kết quả cổ điển duy nhất. Chính sự bất đối xứng đó khiến một thuật
+    toán lượng tử được viết dưới dạng mạch khả nghịch rồi mới đo.
 
 ## Một cổng NOT cho qubit
 
@@ -46,6 +59,13 @@ $$X\,|0\rangle = |1\rangle, \qquad X\,|1\rangle = |0\rangle$$
 Nó hoán đổi vai trò của hai trạng thái cơ sở mà vẫn giữ mọi thứ khác nhất quán.
 Bắt đầu ở `|0⟩`, áp `X`, qubit giờ chắc chắn là `|1⟩`. Đo nó, bạn được `1` — mọi
 lần.
+
+## Các cổng bạn sẽ gặp
+
+`X` là cổng đầu tiên, nhưng chỉ là một trong một họ nhỏ. `H` (Chương 2) tạo chồng
+chập, còn cổng **hai qubit** như `CNOT` xuất hiện cùng rối lượng tử ở Chương 5.
+Điểm mấu chốt lúc này là mọi cổng đều chung hai quy tắc: nó khả nghịch, và nó đưa
+qubit tới một điểm xác định trên mặt cầu Bloch.
 
 ## Vì sao kết quả là tất định
 
@@ -59,7 +79,9 @@ So sánh trực tiếp hai chương:
 | Đo lặp nhiều lần | lẫn lộn `0` và `1` | luôn là `1` |
 
 Khác biệt nằm ở trạng thái, không phải ở thiết bị đo. Trạng thái xác định cho kết
-quả xác định; chồng chập đều cho kết quả ngẫu nhiên.
+quả xác định; chồng chập đều cho kết quả ngẫu nhiên. (Xuyên suốt ghi chú, "đo"
+nghĩa là đo trong cơ sở tính toán `{|0⟩, |1⟩}` — chính trục Z mà các cực của mặt
+cầu Bloch biểu diễn.)
 
 ## Các sơ đồ
 

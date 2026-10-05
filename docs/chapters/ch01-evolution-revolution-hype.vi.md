@@ -4,7 +4,8 @@
     Điện toán lượng tử là một **bước tiến hoá** thực sự của máy tính, nhưng không
     phải bản nâng cấp thay thế tất cả: nó quan trọng vì **thuật toán Shor phân
     tích thừa số trong thời gian đa thức**, còn phương pháp cổ điển tốt nhất cần
-    thời gian *hàm mũ* — và mã hoá hiện đại dựa vào việc bài toán đó là khó.
+    thời gian *siêu đa thức* (dưới hàm mũ) — và mã hoá hiện đại dựa vào việc bài
+    toán đó là khó.
 
 ## Tiến hoá của máy tính
 
@@ -39,13 +40,20 @@ Các ứng dụng thúc đẩy lĩnh vực này gom thành vài nhóm:
 - **Mật mã** — thuật toán Shor phá được mã hoá công khai kiểu RSA; phân phối khoá
   lượng tử và mật mã hậu lượng tử là phản ứng trước mối đe doạ đó.
 - **Mô phỏng** — phân tử và vật liệu vốn là hệ lượng tử; máy lượng tử mô hình hoá
-  chúng một cách tự nhiên (hoá học, phát triển thuốc, vật liệu).
+  chúng một cách tự nhiên (hoá học, phát triển thuốc, vật liệu). Một hệ lượng tử
+  có `n` qubit sống trong không gian `2^n` biên độ, chính điều đó khiến việc mô
+  phỏng cổ điển chính xác trở nên quá đắt.
 - **Tìm kiếm và tối ưu** — thuật toán Grover tăng tốc tìm kiếm không cấu trúc và
   nhiều bài toán tối ưu.
 - **Lấy mẫu và học máy** — còn sớm, nhưng đang được nghiên cứu tích cực.
 
 Ba nhóm đầu có lợi thế thuật toán rõ ràng nhất, và đúng là những thuật toán mà
 cuốn sách này lần lượt đi qua.
+
+Một ý liên quan mà sách dùng là **điện toán lai**: thiết bị lượng tử nhỏ đảm nhận
+phần mà quy tắc lượng tử thắng thế, còn máy cổ điển điều khiển phần còn lại. Các
+mức tăng tốc cũng không như nhau — Shor là **hàm mũ**, còn tìm kiếm Grover chỉ là
+**bậc hai** — nên "nhanh hơn" luôn cần thêm vế định tính.
 
 ## Vì sao phân tích thừa số là "mồi nhử"
 
@@ -54,13 +62,20 @@ nhân hai số nguyên tố lớn thì dễ, nhưng *hoàn tác* phép nhân đ�
 số trở lại thành các thừa số nguyên tố — được cho là rất khó. "Khó" ở đây được đo
 bằng **thời gian**: công việc tăng lên thế nào khi con số lớn dần.
 
+!!! note "RSA dựa vào điều gì"
+    Trong RSA, khoá công khai chứa một số `N = p · q` là tích của hai số nguyên tố
+    lớn. Ai cũng có thể mã hoá bằng `N`, nhưng giải mã cần `p` và `q` — tức là cần
+    các thừa số của `N`. Chừng nào phân tích `N` còn khó, khoá còn an toàn. Thuật
+    toán Shor đe doạ đúng giả định này.
+
 Nếu phân tích thừa số bỗng trở nên nhanh, rất nhiều mã hoá sẽ bị phá nhanh. Đây là
 ví dụ kịch tính nhất cho câu hỏi tiến hoá/cách mạng, nên chương bắt đầu từ đây.
 
 ## Đo độ khó: chi phí tăng theo kích thước thế nào
 
 Gọi `b` là số bit của số ta muốn phân tích. Khi `b` lớn dần, ta ít quan tâm số
-giây chính xác mà quan tâm **hình dạng** của sự tăng trưởng:
+giây chính xác mà quan tâm **hình dạng** của sự tăng trưởng (xem
+[tốc độ tăng trưởng và Big-O](../foundations.md) trong phần kiến thức nền):
 
 | Tăng trưởng | Tên | Trực giác |
 |-------------|-----|-----------|
@@ -77,9 +92,11 @@ tổng quát (GNFS)**. Thời gian chạy của nó xấp xỉ
 
 $$e^{\left(\tfrac{64}{9}\,b\,(\ln b)^2\right)^{1/3}}$$
 
-Chi tiết then chốt là `(ln b)^2` nằm trong căn: số mũ tăng theo `b`, khiến cả biểu
-thức tăng **siêu đa thức**. Thêm bit không chỉ thêm việc — nó nhân việc lên, hết
-lần này đến lần khác.
+Đây là ước lượng rút gọn của sách cho GNFS. Chi tiết then chốt là `(ln b)^2` nằm
+trong căn: số mũ tăng theo `b`, khiến cả biểu thức tăng **siêu đa thức**. Thêm bit
+không chỉ thêm việc — nó nhân việc lên, hết lần này đến lần khác. Nói chặt chẽ,
+GNFS là **dưới hàm mũ** — nhanh hơn một hàm mũ đầy đủ nhưng vẫn vượt xa mọi đa
+thức.
 
 Hệ quả thực tế: mỗi vài bit khoá thêm vào khiến việc phân tích cổ điển đắt lên
 rất nhiều. Đó là lý do khoá 2048 bit được coi là an toàn ngày nay.
@@ -96,7 +113,9 @@ dữ dội hơn hẳn.
 
 !!! warning "Kiểm chứng thực tế"
     "Đa thức" không đồng nghĩa với "dễ ngay hôm nay". Shor vẫn cần một máy lượng
-    tử lớn, đã sửa lỗi. Chương này nói về *lời hứa tiệm cận*, không phải về việc
+    tử lớn, đã sửa lỗi. Máy hiện nay là **NISQ** — nhiễu, quy mô trung bình, và
+    chưa sửa lỗi — nên phải dùng nhiều qubit *vật lý* để mã hoá một qubit
+    **logic** đáng tin. Chương này nói về *lời hứa tiệm cận*, không phải về việc
     phá RSA trên phần cứng hiện tại.
 
 ## Các sơ đồ
@@ -108,7 +127,7 @@ Sách vẽ **hai** biểu đồ: một so sánh cả hai thuật toán, và mộ
 
 ![Đường cổ điển riêng lẻ](../assets/ch01-time-complexity-classical.png){ width="520" }
 
-- Đường **cổ điển** (vàng) dốc đứng — đó là bức tường hàm mũ.
+- Đường **cổ điển** (vàng) dốc đứng — đó là bức tường siêu đa thức.
 - Đường **Shor** (xanh lá) thấp và gần như phẳng khi so sánh — đó là con đường đa
   thức.
 

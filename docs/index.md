@@ -70,6 +70,8 @@ a figure always tells you where it came from.
 
 - New here? Start with **[Getting started](getting-started.md)** to run the
   samples and regenerate the diagrams.
+- New to the background ideas (bits, amplitudes, phases, the Bloch sphere)?
+  Skim the **[Foundations](foundations.md)** page.
 - Want the concepts only? Jump straight to
   **[Chapter 1](chapters/ch01-evolution-revolution-hype.md)**.
 - Looking for the code that produces a figure? See the

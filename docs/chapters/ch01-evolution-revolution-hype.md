@@ -4,7 +4,8 @@
     Quantum computing is a genuine **evolution** of computing, but it is not a
     drop-in replacement: it matters because **Shor's algorithm factors large
     numbers in polynomial time**, while the best known classical algorithm needs
-    *exponential* time — and modern encryption assumes that fact is hard.
+    *super-polynomial* (sub-exponential) time — and modern encryption assumes
+    that fact is hard.
 
 ## The evolution of computing
 
@@ -38,13 +39,20 @@ The applications that motivate the field fall into a few families:
 - **Cryptography** — Shor's algorithm breaks RSA-style public-key encryption;
   quantum key distribution and post-quantum crypto respond to that threat.
 - **Simulation** — molecules and materials are quantum systems; a quantum
-  computer can model them natively (chemistry, drug discovery, materials).
+  computer can model them natively (chemistry, drug discovery, materials). A
+  quantum system with `n` qubits lives in a space of `2^n` amplitudes, which is
+  what makes exact classical simulation so expensive.
 - **Search and optimisation** — Grover's algorithm speeds up unstructured
   search and many optimisation problems.
 - **Sampling and machine learning** — still early, but an active area.
 
 The first three are the ones with the clearest algorithmic advantage, and they
 are exactly the algorithms this book walks through.
+
+A related idea the book uses is **hybrid computing**: a small quantum device
+handles the part where quantum rules win, and a classical computer drives the
+rest. Speed-ups are not all equal either — Shor's is **exponential**, while
+Grover's search is only **quadratic** — so "faster" always needs a qualifier.
 
 ## Why factoring is the hook
 
@@ -54,6 +62,13 @@ multiplication — factoring the product back into its primes — is believed to
 very hard. "Hard" here is measured in **time**: how the work grows as the number
 gets bigger.
 
+!!! note "What RSA relies on"
+    In RSA, your public key contains a number `N = p · q` that is the product of
+    two large primes. Anyone can encrypt a message using `N`, but decrypting it
+    needs `p` and `q` — that is, it needs the factors of `N`. As long as
+    factoring `N` is hard, the key stays safe. Shor's algorithm threatens exactly
+    this assumption.
+
 If factoring suddenly became fast, a lot of encryption would become fast to
 break. This is the most dramatic example of the evolution/revolution question, so
 the chapter starts here.
@@ -61,7 +76,9 @@ the chapter starts here.
 ## Measuring difficulty: how cost grows with size
 
 Let `b` be the number of bits in the number we want to factor. As `b` grows, we
-care less about the exact seconds and more about the **shape** of the growth:
+care less about the exact seconds and more about the **shape** of the growth
+(see [growth rates and Big-O](../foundations.md#growth-rates-and-big-o) in the
+foundations):
 
 | Growth | Name | Intuition |
 |--------|------|-----------|
@@ -78,9 +95,11 @@ sieve (GNFS)**. Its running time is roughly
 
 $$e^{\left(\tfrac{64}{9}\,b\,(\ln b)^2\right)^{1/3}}$$
 
-The key detail is the `(ln b)^2` inside the root: the exponent grows with `b`,
-which makes the whole expression grow **super-polynomially**. Adding bits does
-not just add work — it multiplies it, again and again.
+This is the book's simplified estimate of GNFS. The key detail is the
+`(ln b)^2` inside the root: the exponent grows with `b`, which makes the whole
+expression grow **super-polynomially**. Adding bits does not just add work — it
+multiplies it, again and again. Strictly speaking, GNFS is **sub-exponential** —
+faster than a full exponential but still far beyond any polynomial.
 
 Practical consequence: every few extra bits of key length make classical
 factoring dramatically more expensive. That is why keys of 2048 bits are
@@ -98,8 +117,10 @@ method explodes far more violently.
 
 !!! warning "Reality check"
     "Polynomial" is not the same as "easy today". Shor still needs a large,
-    error-corrected quantum computer. The chapter is about the *asymptotic
-    promise*, not about breaking RSA on current hardware.
+    error-corrected quantum computer. Today's machines are **NISQ** — noisy,
+    intermediate-scale, and not error-corrected — so they use many *physical*
+    qubits to encode one reliable **logical** qubit. The chapter is about the
+    *asymptotic promise*, not about breaking RSA on current hardware.
 
 ## The diagrams
 
@@ -111,7 +132,7 @@ curve.
 
 ![The classical curve on its own](../assets/ch01-time-complexity-classical.png){ width="520" }
 
-- The **classical** curve (yellow) climbs steeply — it is the exponential wall.
+- The **classical** curve (yellow) climbs steeply — it is the super-polynomial wall.
 - The **Shor** curve (green) stays low and almost flat by comparison — this is
   the polynomial path.
 

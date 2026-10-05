@@ -13,13 +13,25 @@ A classical bit is definitely `0` or definitely `1`. A qubit can be in a
 $$|\psi\rangle = \alpha\,|0\rangle + \beta\,|1\rangle$$
 
 The numbers `α` and `β` are called **amplitudes**. They are not probabilities —
-they can be negative or even complex — but squaring them gives probabilities.
+they can be negative or even complex — but squaring their magnitudes gives
+probabilities (see [complex numbers and phase](../foundations.md#complex-numbers-and-phase)).
 
 The reason this matters is scale. Two classical bits can hold one of four values
-at a time; two *qubits* can hold a weighted combination of all four. Add more
-qubits and the amount of data described grows **exponentially**, while the number
-of qubits grows only linearly. That is the raw material every quantum algorithm
-works with.
+at a time; two *qubits* can hold a weighted combination of all four (their joint
+state is built from the **tensor product** of the two). Add more qubits and the
+number of amplitudes grows **exponentially**, while the number of qubits grows
+only linearly. That is the raw material every quantum algorithm works with.
+
+!!! note "You cannot read them all"
+    Having `2^n` amplitudes does **not** mean you can read `2^n` values at once.
+    A measurement returns a single outcome; superposition gives the algorithm
+    many amplitudes to work with, but the job of the algorithm is to steer the
+    probabilities — through interference — so that the outcome you *do* read is
+    the answer.
+
+Superposition is also relative to a **basis**: the same state can be "definite"
+in one basis and "superposed" in another. Throughout these notes the basis is
+`{|0⟩, |1⟩}` unless stated otherwise.
 
 ## The state as a vector
 
@@ -30,11 +42,14 @@ $$|\psi\rangle = \begin{bmatrix}\alpha\\ \beta\end{bmatrix}, \qquad
   |0\rangle = \begin{bmatrix}1\\ 0\end{bmatrix}, \qquad
   |1\rangle = \begin{bmatrix}0\\ 1\end{bmatrix}$$
 
-This is the *probability vector* picture: the state is a point in a
+This is the *state vector* picture: the state is a point in a
 two-dimensional space, and the **Born rule** turns the entries into measurement
 probabilities:
 
-$$P(0) = |\alpha|^2, \qquad P(1) = |\beta|^2, \qquad P(0) + P(1) = 1$$
+$$P(0) = |\alpha|^2, \qquad P(1) = |\beta|^2, \qquad |\alpha|^2 + |\beta|^2 = 1$$
+
+The last equation is **normalisation**: the total probability must be 1, so the
+amplitudes are constrained — in squared magnitude they add up to exactly 1.
 
 ## Gates as matrices
 
@@ -79,7 +94,14 @@ Applied to `|0⟩`:
 $$H\,|0\rangle = \frac{1}{\sqrt{2}}\begin{bmatrix}1\\ 1\end{bmatrix}
   = \frac{|0\rangle + |1\rangle}{\sqrt{2}}$$
 
-an even mix, so measuring gives `0` or `1` with a 50% chance each.
+an even mix, so measuring gives `0` or `1` with a 50% chance each. Applied to
+`|1⟩` it gives the *other* even mix, distinguished only by a minus sign:
+
+$$H\,|1\rangle = \frac{|0\rangle - |1\rangle}{\sqrt{2}} = |-\rangle$$
+
+That minus sign is a **relative phase** (see [complex numbers and phase](../foundations.md#complex-numbers-and-phase)).
+Both states measure 50/50, yet they are different states — and the difference is
+exactly what makes interference possible.
 
 ## `H` is its own inverse
 
@@ -110,11 +132,14 @@ The contrast is the whole point of the chapter: **applying a gate twice can brin
 you back to where you started**, and the randomness that appeared after one `H`
 vanishes after the second.
 
-!!! info "Reading the diagrams together"
-    The single-`H` and double-`H` results are two halves of one idea. `H` rotates
-    the state by 90° on the Bloch sphere: one `H` lands on the equator (random),
-    two `H`s rotate 180° in total and return to the pole (definite). In matrix
-    language, that 180° is simply `H·H = I`.
+!!! info "Where the cancellation comes from — interference"
+    The single-`H` and double-`H` results are two halves of one idea. The second
+    `H` gives the state two ways to reach each outcome, and the minus sign in
+    `H|1⟩` makes some of those ways point in opposite directions. For `|1⟩` the
+    two contributions cancel, and for `|0⟩` they reinforce — so `H·H|0⟩ = |0⟩`.
+    On the Bloch sphere, one `H` moves the state from the pole to the equator
+    (random); the second `H` moves it back to the pole (definite). In matrix
+    language that round trip is simply `H·H = I`.
 
 ## The diagrams
 
