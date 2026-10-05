@@ -19,6 +19,10 @@ dist/
 .ty/
 .mypy_cache/
 
+# Documentation site (docs/assets is copied from build/ at build time)
+site/
+docs/assets/
+
 # Environment
 .env
 .env.*

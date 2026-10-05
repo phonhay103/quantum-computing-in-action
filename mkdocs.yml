@@ -1,0 +1,112 @@
+site_name: Quantum Computing in Action — Qiskit companion
+site_description: >-
+  Companion code for the book "Quantum Computing in Action" (Manning) —
+  the Java/Strange samples reimplemented in Python with Qiskit.
+site_url: https://phonhay103.github.io/quantum-computing-in-action/
+repo_url: https://github.com/phonhay103/quantum-computing-in-action
+repo_name: phonhay103/quantum-computing-in-action
+edit_uri: edit/main/docs/
+
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  language: en
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - content.code.copy
+    - content.code.annotate
+    - content.action.edit
+    - search.suggest
+    - search.highlight
+    - toc.follow
+
+nav:
+  - Home: index.md
+  - Getting started: getting-started.md
+  - Chapters:
+      - "Chapter 1 — Factoring time complexity": chapters/ch01-time-complexity.md
+      - "Chapter 2 — Random bits": chapters/ch02-random-bits.md
+      - "Chapter 3 — The Pauli-X gate": chapters/ch03-pauli-x.md
+  - Reference: reference.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.snippets:
+      base_path:
+        - .
+      check_paths: true
+
+plugins:
+  - search
+  - i18n:
+      docs_structure: suffix
+      fallback_to_default: true
+      reconfigure_material: true
+      reconfigure_search: true
+      languages:
+        - locale: en
+          default: true
+          name: English
+          build: true
+        - locale: vi
+          name: Tiếng Việt
+          build: true
+          nav_translations:
+            Home: Trang chủ
+            Getting started: Bắt đầu
+            Chapters: Các chương
+            "Chapter 1 — Factoring time complexity": "Chương 1 — Độ phức tạp thời gian phân tích thừa số"
+            "Chapter 2 — Random bits": "Chương 2 — Bit ngẫu nhiên"
+            "Chapter 3 — The Pauli-X gate": "Chương 3 — Cổng Pauli-X"
+            Reference: Tham chiếu
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/phonhay103/quantum-computing-in-action
+    - icon: fontawesome/solid/book
+      link: https://www.manning.com/books/quantum-computing-in-action
+
+copyright: >-
+  Companion code for <em>Quantum Computing in Action</em> by Johan Vos (Manning).
+  Distributed for learning purposes.

@@ -45,6 +45,25 @@ Each sample also renders diagrams to `build/`:
 | 2 | `ch02-random-bits-circuit.png`, `ch02-random-bits-counts.png`, `ch02-random-bits-bloch.png` |
 | 3 | `ch03-pauli-x.png`, `ch03-pauli-x-bloch.png` (before/after the flip) |
 
+## Documentation
+
+Bilingual (English / Tiếng Việt) notes explaining the **quantum-computing
+concepts** of each chapter, illustrated with the generated diagrams and linked to
+the matching source modules, are published with MkDocs Material to GitHub Pages:
+
+**<https://phonhay103.github.io/quantum-computing-in-action/>**
+
+Build or preview them locally:
+
+```bash
+make docs        # build the site into site/
+make docs-serve  # live preview at http://127.0.0.1:8000
+```
+
+The sources live in `docs/` (`*.md` for English, `*.vi.md` for Vietnamese) and the
+site is configured in `mkdocs.yml`; deployment runs via
+`.github/workflows/docs.yml`.
+
 ## Dark mode
 
 Output is designed for dark terminals. Console text uses a dark-friendly
@@ -81,6 +100,7 @@ make test      # pytest
 make ch01      # run chapter 1
 make ch02      # run chapter 2
 make ch03      # run chapter 3
+make docs      # build the documentation site
 make clean     # remove caches/artifacts
 ```
 
@@ -90,6 +110,9 @@ make clean     # remove caches/artifacts
 .
 ├── Makefile
 ├── pyproject.toml
+├── mkdocs.yml
+├── build/                    # generated diagrams (committed)
+├── docs/                     # MkDocs site sources (en + vi)
 ├── src/quantum_computing_in_action/
 │   ├── __main__.py
 │   ├── _console.py
