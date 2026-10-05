@@ -30,12 +30,12 @@ Thành phần mới là một cổng tác động lên **hai** qubit: **controll
 Ta viết trạng thái hai qubit là `|c t⟩` với **điều khiển trước** và **đích sau** —
 thứ tự quen thuộc trong giáo trình. Bảng chân trị khi đó là:
 
-| Đầu vào `\|c t⟩` | Đầu ra `\|c t⟩` |
+| Đầu vào <code>\|c t⟩</code> | Đầu ra <code>\|c t⟩</code> |
 |---------|--------|
-| `\|00⟩` | `\|00⟩` |
-| `\|01⟩` | `\|01⟩` |
-| `\|10⟩` | `\|11⟩` |
-| `\|11⟩` | `\|10⟩` |
+| <code>\|00⟩</code> | <code>\|00⟩</code> |
+| <code>\|01⟩</code> | <code>\|01⟩</code> |
+| <code>\|10⟩</code> | <code>\|11⟩</code> |
+| <code>\|11⟩</code> | <code>\|10⟩</code> |
 
 Trong `|10⟩`, điều khiển bằng `1`, nên đích bị lật và trạng thái thành `|11⟩`;
 khi điều khiển bằng `0` (`|00⟩`, `|01⟩`) thì không có gì xảy ra.

@@ -43,12 +43,12 @@ always shows where it came from.
 | `ch02-random-bits-bloch.png` | 2 | Superposition on the Bloch sphere |
 | `ch03-pauli-x.png` | 3 | Circuit: `X` then measurement |
 | `ch03-pauli-x2-circuit.png` | 3 | Circuit: `X`, `X`, then measurement |
-| `ch03-pauli-x-bloch.png` | 3 | `\|0⟩` → after `X` → after `X·X` |
+| `ch03-pauli-x-bloch.png` | 3 | <code>\|0⟩</code> → after `X` → after `X·X` |
 | `ch03-pauli-x-counts.png` | 3 | Histogram of 1000 runs of `X` (all `1`) |
 | `ch03-pauli-x2-counts.png` | 3 | Histogram of 1000 runs of `X·X` (all `0`) |
 | `ch04-hadamard-circuit.png` | 4 | Circuit: one `H` then measurement |
 | `ch04-hadamard2-circuit.png` | 4 | Circuit: `H`, `H`, then measurement |
-| `ch04-hadamard-bloch.png` | 4 | `\|0⟩` → after `H` → after `H·H` |
+| `ch04-hadamard-bloch.png` | 4 | <code>\|0⟩</code> → after `H` → after `H·H` |
 | `ch04-hadamard-counts.png` | 4 | Histogram of 1000 runs of `H` |
 | `ch04-hadamard2-counts.png` | 4 | Histogram of 1000 runs of `H·H` (all `0`) |
 | `ch04-gate-matrices.png` | 4 | The `X`, `H`, and `H·H` matrices as heatmaps |
@@ -63,16 +63,16 @@ always shows where it came from.
 
 | Symbol | Meaning |
 |--------|---------|
-| `\|0⟩`, `\|1⟩` | The two basis states of a qubit |
-| `\|ψ⟩` | A general (arbitrary) single-qubit state |
-| `\|+⟩`, `\|−⟩` | The two even superpositions `(\|0⟩ ± \|1⟩)/√2` |
-| `(a\|0⟩ + b\|1⟩)` | A superposition with amplitudes `a` and `b` |
+| <code>\|0⟩</code>, <code>\|1⟩</code> | The two basis states of a qubit |
+| <code>\|ψ⟩</code> | A general (arbitrary) single-qubit state |
+| <code>\|+⟩</code>, <code>\|−⟩</code> | The two even superpositions <code>(\|0⟩ ± \|1⟩)/√2</code> |
+| <code>(a\|0⟩ + b\|1⟩)</code> | A superposition with amplitudes `a` and `b` |
 | `[α, β]` | The same state written as a column vector |
 | `H` | Hadamard gate — creates an even superposition |
-| `X` | Pauli-X gate — flips `\|0⟩ ↔ \|1⟩` |
+| `X` | Pauli-X gate — flips <code>\|0⟩ ↔ \|1⟩</code> |
 | `CNOT` | Controlled-NOT — flips the target when the control is `1` |
 | `⊗` | Tensor product — combines qubits into a joint state |
-| Bell state | Maximally entangled pair, e.g. `(\|00⟩ + \|11⟩)/√2` |
+| Bell state | Maximally entangled pair, e.g. <code>(\|00⟩ + \|11⟩)/√2</code> |
 | `I` | The identity operation — "do nothing" |
 | `U` | A generic gate, written as a 2×2 matrix |
 | `P(0)`, `P(1)` | Measurement probabilities (Born rule: amplitude squared) |

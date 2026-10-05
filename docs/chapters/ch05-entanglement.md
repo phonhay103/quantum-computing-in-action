@@ -30,12 +30,12 @@ target exactly when the control is `1`.
 We write two-qubit states as `|c t⟩` with the **control first** and the **target
 second** — the usual textbook order. The truth table is then:
 
-| Input `\|c t⟩` | Output `\|c t⟩` |
+| Input <code>\|c t⟩</code> | Output <code>\|c t⟩</code> |
 |-------|--------|
-| `\|00⟩` | `\|00⟩` |
-| `\|01⟩` | `\|01⟩` |
-| `\|10⟩` | `\|11⟩` |
-| `\|11⟩` | `\|10⟩` |
+| <code>\|00⟩</code> | <code>\|00⟩</code> |
+| <code>\|01⟩</code> | <code>\|01⟩</code> |
+| <code>\|10⟩</code> | <code>\|11⟩</code> |
+| <code>\|11⟩</code> | <code>\|10⟩</code> |
 
 In `|10⟩` the control is `1`, so the target flips and the state becomes `|11⟩`;
 when the control is `0` (`|00⟩`, `|01⟩`) nothing happens.

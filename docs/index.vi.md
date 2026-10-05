@@ -26,7 +26,7 @@ Tên chương bám theo mục lục của sách.
 |--------|-----------|-----------------------|-------|
 | [1 — Tiến hoá, cách mạng, hay cường điệu?](chapters/ch01-evolution-revolution-hype.md) | hoàn thành | Điện toán lượng tử là một bước tiến hoá với tăng tốc cách mạng cho một nhóm bài toán hẹp, ví dụ phân tích thừa số | [cổ điển so với Shor, cổ điển riêng](chapters/ch01-evolution-revolution-hype.md) |
 | [2 — Hello World kiểu điện toán lượng tử](chapters/ch02-hello-world.md) | hoàn thành | Qubit ở trạng thái chồng chập cho ra `0`/`1` thực sự ngẫu nhiên khi đo | [mạch, biểu đồ, Bloch](chapters/ch02-hello-world.md) |
-| [3 — Qubit và cổng lượng tử](chapters/ch03-qubits-and-gates.md) | hoàn thành | Qubit là đơn vị cơ bản và cổng là phép toán khả nghịch; `X` lật `\|0⟩` thành `\|1⟩` tất định | [mạch, Bloch, số lần đo](chapters/ch03-qubits-and-gates.md) |
+| [3 — Qubit và cổng lượng tử](chapters/ch03-qubits-and-gates.md) | hoàn thành | Qubit là đơn vị cơ bản và cổng là phép toán khả nghịch; `X` lật <code>\|0⟩</code> thành <code>\|1⟩</code> tất định | [mạch, Bloch, số lần đo](chapters/ch03-qubits-and-gates.md) |
 | [4 — Chồng chập](chapters/ch04-superposition.md) | hoàn thành | Trạng thái là vector và cổng là ma trận; `H` tạo chồng chập đều và `H·H` xoá nó | [mạch, Bloch, số lần đo, ma trận](chapters/ch04-superposition.md) |
 | [5 — Rối lượng tử](chapters/ch05-entanglement.md) | hoàn thành | Hai qubit có thể chia sẻ một trạng thái chung không thể mô tả riêng từng qubit | [mạch, số lần đo, so sánh, ma trận](chapters/ch05-entanglement.md) |
 | [6 — Mạng lượng tử: những điều cơ bản](chapters/ch06-quantum-networking.md) | dự kiến | Truyền thông tin lượng tử giữa các nút: dịch chuyển, không nhân bản, bộ lặp | — |

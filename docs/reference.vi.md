@@ -63,16 +63,16 @@ biết nó đến từ đâu.
 
 | Ký hiệu | Ý nghĩa |
 |---------|---------|
-| `\|0⟩`, `\|1⟩` | Hai trạng thái cơ sở của qubit |
-| `\|ψ⟩` | Trạng thái một-qubit tổng quát (bất kỳ) |
-| `\|+⟩`, `\|−⟩` | Hai chồng chập đều `(\|0⟩ ± \|1⟩)/√2` |
-| `(a\|0⟩ + b\|1⟩)` | Chồng chập với biên độ `a` và `b` |
+| <code>\|0⟩</code>, <code>\|1⟩</code> | Hai trạng thái cơ sở của qubit |
+| <code>\|ψ⟩</code> | Trạng thái một-qubit tổng quát (bất kỳ) |
+| <code>\|+⟩</code>, <code>\|−⟩</code> | Hai chồng chập đều <code>(\|0⟩ ± \|1⟩)/√2</code> |
+| <code>(a\|0⟩ + b\|1⟩)</code> | Chồng chập với biên độ `a` và `b` |
 | `[α, β]` | Cùng trạng thái đó viết dưới dạng vector cột |
 | `H` | Cổng Hadamard — tạo chồng chập đều |
-| `X` | Cổng Pauli-X — lật `\|0⟩ ↔ \|1⟩` |
+| `X` | Cổng Pauli-X — lật <code>\|0⟩ ↔ \|1⟩</code> |
 | `CNOT` | Controlled-NOT — lật đích khi điều khiển bằng `1` |
 | `⊗` | Tích tensor — ghép các qubit thành trạng thái chung |
-| Trạng thái Bell | Cặp rối cực đại, ví dụ `(\|00⟩ + \|11⟩)/√2` |
+| Trạng thái Bell | Cặp rối cực đại, ví dụ <code>(\|00⟩ + \|11⟩)/√2</code> |
 | `I` | Phép đơn vị — "không làm gì" |
 | `U` | Cổng tổng quát, viết dưới dạng ma trận 2×2 |
 | `P(0)`, `P(1)` | Xác suất đo (quy tắc Born: biên độ bình phương) |
