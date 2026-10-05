@@ -11,7 +11,7 @@ The module links point to the code; for the *concepts*, follow the chapter links
 | [2](chapters/ch02-hello-world.md) | Hello World, quantum computing style | [`ch02/random_bits.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch02/random_bits.py) | `make ch02` |
 | [3](chapters/ch03-qubits-and-gates.md) | Qubits and quantum gates | [`ch03/pauli_x.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch03/pauli_x.py) | `make ch03` |
 | [4](chapters/ch04-superposition.md) | Superposition | [`ch04/hadamard.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch04/hadamard.py), [`ch04/matrices.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch04/matrices.py) | `make ch04` |
-| [5](chapters/ch05-entanglement.md) | Entanglement | — | planned |
+| [5](chapters/ch05-entanglement.md) | Entanglement | [`ch05/entanglement.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch05/entanglement.py), [`ch05/states.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch05/states.py) | `make ch05` |
 | [6](chapters/ch06-quantum-networking.md) | Quantum networking: The basics | — | planned |
 | [7](chapters/ch07-helloworld-explained.md) | Our HelloWorld, explained | — | planned |
 | [8](chapters/ch08-secure-communication.md) | Secure communication using quantum computing | — | planned |
@@ -26,6 +26,7 @@ uv run python -m quantum_computing_in_action ch01
 uv run python -m quantum_computing_in_action ch02
 uv run python -m quantum_computing_in_action ch03
 uv run python -m quantum_computing_in_action ch04
+uv run python -m quantum_computing_in_action ch05
 ```
 
 ## Diagram files
@@ -51,6 +52,12 @@ always shows where it came from.
 | `ch04-hadamard-counts.png` | 4 | Histogram of 1000 runs of `H` |
 | `ch04-hadamard2-counts.png` | 4 | Histogram of 1000 runs of `H·H` (all `0`) |
 | `ch04-gate-matrices.png` | 4 | The `X`, `H`, and `H·H` matrices as heatmaps |
+| `ch05-bell-circuit.png` | 5 | Circuit: `H`, `CNOT`, then measurement of both qubits |
+| `ch05-cnot-circuit.png` | 5 | Circuit: a bare `CNOT(0,1)` |
+| `ch05-bell-counts.png` | 5 | Histogram of 1000 runs of the Bell state (only `00`, `11`) |
+| `ch05-independent-counts.png` | 5 | Histogram of 1000 runs of two independent `H` qubits |
+| `ch05-bell-vs-independent.png` | 5 | Grouped bars: independent vs. entangled outcomes |
+| `ch05-amplitude-matrices.png` | 5 | Coefficient matrices: product state (rank 1) vs. Bell state (rank 2) |
 
 ## Notation used in these notes
 
@@ -63,6 +70,9 @@ always shows where it came from.
 | `[α, β]` | The same state written as a column vector |
 | `H` | Hadamard gate — creates an even superposition |
 | `X` | Pauli-X gate — flips `\|0⟩ ↔ \|1⟩` |
+| `CNOT` | Controlled-NOT — flips the target when the control is `1` |
+| `⊗` | Tensor product — combines qubits into a joint state |
+| Bell state | Maximally entangled pair, e.g. `(\|00⟩ + \|11⟩)/√2` |
 | `I` | The identity operation — "do nothing" |
 | `U` | A generic gate, written as a 2×2 matrix |
 | `P(0)`, `P(1)` | Measurement probabilities (Born rule: amplitude squared) |

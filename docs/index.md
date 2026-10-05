@@ -29,7 +29,7 @@ Chapter titles follow the book's table of contents.
 | [2 — Hello World, quantum computing style](chapters/ch02-hello-world.md) | done | A qubit in superposition returns genuinely random `0`/`1` on measurement | [circuit, counts, Bloch](chapters/ch02-hello-world.md#the-diagrams) |
 | [3 — Qubits and quantum gates](chapters/ch03-qubits-and-gates.md) | done | Qubits are the basic unit and gates are reversible operations; `X` flips `\|0⟩` to `\|1⟩` deterministically | [circuits, Bloch, counts](chapters/ch03-qubits-and-gates.md#the-diagrams) |
 | [4 — Superposition](chapters/ch04-superposition.md) | done | A state is a vector and a gate is a matrix; `H` creates an even superposition and `H·H` cancels it | [circuits, Bloch, counts, matrices](chapters/ch04-superposition.md#the-diagrams) |
-| [5 — Entanglement](chapters/ch05-entanglement.md) | planned | Two qubits can share a joint state that cannot be described one qubit at a time | — |
+| [5 — Entanglement](chapters/ch05-entanglement.md) | done | Two qubits can share a joint state that cannot be described one qubit at a time | [circuits, counts, comparison, matrices](chapters/ch05-entanglement.md#the-diagrams) |
 | [6 — Quantum networking: The basics](chapters/ch06-quantum-networking.md) | planned | Moving quantum information between nodes: teleportation, no-cloning, and repeaters | — |
 | [7 — Our HelloWorld, explained](chapters/ch07-helloworld-explained.md) | planned | Rebuild the random-bit circuit gate by gate to see how it really works | — |
 | [8 — Secure communication using quantum computing](chapters/ch08-secure-communication.md) | planned | Quantum key distribution (BB84) makes eavesdropping detectable | — |
@@ -65,6 +65,13 @@ a figure always tells you where it came from.
 ![Two Hadamard gates](assets/ch04-hadamard2-circuit.png){ width="360" }
 ![Superposition created and cancelled on the Bloch sphere](assets/ch04-hadamard-bloch.png){ width="560" }
 ![X, H, and H·H as matrices](assets/ch04-gate-matrices.png){ width="560" }
+
+### Chapter 5 — entanglement
+
+![Bell-state circuit](assets/ch05-bell-circuit.png){ width="360" }
+![CNOT circuit](assets/ch05-cnot-circuit.png){ width="360" }
+![Independent vs. entangled qubits](assets/ch05-bell-vs-independent.png){ width="560" }
+![Coefficient matrices](assets/ch05-amplitude-matrices.png){ width="560" }
 
 ## Where to go next
 

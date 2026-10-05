@@ -16,6 +16,7 @@ _MODULES: dict[str, str] = {
     "ch02": "quantum_computing_in_action.ch02.random_bits",
     "ch03": "quantum_computing_in_action.ch03.pauli_x",
     "ch04": "quantum_computing_in_action.ch04.hadamard",
+    "ch05": "quantum_computing_in_action.ch05.entanglement",
 }
 
 

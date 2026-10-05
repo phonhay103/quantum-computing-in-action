@@ -11,7 +11,7 @@ module trỏ tới mã; muốn hiểu *khái niệm*, hãy theo liên kết chư
 | [2](chapters/ch02-hello-world.md) | Hello World kiểu điện toán lượng tử | [`ch02/random_bits.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch02/random_bits.py) | `make ch02` |
 | [3](chapters/ch03-qubits-and-gates.md) | Qubit và cổng lượng tử | [`ch03/pauli_x.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch03/pauli_x.py) | `make ch03` |
 | [4](chapters/ch04-superposition.md) | Chồng chập | [`ch04/hadamard.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch04/hadamard.py), [`ch04/matrices.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch04/matrices.py) | `make ch04` |
-| [5](chapters/ch05-entanglement.md) | Rối lượng tử | — | dự kiến |
+| [5](chapters/ch05-entanglement.md) | Rối lượng tử | [`ch05/entanglement.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch05/entanglement.py), [`ch05/states.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch05/states.py) | `make ch05` |
 | [6](chapters/ch06-quantum-networking.md) | Mạng lượng tử: những điều cơ bản | — | dự kiến |
 | [7](chapters/ch07-helloworld-explained.md) | HelloWorld của chúng ta, giải thích | — | dự kiến |
 | [8](chapters/ch08-secure-communication.md) | Truyền thông an toàn bằng điện toán lượng tử | — | dự kiến |
@@ -26,6 +26,7 @@ uv run python -m quantum_computing_in_action ch01
 uv run python -m quantum_computing_in_action ch02
 uv run python -m quantum_computing_in_action ch03
 uv run python -m quantum_computing_in_action ch04
+uv run python -m quantum_computing_in_action ch05
 ```
 
 ## Các tệp sơ đồ
@@ -51,6 +52,12 @@ biết nó đến từ đâu.
 | `ch04-hadamard-counts.png` | 4 | Biểu đồ 1000 lần chạy `H` |
 | `ch04-hadamard2-counts.png` | 4 | Biểu đồ 1000 lần chạy `H·H` (toàn `0`) |
 | `ch04-gate-matrices.png` | 4 | Ma trận `X`, `H` và `H·H` dưới dạng heatmap |
+| `ch05-bell-circuit.png` | 5 | Mạch: `H`, `CNOT`, rồi đo cả hai qubit |
+| `ch05-cnot-circuit.png` | 5 | Mạch: `CNOT(0,1)` trần |
+| `ch05-bell-counts.png` | 5 | Biểu đồ 1000 lần chạy trạng thái Bell (chỉ `00`, `11`) |
+| `ch05-independent-counts.png` | 5 | Biểu đồ 1000 lần chạy hai qubit `H` độc lập |
+| `ch05-bell-vs-independent.png` | 5 | Cột nhóm: kết quả độc lập so với rối |
+| `ch05-amplitude-matrices.png` | 5 | Ma trận hệ số: trạng thái tích (hạng 1) so với Bell (hạng 2) |
 
 ## Ký hiệu dùng trong ghi chú
 
@@ -63,6 +70,9 @@ biết nó đến từ đâu.
 | `[α, β]` | Cùng trạng thái đó viết dưới dạng vector cột |
 | `H` | Cổng Hadamard — tạo chồng chập đều |
 | `X` | Cổng Pauli-X — lật `\|0⟩ ↔ \|1⟩` |
+| `CNOT` | Controlled-NOT — lật đích khi điều khiển bằng `1` |
+| `⊗` | Tích tensor — ghép các qubit thành trạng thái chung |
+| Trạng thái Bell | Cặp rối cực đại, ví dụ `(\|00⟩ + \|11⟩)/√2` |
 | `I` | Phép đơn vị — "không làm gì" |
 | `U` | Cổng tổng quát, viết dưới dạng ma trận 2×2 |
 | `P(0)`, `P(1)` | Xác suất đo (quy tắc Born: biên độ bình phương) |

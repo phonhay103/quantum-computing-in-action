@@ -52,6 +52,22 @@ $$|\psi'\rangle = U\,|\psi\rangle$$
 Quantum gates are **unitary**: `U^† U = I`. Unitarity is the mathematical reason
 a gate is reversible and preserves the normalisation of the state.
 
+## Multiple qubits and the tensor product
+
+Two qubits are not two separate vectors glued together — their joint state is the
+**tensor product** of the individual states, written `|a⟩ ⊗ |b⟩` (or just
+`|a⟩|b⟩`). The tensor product of two two-dimensional states has four basis
+states:
+
+$$|00\rangle,\ |01\rangle,\ |10\rangle,\ |11\rangle$$
+
+The label is read left to right: `|01⟩` means the first character is `0` and the
+second is `1`. As with one qubit, the state is a weighted sum of these four
+amplitudes, and measurement probabilities are their squared magnitudes.
+
+A state that *can* be written as a tensor product is called a **product state**;
+a state that cannot is **entangled** (Chapter 5).
+
 ## The circuit model
 
 A quantum circuit is read **left to right**. Each horizontal **wire** is a qubit,

@@ -1,4 +1,4 @@
-.PHONY: help install sync lint format test clean ch01 ch02 ch03 ch04 docs docs-serve
+.PHONY: help install sync lint format test clean ch01 ch02 ch03 ch04 ch05 docs docs-serve
 
 # Default target
 .DEFAULT_GOAL := help
@@ -35,6 +35,9 @@ ch03: ## Run chapter 3 (Pauli-X gate)
 
 ch04: ## Run chapter 4 (Hadamard gate)
 	uv run python -m quantum_computing_in_action ch04
+
+ch05: ## Run chapter 5 (entanglement)
+	uv run python -m quantum_computing_in_action ch05
 
 assets: ## Copy generated diagrams into the docs tree
 	@mkdir -p docs/assets

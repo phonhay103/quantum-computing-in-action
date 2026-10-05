@@ -64,6 +64,37 @@ def render_counts(
     return path
 
 
+def render_grouped_counts(
+    series: Sequence[tuple[str, Mapping[str, int]]],
+    output: str | Path,
+    *,
+    title: str = "Measurement results",
+) -> Path:
+    """Render grouped bars (one bar per series) for several count dictionaries."""
+    path = _prepare(output)
+    from matplotlib import pyplot as plt
+
+    labels = sorted({label for _, counts in series for label in counts})
+    positions = np.arange(len(labels))
+    width = 0.8 / max(len(series), 1)
+    with plt.style.context(DARK_PLOT_STYLE):
+        fig, ax = plt.subplots(figsize=(7, 4.5))
+        for offset, (name, counts) in enumerate(series):
+            values = [counts.get(label, 0) for label in labels]
+            bars = ax.bar(positions + offset * width, values, width, label=name)
+            ax.bar_label(bars, fontsize=8)
+        ax.set_xticks(positions + width * (len(series) - 1) / 2)
+        ax.set_xticklabels(labels)
+        ax.set_xlabel("measured two-bit outcome")
+        ax.set_ylabel("count")
+        ax.set_title(title, fontsize=11)
+        ax.legend()
+        fig.tight_layout()
+        fig.savefig(path)
+        plt.close(fig)
+    return path
+
+
 def render_bloch(
     states: Sequence[tuple[str, Statevector]],
     output: str | Path,

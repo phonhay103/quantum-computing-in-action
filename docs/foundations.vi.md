@@ -50,6 +50,21 @@ $$|\psi'\rangle = U\,|\psi\rangle$$
 Cổng lượng tử là **unitary**: `U^† U = I`. Tính unitary là lý do toán học khiến một
 cổng khả nghịch và bảo toàn chuẩn hoá của trạng thái.
 
+## Nhiều qubit và tích tensor
+
+Hai qubit không phải hai vector tách rời dán lại — trạng thái chung của chúng là
+**tích tensor** của các trạng thái riêng, viết `|a⟩ ⊗ |b⟩` (hay `|a⟩|b⟩`). Tích
+tensor của hai trạng thái hai chiều có bốn trạng thái cơ sở:
+
+$$|00\rangle,\ |01\rangle,\ |10\rangle,\ |11\rangle$$
+
+Nhãn đọc từ trái sang phải: `|01⟩` nghĩa là ký tự thứ nhất là `0`, ký tự thứ hai
+là `1`. Như với một qubit, trạng thái là tổng có trọng số của bốn biên độ này, và
+xác suất đo là bình phương độ lớn của chúng.
+
+Trạng thái *có thể* viết thành tích tensor gọi là **trạng thái tích**; trạng thái
+không thể viết được gọi là **rối** (Chương 5).
+
 ## Mô hình mạch
 
 Mạch lượng tử được đọc **từ trái sang phải**. Mỗi **dây** ngang là một qubit, mỗi

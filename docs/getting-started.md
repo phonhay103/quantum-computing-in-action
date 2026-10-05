@@ -30,12 +30,14 @@ uv run python -m quantum_computing_in_action ch01
 uv run python -m quantum_computing_in_action ch02
 uv run python -m quantum_computing_in_action ch03
 uv run python -m quantum_computing_in_action ch04
+uv run python -m quantum_computing_in_action ch05
 
 # or via make
 make ch01
 make ch02
 make ch03
 make ch04
+make ch05
 ```
 
 | Chapter | Command | Diagrams written to `build/` |
@@ -44,6 +46,7 @@ make ch04
 | 2 | `make ch02` | `ch02-random-bits-circuit.png`, `ch02-random-bits-counts.png`, `ch02-random-bits-bloch.png` |
 | 3 | `make ch03` | `ch03-pauli-x.png`, `ch03-pauli-x2-circuit.png`, `ch03-pauli-x-bloch.png`, `ch03-pauli-x-counts.png`, `ch03-pauli-x2-counts.png` |
 | 4 | `make ch04` | `ch04-hadamard-circuit.png`, `ch04-hadamard2-circuit.png`, `ch04-hadamard-bloch.png`, `ch04-hadamard-counts.png`, `ch04-hadamard2-counts.png`, `ch04-gate-matrices.png` |
+| 5 | `make ch05` | `ch05-bell-circuit.png`, `ch05-cnot-circuit.png`, `ch05-bell-counts.png`, `ch05-independent-counts.png`, `ch05-bell-vs-independent.png`, `ch05-amplitude-matrices.png` |
 
 ## Development
 
@@ -74,7 +77,8 @@ make clean     # remove caches and generated artifacts
 │   ├── ch01/time_complexity.py
 │   ├── ch02/random_bits.py
 │   ├── ch03/pauli_x.py
-│   └── ch04/                    # hadamard.py + matrices.py
+│   ├── ch04/                    # hadamard.py + matrices.py
+│   └── ch05/                    # entanglement.py + states.py
 └── tests/
 ```
 
