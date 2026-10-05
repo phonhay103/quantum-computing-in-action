@@ -4,9 +4,8 @@ from __future__ import annotations
 
 from qiskit import QuantumCircuit
 from qiskit.quantum_info import Statevector
-from rich.console import Console
 
-console = Console()
+from quantum_computing_in_action._console import console
 
 
 def random_bit_circuit() -> QuantumCircuit:
@@ -42,13 +41,11 @@ def random_bit() -> int:
 
 def main() -> None:
     console.rule("Using Qiskit to generate random bits")
-    console.print(f"Generate one random bit, which can be 0 or 1. Result = [bold cyan]{random_bit()}[/bold cyan]")
+    console.print(f"Generate one random bit, which can be 0 or 1. Result = [value]{random_bit()}[/value]")
     bits = random_bits(10000)
     zeros = bits.count(0)
     ones = bits.count(1)
-    console.print(
-        f"Generated 10000 random bits, [yellow]{zeros}[/yellow] of them were 0, and [green]{ones}[/green] were 1."
-    )
+    console.print(f"Generated 10000 random bits, [zero]{zeros}[/zero] of them were 0, and [one]{ones}[/one] were 1.")
 
 
 if __name__ == "__main__":

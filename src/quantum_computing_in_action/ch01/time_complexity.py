@@ -6,12 +6,11 @@ import math
 from collections.abc import Callable, Iterator
 from pathlib import Path
 
-from rich.console import Console
 from rich.table import Table
 
-TimeFunction = Callable[[float], float]
+from quantum_computing_in_action._console import DARK_PLOT_STYLE, console
 
-console = Console()
+TimeFunction = Callable[[float], float]
 
 
 def classical_factoring_time(bits: float) -> float:
@@ -62,28 +61,29 @@ def plot(
     path = Path(output)
     path.parent.mkdir(parents=True, exist_ok=True)
 
-    fig, ax = plt.subplots(figsize=(8, 6))
-    for function, label in (
-        (classical_factoring_time, "classical"),
-        (shor_factoring_time, "shor"),
-    ):
-        xs, ys = zip(*sample(function, start, stop), strict=True)
-        ax.plot(xs, ys, label=label)
+    with plt.style.context(DARK_PLOT_STYLE):
+        fig, ax = plt.subplots(figsize=(8, 6))
+        for function, label in (
+            (classical_factoring_time, "classical"),
+            (shor_factoring_time, "shor"),
+        ):
+            xs, ys = zip(*sample(function, start, stop), strict=True)
+            ax.plot(xs, ys, label=label)
 
-    ax.set_xlabel("number of bits")
-    ax.set_ylabel("time required to factor")
-    ax.set_title("Time Complexity")
-    ax.legend()
-    fig.savefig(path)
-    plt.close(fig)
+        ax.set_xlabel("number of bits")
+        ax.set_ylabel("time required to factor")
+        ax.set_title("Time Complexity")
+        ax.legend()
+        fig.savefig(path)
+        plt.close(fig)
     return path
 
 
 def main() -> None:
     table = Table(title="Time required to factor an n-bit number")
-    table.add_column("bits", justify="right", style="cyan")
-    table.add_column("classical", justify="right", style="yellow")
-    table.add_column("shor", justify="right", style="green")
+    table.add_column("bits", justify="right", style="bits")
+    table.add_column("classical", justify="right", style="classical")
+    table.add_column("shor", justify="right", style="shor")
     for bits in (4, 8, 16, 32, 64):
         table.add_row(
             str(bits),
@@ -92,7 +92,7 @@ def main() -> None:
         )
     console.print(table)
     path = plot()
-    console.print(f"\nSaved plot to [bold]{path}[/bold]")
+    console.print(f"\nSaved plot to [path]{path}[/path]")
 
 
 if __name__ == "__main__":

@@ -6,10 +6,9 @@ from pathlib import Path
 
 from qiskit import QuantumCircuit
 from qiskit.quantum_info import Statevector
-from rich.console import Console
 from rich.panel import Panel
 
-console = Console()
+from quantum_computing_in_action._console import DARK_CIRCUIT_STYLE, console
 
 
 def pauli_x_circuit() -> QuantumCircuit:
@@ -34,20 +33,22 @@ def measure_pauli_x() -> int:
 
 
 def draw(output: str | Path = "build/pauli-x.png") -> Path:
-    """Render the circuit with matplotlib and save it to ``output``."""
+    """Render the circuit on a dark background and save it to ``output``."""
     import matplotlib
 
     matplotlib.use("Agg")
 
     path = Path(output)
     path.parent.mkdir(parents=True, exist_ok=True)
-    pauli_x_circuit().draw("mpl", filename=str(path))
+    pauli_x_circuit().draw("mpl", filename=str(path), style=DARK_CIRCUIT_STYLE)
     return path
 
 
 def main() -> None:
-    console.print(f"Value = [bold green]{measure_pauli_x()}[/bold green]")
-    console.print(Panel(str(pauli_x_circuit().draw("text")), title="Pauli-X circuit"))
+    console.print(f"Value = [value]{measure_pauli_x()}[/value]")
+    console.print(Panel(str(pauli_x_circuit().draw("text")), title="Pauli-X circuit", border_style="bits"))
+    path = draw()
+    console.print(f"Saved circuit render to [path]{path}[/path]")
 
 
 if __name__ == "__main__":

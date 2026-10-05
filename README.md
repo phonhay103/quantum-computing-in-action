@@ -37,6 +37,16 @@ Python/Qiskit ports of the book's Java samples. Each chapter can be run with
 Chapter 1 writes `build/time-complexity.png`; chapter 3 can render the circuit
 with `quantum_computing_in_action.ch03.pauli_x.draw()`.
 
+## Dark mode
+
+Output is designed for dark terminals. Console text uses a dark-friendly
+[Rich](https://github.com/Textualize/rich) theme (defined in
+`quantum_computing_in_action._console`), and the generated images render on
+dark backgrounds:
+
+- `build/time-complexity.png` (chapter 1) uses matplotlib's `dark_background` style.
+- `build/pauli-x.png` (chapter 3) uses Qiskit's `iqp-dark` circuit style.
+
 ## Requirements
 
 - [uv](https://docs.astral.sh/uv/)
@@ -76,6 +86,7 @@ make clean     # remove caches/artifacts
 ├── pyproject.toml
 ├── src/quantum_computing_in_action/
 │   ├── __main__.py
+│   ├── _console.py
 │   ├── ch01/time_complexity.py
 │   ├── ch02/random_bits.py
 │   └── ch03/pauli_x.py
