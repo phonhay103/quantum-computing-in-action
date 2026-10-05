@@ -8,7 +8,7 @@ from pathlib import Path
 
 from rich.table import Table
 
-from quantum_computing_in_action._console import DARK_PLOT_STYLE, console, explain
+from quantum_computing_in_action._console import DARK_PLOT_STYLE, console, explain, steps
 
 TimeFunction = Callable[[float], float]
 
@@ -93,6 +93,16 @@ reason quantum computers threaten RSA encryption.
 
 The table below compares the two estimates; the chart plots them.
 """,
+    )
+
+    steps(
+        "Chapter 1 — step by step",
+        [
+            ("Pick a key size b", "the number of bits, e.g. 4, 8, 16, 32, 64"),
+            ("Estimate the classical effort", "GNFS: exp((64/9 · b · ln(b)^2)^(1/3))"),
+            ("Estimate Shor's effort", "polynomial: b^3"),
+            ("Compare the two", "Shor's curve stays far below the classical one"),
+        ],
     )
 
     table = Table(title="Time required to factor an n-bit number")

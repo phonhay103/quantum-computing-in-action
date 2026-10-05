@@ -26,7 +26,9 @@ and the [author's page](https://www.manning.com/authors/johan-vos).
 ## Chapters
 
 Python/Qiskit ports of the book's Java samples. Each sample prints a short
-explanation of the concept before showing results. Run a chapter with
+explanation of the concept before showing results, and multi-step samples also
+print a numbered, step-by-step breakdown (including the state after each
+operation). Run a chapter with
 `uv run python -m quantum_computing_in_action <chapter>` or the matching `make` target.
 
 | Chapter | Topic | Module | Run |

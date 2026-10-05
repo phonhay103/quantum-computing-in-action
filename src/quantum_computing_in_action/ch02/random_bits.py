@@ -5,17 +5,23 @@ from __future__ import annotations
 from qiskit import QuantumCircuit
 from qiskit.quantum_info import Statevector
 
-from quantum_computing_in_action._console import console, explain
+from quantum_computing_in_action._console import console, explain, steps
+
+
+def _hadamard_circuit() -> QuantumCircuit:
+    """A one-qubit circuit that puts the qubit in an equal superposition."""
+    circuit = QuantumCircuit(1, 1)
+    circuit.h(0)
+    return circuit
 
 
 def random_bit_circuit() -> QuantumCircuit:
-    """A one-qubit circuit that puts the qubit in superposition and measures it.
+    """The superposition circuit plus a measurement.
 
     Applying a Hadamard gate to ``|0>`` yields ``(|0> + |1>) / sqrt(2)``, so a
     measurement returns ``0`` or ``1`` with equal probability.
     """
-    circuit = QuantumCircuit(1, 1)
-    circuit.h(0)
+    circuit = _hadamard_circuit()
     circuit.measure(0, 0)
     return circuit
 
@@ -24,6 +30,11 @@ def _sampled_counts(circuit: QuantumCircuit, shots: int) -> dict[str, int]:
     circuit.remove_final_measurements(inplace=True)
     state = Statevector.from_instruction(circuit)
     return {str(bit): int(count) for bit, count in state.sample_counts(shots).items()}
+
+
+def _probabilities(state: Statevector) -> str:
+    probs = state.probabilities_dict()
+    return f"P(0) = {float(probs.get('0', 0.0)):.2f}, P(1) = {float(probs.get('1', 0.0)):.2f}"
 
 
 def random_bits(count: int = 1) -> list[int]:
@@ -54,11 +65,25 @@ seed — it is genuinely random.
 """,
     )
 
-    console.rule("Using Qiskit to generate random bits")
-    console.print(f"Generate one random bit, which can be 0 or 1. Result = [value]{random_bit()}[/value]")
+    initial = Statevector.from_label("0")
+    superposed = Statevector.from_instruction(_hadamard_circuit())
+    first = random_bit()
     bits = random_bits(10000)
     zeros = bits.count(0)
     ones = bits.count(1)
+
+    steps(
+        "Chapter 2 — step by step",
+        [
+            ("Prepare a qubit in |0>", _probabilities(initial)),
+            ("Apply the Hadamard gate H", _probabilities(superposed)),
+            ("Measure the qubit", f"collapses to a single value: {first}"),
+            ("Repeat 10000 times", f"0 -> {zeros}, 1 -> {ones}"),
+        ],
+    )
+
+    console.rule("Using Qiskit to generate random bits")
+    console.print(f"Generate one random bit, which can be 0 or 1. Result = [value]{first}[/value]")
     console.print(f"Generated 10000 random bits, [zero]{zeros}[/zero] of them were 0, and [one]{ones}[/one] were 1.")
     console.print("[muted]The two counts land near 5000/5000, confirming the 50/50 superposition.[/muted]")
 

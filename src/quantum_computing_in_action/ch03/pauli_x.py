@@ -8,15 +8,26 @@ from qiskit import QuantumCircuit
 from qiskit.quantum_info import Statevector
 from rich.panel import Panel
 
-from quantum_computing_in_action._console import DARK_CIRCUIT_STYLE, console, explain
+from quantum_computing_in_action._console import DARK_CIRCUIT_STYLE, console, explain, steps
+
+
+def _x_circuit() -> QuantumCircuit:
+    """A one-qubit circuit that applies the Pauli-X gate."""
+    circuit = QuantumCircuit(1, 1)
+    circuit.x(0)
+    return circuit
 
 
 def pauli_x_circuit() -> QuantumCircuit:
-    """A one-qubit circuit that applies the Pauli-X gate and measures the qubit."""
-    circuit = QuantumCircuit(1, 1)
-    circuit.x(0)
+    """The Pauli-X circuit plus a measurement."""
+    circuit = _x_circuit()
     circuit.measure(0, 0)
     return circuit
+
+
+def _probabilities(state: Statevector) -> str:
+    probs = state.probabilities_dict()
+    return f"P(0) = {float(probs.get('0', 0.0)):.2f}, P(1) = {float(probs.get('1', 0.0)):.2f}"
 
 
 def measure_pauli_x() -> int:
@@ -25,8 +36,7 @@ def measure_pauli_x() -> int:
     The qubit starts in ``|0>``; the X gate flips it to ``|1>``, so the result
     is deterministically ``1``.
     """
-    circuit = pauli_x_circuit()
-    circuit.remove_final_measurements(inplace=True)
+    circuit = _x_circuit()
     state = Statevector.from_instruction(circuit)
     counts = state.sample_counts(1)
     return 1 if counts.get("1", 0) else 0
@@ -61,7 +71,20 @@ measurement `M` that writes the outcome into the classical bit `c`.
 """,
     )
 
-    console.print(f"Value = [value]{measure_pauli_x()}[/value]")
+    initial = Statevector.from_label("0")
+    flipped = Statevector.from_instruction(_x_circuit())
+    value = measure_pauli_x()
+
+    steps(
+        "Chapter 3 — step by step",
+        [
+            ("Prepare a qubit in |0>", _probabilities(initial)),
+            ("Apply the Pauli-X gate", _probabilities(flipped)),
+            ("Measure the qubit", f"always reads {value} (no superposition)"),
+        ],
+    )
+
+    console.print(f"Value = [value]{value}[/value]")
     console.print(Panel(str(pauli_x_circuit().draw("text")), title="Pauli-X circuit", border_style="bits"))
     path = draw()
     console.print(f"Saved circuit render to [path]{path}[/path]")
