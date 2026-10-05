@@ -6,6 +6,10 @@ from pathlib import Path
 
 from qiskit import QuantumCircuit
 from qiskit.quantum_info import Statevector
+from rich.console import Console
+from rich.panel import Panel
+
+console = Console()
 
 
 def pauli_x_circuit() -> QuantumCircuit:
@@ -42,8 +46,8 @@ def draw(output: str | Path = "build/pauli-x.png") -> Path:
 
 
 def main() -> None:
-    print(f"Value = {measure_pauli_x()}")
-    print(pauli_x_circuit().draw("text"))
+    console.print(f"Value = [bold green]{measure_pauli_x()}[/bold green]")
+    console.print(Panel(str(pauli_x_circuit().draw("text")), title="Pauli-X circuit"))
 
 
 if __name__ == "__main__":

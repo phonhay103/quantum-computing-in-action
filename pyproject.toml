@@ -17,6 +17,7 @@ dependencies = [
     "matplotlib>=3.11.2",
     "pylatexenc>=2.11",
     "qiskit>=2.5.2",
+    "rich>=15.0.0",
 ]
 
 [dependency-groups]

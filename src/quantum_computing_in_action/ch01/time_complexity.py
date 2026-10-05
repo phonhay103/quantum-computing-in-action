@@ -6,7 +6,12 @@ import math
 from collections.abc import Callable, Iterator
 from pathlib import Path
 
+from rich.console import Console
+from rich.table import Table
+
 TimeFunction = Callable[[float], float]
+
+console = Console()
 
 
 def classical_factoring_time(bits: float) -> float:
@@ -75,13 +80,19 @@ def plot(
 
 
 def main() -> None:
-    print("Time required to factor an n-bit number")
-    print("---------------------------------------")
-    print(f"{'bits':>4}  {'classical':>14}  {'shor':>14}")
+    table = Table(title="Time required to factor an n-bit number")
+    table.add_column("bits", justify="right", style="cyan")
+    table.add_column("classical", justify="right", style="yellow")
+    table.add_column("shor", justify="right", style="green")
     for bits in (4, 8, 16, 32, 64):
-        print(f"{bits:>4}  {classical_factoring_time(bits):>14.3e}  {shor_factoring_time(bits):>14.3e}")
+        table.add_row(
+            str(bits),
+            f"{classical_factoring_time(bits):.3e}",
+            f"{shor_factoring_time(bits):.3e}",
+        )
+    console.print(table)
     path = plot()
-    print(f"\nSaved plot to {path}")
+    console.print(f"\nSaved plot to [bold]{path}[/bold]")
 
 
 if __name__ == "__main__":

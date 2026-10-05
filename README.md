@@ -6,6 +6,7 @@ by Johan Vos (Manning, January 2022 · ISBN 9781617296321 · 264 pages).
 Hands-on experiments in quantum computing with [Qiskit](https://www.ibm.com/quantum/qiskit).
 The book teaches the concepts using the Java-based [Strange](https://github.com/gluonhq/strange)
 simulator; this repository reimplements the same ideas in Python with Qiskit.
+Console output is formatted with [Rich](https://github.com/Textualize/rich).
 
 ## About the book
 
