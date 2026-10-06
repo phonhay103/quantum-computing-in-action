@@ -64,7 +64,7 @@ operation). Run a chapter with
 | 3 | Qubits and quantum gates | `quantum_computing_in_action.ch03.pauli_x` | `make ch03` |
 | 4 | Superposition | `quantum_computing_in_action.ch04.hadamard` (+ `ch04.matrices`) | `make ch04` |
 | 5 | Entanglement | `quantum_computing_in_action.ch05.entanglement` (+ `ch05.states`) | `make ch05` |
-| 6 | Quantum networking: The basics | — | planned |
+| 6 | Quantum networking: The basics | `quantum_computing_in_action.ch06` (networking, czmeasure, teleportation, repeater) | `make ch06` |
 | 7 | Our HelloWorld, explained | — | planned |
 | 8 | Secure communication using quantum computing | — | planned |
 | 9 | Deutsch–Jozsa algorithm | — | planned |
@@ -80,6 +80,7 @@ Each sample also renders diagrams to `build/`:
 | 3 | `ch03-pauli-x.png`, `ch03-pauli-x2-circuit.png`, `ch03-pauli-x-bloch.png`, `ch03-pauli-x-counts.png`, `ch03-pauli-x2-counts.png` |
 | 4 | `ch04-hadamard-circuit.png`, `ch04-hadamard2-circuit.png`, `ch04-hadamard-bloch.png`, `ch04-hadamard-counts.png`, `ch04-hadamard2-counts.png`, `ch04-gate-matrices.png` |
 | 5 | `ch05-bell-circuit.png`, `ch05-cnot-circuit.png`, `ch05-bell-counts.png`, `ch05-independent-counts.png`, `ch05-bell-vs-independent.png`, `ch05-amplitude-matrices.png` |
+| 6 | `ch06-clone-attempt-circuit.png`, `ch06-clone-fidelity.png`, `ch06-clone-agreement.png`, `ch06-cz-circuit.png`, `ch06-cz-vs-bell.png`, `ch06-cz-matrices.png`, `ch06-teleport-circuit.png`, `ch06-teleport-outcomes.png`, `ch06-teleport-fidelity.png`, `ch06-repeater-circuit.png`, `ch06-repeater-consistency.png`, `ch06-repeater-counts.png` |
 
 ## Documentation
 
@@ -138,6 +139,7 @@ make ch02      # run chapter 2
 make ch03      # run chapter 3
 make ch04      # run chapter 4
 make ch05      # run chapter 5
+make ch06      # run chapter 6
 make docs      # build the documentation site
 make clean     # remove caches/artifacts
 ```
@@ -159,7 +161,8 @@ make clean     # remove caches/artifacts
 │   ├── ch02/random_bits.py
 │   ├── ch03/pauli_x.py
 │   ├── ch04/                 # hadamard.py + matrices.py
-│   └── ch05/                 # entanglement.py + states.py
+│   ├── ch05/                 # entanglement.py + states.py
+│   └── ch06/                 # networking.py + czmeasure.py + teleportation.py + repeater.py + protocol.py
 └── tests/
 ```
 
@@ -173,7 +176,7 @@ make clean     # remove caches/artifacts
   [Manning page](https://www.manning.com/books/quantum-computing-in-action), which
   includes the table of contents. The Python/Qiskit ports, explanations, diagrams, and
   prose here are original companion material.
-- **Educational use only.** The code ports chapters 1–5 and outlines the remaining
+- **Educational use only.** The code ports chapters 1–6 and outlines the remaining
   chapters in the docs. It covers a *subset* of the book's material and may contain
   mistakes or simplifications; always treat the book as the authoritative source.
 - **No warranty.** The code and notes are provided **"AS IS"**, without warranty of any

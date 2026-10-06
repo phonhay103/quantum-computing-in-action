@@ -45,12 +45,18 @@ def render_circuit(circuit: QuantumCircuit, output: str | Path, *, reverse_bits:
 
 
 def render_counts(
-    counts: Mapping[str, int],
+    counts: Mapping[str, float],
     output: str | Path,
     *,
     title: str = "Measurement results",
+    xlabel: str = "measured bit",
+    ylabel: str = "count",
 ) -> Path:
-    """Render a bar chart of measurement counts on a dark background."""
+    """Render a bar chart of measurement results on a dark background.
+
+    Values need not be counts: any numeric mapping works, so the same chart can
+    show e.g. measurement *probabilities* or a fidelity.
+    """
     path = _prepare(output)
     from matplotlib import pyplot as plt
 
@@ -60,8 +66,8 @@ def render_counts(
         values = [counts[label] for label in labels]
         bars = ax.bar(labels, values, color="#5aa9ff")
         ax.bar_label(bars)
-        ax.set_xlabel("measured bit")
-        ax.set_ylabel("count")
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel(ylabel)
         ax.set_title(title)
         fig.savefig(path)
         plt.close(fig)
@@ -69,12 +75,18 @@ def render_counts(
 
 
 def render_grouped_counts(
-    series: Sequence[tuple[str, Mapping[str, int]]],
+    series: Sequence[tuple[str, Mapping[str, float]]],
     output: str | Path,
     *,
     title: str = "Measurement results",
+    xlabel: str = "measured two-bit outcome",
+    ylabel: str = "count",
 ) -> Path:
-    """Render grouped bars (one bar per series) for several count dictionaries."""
+    """Render grouped bars (one bar per series) for several count dictionaries.
+
+    Values need not be counts: any numeric mapping works, so the same chart can
+    show e.g. measurement *probabilities* or a fidelity.
+    """
     path = _prepare(output)
     from matplotlib import pyplot as plt
 
@@ -89,8 +101,8 @@ def render_grouped_counts(
             ax.bar_label(bars, fontsize=8)
         ax.set_xticks(positions + width * (len(series) - 1) / 2)
         ax.set_xticklabels(labels)
-        ax.set_xlabel("measured two-bit outcome")
-        ax.set_ylabel("count")
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel(ylabel)
         ax.set_title(title, fontsize=11)
         ax.legend()
         fig.tight_layout()

@@ -31,6 +31,7 @@ uv run python -m quantum_computing_in_action ch02
 uv run python -m quantum_computing_in_action ch03
 uv run python -m quantum_computing_in_action ch04
 uv run python -m quantum_computing_in_action ch05
+uv run python -m quantum_computing_in_action ch06
 
 # hoặc qua make
 make ch01
@@ -38,6 +39,7 @@ make ch02
 make ch03
 make ch04
 make ch05
+make ch06
 ```
 
 | Chương | Lệnh | Sơ đồ ghi vào `build/` |
@@ -47,6 +49,13 @@ make ch05
 | 3 | `make ch03` | `ch03-pauli-x.png`, `ch03-pauli-x2-circuit.png`, `ch03-pauli-x-bloch.png`, `ch03-pauli-x-counts.png`, `ch03-pauli-x2-counts.png` |
 | 4 | `make ch04` | `ch04-hadamard-circuit.png`, `ch04-hadamard2-circuit.png`, `ch04-hadamard-bloch.png`, `ch04-hadamard-counts.png`, `ch04-hadamard2-counts.png`, `ch04-gate-matrices.png` |
 | 5 | `make ch05` | `ch05-bell-circuit.png`, `ch05-cnot-circuit.png`, `ch05-bell-counts.png`, `ch05-independent-counts.png`, `ch05-bell-vs-independent.png`, `ch05-amplitude-matrices.png` |
+| 6 | `make ch06` | `ch06-clone-attempt-circuit.png`, `ch06-clone-fidelity.png`, `ch06-clone-agreement.png`, `ch06-cz-circuit.png`, `ch06-cz-vs-bell.png`, `ch06-cz-matrices.png`, `ch06-teleport-circuit.png`, `ch06-teleport-outcomes.png`, `ch06-teleport-fidelity.png`, `ch06-repeater-circuit.png`, `ch06-repeater-consistency.png`, `ch06-repeater-counts.png` |
+
+Chương 6 có bốn mẫu và chạy tất cả. Muốn chạy riêng một mẫu, gọi trực tiếp:
+
+```bash
+uv run python -m quantum_computing_in_action.ch06.teleportation
+```
 
 ## Phát triển
 
@@ -78,7 +87,8 @@ make clean      # xoá cache và sản phẩm đã sinh
 │   ├── ch02/random_bits.py
 │   ├── ch03/pauli_x.py
 │   ├── ch04/                    # hadamard.py + matrices.py
-│   └── ch05/                    # entanglement.py + states.py
+│   ├── ch05/                    # entanglement.py + states.py
+│   └── ch06/                    # networking, czmeasure, teleportation, repeater, protocol
 └── tests/
 ```
 

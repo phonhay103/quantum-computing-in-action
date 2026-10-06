@@ -29,7 +29,7 @@ Tên chương bám theo mục lục của sách.
 | [3 — Qubit và cổng lượng tử](chapters/ch03-qubits-and-gates.md) | hoàn thành | Qubit là đơn vị cơ bản và cổng là phép toán khả nghịch; `X` lật <code>\|0⟩</code> thành <code>\|1⟩</code> tất định | [mạch, Bloch, số lần đo](chapters/ch03-qubits-and-gates.md) |
 | [4 — Chồng chập](chapters/ch04-superposition.md) | hoàn thành | Trạng thái là vector và cổng là ma trận; `H` tạo chồng chập đều và `H·H` xoá nó | [mạch, Bloch, số lần đo, ma trận](chapters/ch04-superposition.md) |
 | [5 — Rối lượng tử](chapters/ch05-entanglement.md) | hoàn thành | Hai qubit có thể chia sẻ một trạng thái chung không thể mô tả riêng từng qubit | [mạch, số lần đo, so sánh, ma trận](chapters/ch05-entanglement.md) |
-| [6 — Mạng lượng tử: những điều cơ bản](chapters/ch06-quantum-networking.md) | dự kiến | Truyền thông tin lượng tử giữa các nút: dịch chuyển, không nhân bản, bộ lặp | — |
+| [6 — Mạng lượng tử: những điều cơ bản](chapters/ch06-quantum-networking.md) | hoàn thành | Một qubit không thể nhân bản, nên nó phải được *chuyển đi*: teleportation dựng lại một trạng thái từ cặp rối dùng chung cộng hai bit cổ điển, và bộ lặp nối các mắt xích lại | [không nhân bản, CZ, dịch chuyển, bộ lặp](chapters/ch06-quantum-networking.md#so-o) |
 | [7 — HelloWorld của chúng ta, giải thích](chapters/ch07-helloworld-explained.md) | dự kiến | Dựng lại mạch tạo bit ngẫu nhiên từng cổng một để thấy nó thực sự hoạt động ra sao | — |
 | [8 — Truyền thông an toàn bằng điện toán lượng tử](chapters/ch08-secure-communication.md) | dự kiến | Phân phối khoá lượng tử (BB84) khiến hành vi nghe lén bị phát hiện | — |
 | [9 — Thuật toán Deutsch–Jozsa](chapters/ch09-deutsch-jozsa.md) | dự kiến | Quyết định hàm là hằng số hay cân bằng chỉ trong một truy vấn | — |
@@ -71,6 +71,13 @@ cho biết nó đến từ đâu.
 ![Mạch CNOT](assets/ch05-cnot-circuit.png){ width="360" }
 ![Qubit độc lập so với rối](assets/ch05-bell-vs-independent.png){ width="560" }
 ![Ma trận hệ số](assets/ch05-amplitude-matrices.png){ width="560" }
+
+### Chương 6 — mạng lượng tử
+
+![Cách thử nhân bản thất bại](assets/ch06-clone-attempt-circuit.png){ width="360" }
+![Bản sao hoàn hảo so với cách thử bằng CNOT](assets/ch06-clone-agreement.png){ width="560" }
+![Mạch teleportation](assets/ch06-teleport-circuit.png){ width="620" }
+![Hai mắt xích nối qua một nút trung gian](assets/ch06-repeater-circuit.png){ width="620" }
 
 ## Đi tiếp ở đâu
 
