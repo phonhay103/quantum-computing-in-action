@@ -47,8 +47,8 @@ phương hệ số của trạng thái đó — **quy tắc Born**:
 $$P(0) = \left|\tfrac{1}{\sqrt{2}}\right|^2 = \tfrac{1}{2}, \qquad
   P(1) = \left|\tfrac{1}{\sqrt{2}}\right|^2 = \tfrac{1}{2}$$
 
-Chạy thí nghiệm một lần, bạn được một bit. Chạy nhiều lần — lấy nhiều **shots** —
-hai kết quả xuất hiện với số lượng gần bằng nhau.
+Chạy thí nghiệm một lần, bạn được một bit. Chạy lại nhiều lần — mỗi lần chạy gọi
+là một **lần chạy** (shot) — hai kết quả xuất hiện với số lượng gần bằng nhau.
 
 !!! info "Vì sao đây là ngẫu nhiên *thực sự*"
     Hàm `random()` cổ điển thường là **giả ngẫu nhiên**: trông ngẫu nhiên nhưng

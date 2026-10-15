@@ -78,7 +78,7 @@ a figure always tells you where it came from.
 ![The failed clone attempt](assets/ch06-clone-attempt-circuit.png){ width="360" }
 ![A perfect clone vs. the CNOT attempt](assets/ch06-clone-agreement.png){ width="560" }
 ![Teleportation circuit](assets/ch06-teleport-circuit.png){ width="620" }
-![Two chained hops across a relay](assets/ch06-repeater-circuit.png){ width="620" }
+![Two chained links across a relay](assets/ch06-repeater-circuit.png){ width="620" }
 
 ## Where to go next
 
@@ -86,6 +86,8 @@ a figure always tells you where it came from.
   samples and regenerate the diagrams.
 - New to the background ideas (bits, amplitudes, phases, the Bloch sphere)?
   Skim the **[Foundations](foundations.md)** page.
+- Lost on a word like *fidelity*, *Schmidt rank*, or *sub-exponential*? Look it up
+  in the **[Glossary](glossary.md)**.
 - Want the concepts only? Jump straight to
   **[Chapter 1](chapters/ch01-evolution-revolution-hype.md)**.
 - Looking for the code that produces a figure? See the

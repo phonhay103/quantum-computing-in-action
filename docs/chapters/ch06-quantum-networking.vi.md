@@ -2,9 +2,8 @@
 
 !!! abstract "Trong một câu"
     Một qubit **không thể** bị nhân bản, nên mạng lượng tử không thể chuyển tiếp
-    gói tin như mạng cổ điển. Nó phải *dựng lại* trạng thái ở mỗi nút — đó là
-    **dịch chuyển lượng tử** (teleportation) với cặp rối dùng chung và hai bit
-    cổ điển, và đó là **bộ lặp** (repeater) nối các mắt xích lại.
+    gói tin như mạng cổ điển — nó phải *dựng lại* trạng thái ở mỗi nút, đó là
+    **truyền tải lượng tử** với cặp rối dùng chung và hai bit cổ điển.
 
 ## Một byte qua socket
 
@@ -40,20 +39,20 @@ Nó hoạt động vì **đọc** một bit cổ điển không làm nhiễu nó
 (no-cloning) nói rằng không máy nào có thể sao chép một trạng thái lượng tử
 chưa biết.
 
-Lập luận rất ngắn. Giả sử có một máy sao chép được mọi trạng thái `|ψ>` mà vẫn
+Lập luận rất ngắn. Giả sử có một máy sao chép được mọi trạng thái `|ψ⟩` mà vẫn
 để nguyên bản gốc.
 
-1. Cho nó vào `|+>`. Bản sao ra cũng là `|+>`, chưa thấy vấn đề gì.
-2. Cho nó vào `( |0> + |1> ) / √2`. Vì việc sao chép phải là một phép *tuyến
+1. Cho nó vào `|+⟩`. Bản sao ra cũng là `|+⟩`, chưa thấy vấn đề gì.
+2. Cho nó vào `( |0⟩ + |1⟩ ) / √2`. Vì việc sao chép phải là một phép *tuyến
    tính* trên các biên độ, bản sao bị buộc phải là
-   `( |00> + |11> ) / √2`.
-3. Nhưng đo **một** qubit của `( |00> + |11> ) / √2` cho kết quả 0 hoặc 1 chắc
-   chắn, khiến qubit còn lại sụp về `|0>` hoặc `|1>`.
-4. Vậy "bản sao" chỉ là `|0>` hoặc `|1>` — không bao giờ là `|+>`. Mâu thuẫn.
+   `( |00⟩ + |11⟩ ) / √2`.
+3. Nhưng đo **một** qubit của `( |00⟩ + |11⟩ ) / √2` cho kết quả 0 hoặc 1 chắc
+   chắn, khiến qubit còn lại sụp về `|0⟩` hoặc `|1⟩`.
+4. Vậy "bản sao" chỉ là `|0⟩` hoặc `|1⟩` — không bao giờ là `|+⟩`. Mâu thuẫn.
 
 ### Một lần thử thất bại trông như thế nào
 
-Cách thử hiển nhiên nhất là một `CNOT`: chuẩn bị `|+>` trên `q0`, rồi `CNOT`
+Cách thử hiển nhiên nhất là một `CNOT`: chuẩn bị `|+⟩` trên `q0`, rồi `CNOT`
 sang `q1`. Qiskit sẽ vui vẻ dựng và chạy nó. Kết quả sai một cách âm thầm:
 
 ![Cách thử nhân bản](../assets/ch06-clone-attempt-circuit.png){ width="420" }
@@ -63,14 +62,14 @@ Qubit điều khiển không hề bị đụng tới, nên `q0` **vẫn** giữ 
 
 $$H(0),\; CNOT(0,1) \quad\longrightarrow\quad \frac{|00\rangle + |11\rangle}{\sqrt{2}}$$
 
-Đó là một **trạng thái Bell**, không phải hai trạng thái `|+>`. Đo cặp này ra,
+Đó là một **trạng thái Bell**, không phải hai trạng thái `|+⟩`. Đo cặp này ra,
 kết quả **tương quan** hoàn hảo — `01` và `10` không bao giờ xuất hiện — trong
 khi hai bản sao thật sẽ độc lập và cho cả bốn kết quả ở mức 25%:
 
 ![Bản sao hoàn hảo so với cách thử bằng CNOT](../assets/ch06-clone-agreement.png){ width="620" }
 
 Mẫu còn thử cả mẹo đối xứng: quên chuyện sao chép đi, chỉ cần tự chuẩn bị một
-`|+>` mới bằng `H`. Không chiến lược nào phủ hết mọi đầu vào.
+`|+⟩` mới bằng `H`. Không chiến lược nào phủ hết mọi đầu vào.
 
 | Đầu vào | `CNOT`: bản sao | `CNOT`: bản gốc | `H` mới trên bản sao | Một bản sao thật |
 |---|---|---|---|---|
@@ -83,12 +82,12 @@ Mẫu còn thử cả mẹo đối xứng: quên chuyện sao chép đi, chỉ c
 `H`: ngược lại. **Không chiến lược nào đúng cho cả bốn đầu vào.** Chính khoảng
 trống đó là định lý không nhân bản, đo được.
 
-![Độ trung thành của bản sao bằng CNOT](../assets/ch06-clone-fidelity.png){ width="420" }
+![Độ trung thực của bản sao bằng CNOT](../assets/ch06-clone-fidelity.png){ width="420" }
 
 !!! note "Cái giá phải trả trên một mạng thật"
-    Mạng cổ điển tạo một bản sao của mỗi gói tin để phòng khi đường truyền đứt.
-    Mạng lượng tử không thể làm vậy. Nó buộc phải *tạo lại* trạng thái ở mỗi
-    mắt xích, và phần còn lại của chương nói về điều đó.
+    Mạng cổ điển tạo một bản sao của mỗi gói tin để phòng khi liên kết đứt.
+    Mạng lượng tử không thể làm vậy. Nó buộc phải *dựng lại* trạng thái ở mỗi
+    liên kết, và phần còn lại của chương nói về điều đó.
 
 ## Một pha mà bạn không nhìn thấy
 
@@ -123,7 +122,7 @@ teleportation dùng.
 ![Các ma trận hệ số](../assets/ch06-cz-matrices.png){ width="620" }
 
 Hai trường hợp đối chiếu. `CZ` sau một `H` đơn lẻ là **vô tác dụng hoàn toàn**,
-vì qubit 1 vẫn ở `|0>` nên điều khiển không bao giờ kích hoạt. Và `CZ` trên trạng
+vì qubit 1 vẫn ở `|0⟩` nên điều khiển không bao giờ kích hoạt. Và `CZ` trên trạng
 thái Bell chỉ lật cùng một dấu, còn tập kết quả `{00, 11}` không đổi, vì `CNOT`
 đã làm phần tương quan từ trước rồi.
 
@@ -152,7 +151,7 @@ Giao thức:
 5. **Sửa sai.** Bob áp dụng `X` lên `q2` nếu bit của anh ấy cho `q1` là `1`, và
    `Z` nếu bit cho `q0` là `1`.
 
-| Tin nhắn của Alice | Bob áp dụng | Qubit của Bob khi Alice gửi <code>\|0⟩</code> | Độ trung thành |
+| Tin nhắn của Alice | Bob áp dụng | Qubit của Bob khi Alice gửi <code>\|0⟩</code> | Độ trung thực |
 |---|---|---|---|
 | `00` | không làm gì | <code>\|0⟩</code> | 1.000 |
 | `01` | `X` | <code>\|0⟩</code> | 1.000 |
@@ -160,9 +159,12 @@ Giao thức:
 | `11` | `X` rồi `Z` | <code>\|0⟩</code> | 1.000 |
 
 Cả bốn tin nhắn đều xảy ra với xác suất ¼, và **cả bốn đều dựng lại trạng thái
-chính xác**. Đó là toàn bộ điều giao thức khẳng định, và nó đúng cho mọi đầu vào:
+chính xác**. Đó là toàn bộ điều giao thức khẳng định, và nó đúng cho mọi đầu vào.
 
-| Alice gửi | Bob đo | Độ trung thành |
+Cột **độ trung thực** dưới đây đo hai trạng thái giống nhau đến đâu, chạy từ 0 đến
+1. Độ trung thực bằng 1.0 nghĩa là hai trạng thái giống hệt nhau:
+
+| Alice gửi | Bob đo | Độ trung thực |
 |---|---|---|
 | <code>\|0⟩</code> | P(0) = 1.00 | 1.000 |
 | <code>\|1⟩</code> | P(1) = 1.00 | 1.000 |
@@ -171,8 +173,8 @@ chính xác**. Đó là toàn bộ điều giao thức khẳng định, và nó 
 
 ![Mọi tin nhắn đều dựng lại trạng thái](../assets/ch06-teleport-fidelity.png){ width="620" }
 
-Hãy chú ý điều mà độ trung thành bằng 1.0 *không* có nghĩa: Bob không thể tự tạo
-ra `|+>` từ `|0>`, cũng không thể tự tạo ra `|0>` từ `|+>`. Anh ấy chỉ *dựng
+Hãy chú ý điều mà độ trung thực bằng 1.0 *không* có nghĩa: Bob không thể tự tạo
+ra `|+⟩` từ `|0⟩`, cũng không thể tự tạo ra `|0⟩` từ `|+⟩`. Anh ấy chỉ *dựng
 lại* một trạng thái vốn đã tồn tại ở phía Alice. Teleportation chuyển **thông
 tin**, không chuyển hạt — dù sao thì `q0` của Alice vẫn mất.
 
@@ -184,10 +186,10 @@ tin**, không chuyển hạt — dù sao thì `q0` của Alice vẫn mất.
     và không cách nào sửa. Đó là hai "bit cổ điển" trong tên của giao thức, và đó
     là lý do teleportation **không** vượt ánh sáng.
 
-## Từ mạch tới mạng: bộ lặp
+## Từ mạch tới mạng: trạm lặp
 
-Teleportation chuyển trạng thái qua **một** mắt xích. **Bộ lặp** (repeater) nối
-nhiều mắt xích lại để trạng thái vượt được khoảng cách xa hơn nhiều, với một nút
+Teleportation chuyển trạng thái qua **một** liên kết. **Trạm lặp** (repeater) nối
+nhiều liên kết lại để trạng thái vượt được khoảng cách xa hơn nhiều, với một nút
 ở giữa đóng vai trò vừa là nơi nhận vừa là nơi gửi:
 
 ```
@@ -195,15 +197,15 @@ Alice (q0)  ---  mắt 1  ---  relay (q2)  ---  mắt 2  ---  Bob (q4)
                         với q1                    với q3
 ```
 
-![Hai mắt xích nối qua một nút trung gian](../assets/ch06-repeater-circuit.png){ width="620" }
+![Hai đoạn liên kết nối qua một nút trung gian](../assets/ch06-repeater-circuit.png){ width="620" }
 
-Nút trung gian là phần thú vị. Nó **đo** các qubit của mình ở mắt xích đầu tiên,
+Nút trung gian là phần thú vị. Nó **đo** các qubit của mình ở liên kết đầu tiên,
 đúng như Alice đo vậy, nên nó không bao giờ giữ trạng thái một cách sạch sẽ ở
 giữa chừng. Thứ thực sự di chuyển không phải là trạng thái: đó là chuỗi các
 **tương quan** cộng với *bốn* bit cổ điển — hai từ Alice, hai từ nút trung gian.
 
 Để chứng minh trạng thái thực sự đến nơi, Alice khởi tạo một qubit không phải
-`|0>` cũng không phải `|1>`: một phép quay với `P(1) = 0.4`. Nếu nút trung gian
+`|0⟩` cũng không phải `|1⟩`: một phép quay với `P(1) = 0.4`. Nếu nút trung gian
 chỉ chuyển tiếp bit cổ điển, Bob sẽ chỉ thấy 0 và 1. Thay vào đó, thống kê của
 anh ấy khớp với thống kê của cô ấy, cho mọi đầu vào:
 
@@ -226,11 +228,16 @@ thái không bao giờ nằm trên đường dưới dạng bản sao, và đó 
 mọi thứ vẫn hoạt động dù không thể sao chép.
 
 !!! note "Hướng đi tiếp"
-    Trong một mạng lượng tử thật, khoảng cách bị giới hạn bởi **suy hao** chứ
-    không phải bởi tốc độ ánh sáng: một trạng thái đã mất tính toàn vẹn thì
-    không thể sửa, vì không có bản sao nào để dựa vào. Bộ lặp không khuếch đại
-    tín hiệu yếu như bộ lặp cổ điển — nó *tạo lại* trạng thái ở mỗi nút từ cặp
-    rối dùng chung cộng một tin nhắn cổ điển.
+    Trong một mạng lượng tử thật, khoảng cách bị giới hạn bởi hao mất, chứ không
+    phải bởi tốc độ ánh sáng. Có hai cơ chế khác nhau:
+
+    - **Suy hao** — trạng thái bị hấp thụ hoặc tán xạ dọc đường và không tới nơi.
+    - **Mất tính toàn vẹn** (decoherence) — trạng thái vẫn tới nơi nhưng chồng
+      chập và pha của nó đã bị nhiễu làm hỗn loạn.
+
+    Cả hai đều không sửa được, vì không có bản sao nào để dựa vào. Đó là lý do trạm
+    lặp không khuếch đại tín hiệu yếu như trạm lặp cổ điển — nó *dựng lại* trạng
+    thái ở mỗi nút từ cặp rối dùng chung cộng một tin nhắn cổ điển.
     [Chương 8](ch08-secure-communication.md) biến cùng ý tưởng đó thành truyền
     thông an toàn.
 
@@ -245,10 +252,10 @@ chứa một đối tác Bell chứ không phải một bản sao.
 
 ![Bản sao hoàn hảo so với cách thử bằng CNOT](../assets/ch06-clone-agreement.png){ width="620" }
 
-Hai bản sao thật của `|+>` sẽ độc lập (mỗi kết quả 25%); cách thử lại tương quan
+Hai bản sao thật của `|+⟩` sẽ độc lập (mỗi kết quả 25%); cách thử lại tương quan
 hoàn hảo, và `01`/`10` biến mất.
 
-![Độ trung thành của bản sao bằng CNOT](../assets/ch06-clone-fidelity.png){ width="420" }
+![Độ trung thực của bản sao bằng CNOT](../assets/ch06-clone-fidelity.png){ width="420" }
 
 Đúng với trạng thái cơ sở, sai hoàn toàn với chồng chập.
 
@@ -278,7 +285,7 @@ khiển.
 
 ### Bộ lặp
 
-![Hai mắt xích nối qua một nút trung gian](../assets/ch06-repeater-circuit.png){ width="620" }
+![Hai đoạn liên kết nối qua một nút trung gian](../assets/ch06-repeater-circuit.png){ width="620" }
 
 Hai cặp Bell, hai phép đo kiểu Bell, bốn phép sửa cổ điển.
 
@@ -298,7 +305,7 @@ Hai cặp Bell, hai phép đo kiểu Bell, bốn phép sửa cổ điển.
 - **Teleportation** chuyển một trạng thái bằng cách hủy bản gốc rồi dựng lại nó
   từ cặp rối dùng chung cộng **hai bit cổ điển**. Nó chuyển thông tin, không
   chuyển hạt, và không vượt ánh sáng.
-- Một **bộ lặp** nối các mắt xích teleportation; một nút trung gian mà phải
+- Một **trạm lặp** nối các liên kết truyền tải; một nút trung gian mà phải
   *đo* vẫn có thể chuyển tiếp trạng thái, và qubit nhận được giữ nguyên thống
   kê ban đầu.
 - Vì không thể sửa từ một bản sao dự phòng khi bị mất tính toàn vẹn, mạng lượng
@@ -315,7 +322,7 @@ Bốn mẫu, mỗi mẫu cho một mục của sách, cùng một bộ mô phỏ
 - [`ch06/teleportation.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch06/teleportation.py)
   — mạch teleportation và bảng phép sửa của nó.
 - [`ch06/repeater.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch06/repeater.py)
-  — chuỗi hai mắt xích qua một nút trung gian.
+  — chuỗi hai đoạn liên kết qua một nút trung gian.
 - [`ch06/protocol.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch06/protocol.py)
   — bộ mô phỏng nhánh dùng chung. Teleportation cần một phép **đo giữa mạch**
   mà kết quả của nó điều khiển các cổng cổ điển, và `Statevector` của Qiskit

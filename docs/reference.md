@@ -61,14 +61,14 @@ always shows where it came from.
 | `ch05-amplitude-matrices.png` | 5 | Coefficient matrices: product state (rank 1) vs. Bell state (rank 2) |
 | `ch06-clone-attempt-circuit.png` | 6 | Circuit: `H` then `CNOT`, the failed clone attempt |
 | `ch06-clone-fidelity.png` | 6 | Fidelity of the `CNOT` copy for each input state |
-| `ch06-clone-agreement.png` | 6 | Clone of `\|+>`: independent copies vs. the correlated `CNOT` attempt |
+| `ch06-clone-agreement.png` | 6 | Clone of `\|+⟩`: independent copies vs. the correlated `CNOT` attempt |
 | `ch06-cz-circuit.png` | 6 | Circuit: `H` then `CZ`, then measurement |
 | `ch06-cz-vs-bell.png` | 6 | `CZ` entangles the pair without changing any probability |
 | `ch06-cz-matrices.png` | 6 | Coefficient matrices: one sign flip takes rank 1 to rank 2 |
 | `ch06-teleport-circuit.png` | 6 | Teleportation: Bell pair, Bell measurement, `If X` / `If Z` corrections |
 | `ch06-teleport-outcomes.png` | 6 | Bob's result for each state Alice sends, keyed by message |
 | `ch06-teleport-fidelity.png` | 6 | Every message reconstructs the state exactly |
-| `ch06-repeater-circuit.png` | 6 | Two chained hops over five qubits and four classical bits |
+| `ch06-repeater-circuit.png` | 6 | Two chained links over five qubits and four classical bits |
 | `ch06-repeater-consistency.png` | 6 | Alice's starting `P(1)` vs. Bob's delivered `P(0)` |
 | `ch06-repeater-counts.png` | 6 | `P(1) = 0.4` sent through the relay: expected vs. measured |
 

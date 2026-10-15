@@ -1,10 +1,8 @@
 # Chương 5 — Rối lượng tử
 
 !!! abstract "Trong một câu"
-    Hai qubit có thể chia sẻ một trạng thái chung **không thể** mô tả từng qubit
-    một: cổng **CNOT** biến chồng chập thành một **trạng thái Bell**, mà hai qubit
-    của nó luôn đo ra *giống nhau* — tương quan hoàn hảo, dù mỗi qubit đều ngẫu
-    nhiên.
+    Cổng **CNOT** biến chồng chập thành một **trạng thái Bell** — hai qubit luôn
+    đo ra *giống nhau*, theo một trạng thái chung không thể mô tả từng qubit một.
 
 ## Hai qubit cùng lúc
 
@@ -40,7 +38,7 @@ thứ tự quen thuộc trong giáo trình. Bảng chân trị khi đó là:
 Trong `|10⟩`, điều khiển bằng `1`, nên đích bị lật và trạng thái thành `|11⟩`;
 khi điều khiển bằng `0` (`|00⟩`, `|01⟩`) thì không có gì xảy ra.
 
-Như mọi cổng lượng tử, `CNOT` **khả nghịch** và **unitary**. Trong thứ tự cơ sở
+Như mọi cổng lượng tử, `CNOT` **khả nghịch** và **unita**. Trong thứ tự cơ sở
 `|00⟩, |01⟩, |10⟩, |11⟩`, ma trận của nó là
 
 $$CNOT = \begin{bmatrix}1&0&0&0\\ 0&1&0&0\\ 0&0&0&1\\ 0&0&1&0\end{bmatrix}$$
@@ -106,9 +104,13 @@ xu độc lập. Đây là một **trạng thái tích**: biết qubit 0 không 
 qubit 1.
 
 Một phép thử gọn gàng phân biệt hai trường hợp. Xếp bốn biên độ thành ma trận 2×2.
-Trạng thái tích cho ma trận **hạng 1** (mọi hàng là bội của hàng kia); trạng thái
-Bell cho **hạng 2**. Các [ma trận hệ số](#ma-tran-he-so) bên dưới cho thấy hai cái
-cạnh nhau.
+Trạng thái tích cho ma trận **hạng 1** — mọi hàng là bội của hàng kia, nên trạng
+thái tách ra được thành tích. Trạng thái Bell cho **hạng 2** — các hàng độc lập với
+nhau, nên không tách được.
+
+Hạng là số hàng độc lập; với ma trận 2×2 nó chỉ là 1 hoặc 2. Đây chính là **hạng
+Schmidt** của trạng thái: 1 là trạng thái tích, 2 là rối. Các [ma trận hệ số](#ma-tran-he-so)
+bên dưới cho thấy hai cái cạnh nhau.
 
 | | Hai qubit `H` (tích) | Trạng thái Bell (rối) |
 |---|---|---|
@@ -168,7 +170,7 @@ tích cho ma trận hạng 1 (mọi phần tử `0.50`); trạng thái Bell cho 
 ## Điểm cốt lõi
 
 - Hai qubit sống trong không gian bốn chiều sinh bởi `|00⟩, |01⟩, |10⟩, |11⟩`.
-- `CNOT` lật **đích** khi **điều khiển** bằng `1`; nó khả nghịch và unitary.
+- `CNOT` lật **đích** khi **điều khiển** bằng `1`; nó khả nghịch và unita.
 - `H` rồi `CNOT` tạo trạng thái Bell `(|00⟩ + |11⟩)/√2`.
 - Đo trạng thái Bell chỉ cho `00` hoặc `11` — kết quả tương quan hoàn hảo.
 - Từng qubit riêng vẫn 50/50, nên tính ngẫu nhiên nằm ở các *tương quan*.

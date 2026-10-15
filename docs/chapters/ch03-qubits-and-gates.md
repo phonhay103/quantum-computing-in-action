@@ -79,9 +79,13 @@ Contrast the two chapters directly:
 | Repeated measurements | mixed `0`s and `1`s | always `1` |
 
 The difference is the state, not the measuring device. A definite state measures
-definitely; a balanced superposition measures randomly. (Throughout, "measure"
-means a measurement in the computational `{|0⟩, |1⟩}` basis — the same Z axis the
-Bloch sphere's poles represent.)
+definitely; a balanced superposition measures randomly.
+
+!!! info "What "measurement basis" means
+    Throughout, "measure" means a measurement in the computational `{|0⟩, |1⟩}`
+    basis — the same Z axis the Bloch sphere's poles represent. A different basis
+    gives different results; Chapter 6 runs into a case where the state changes
+    sign yet every measurement probability stays exactly the same.
 
 ## The diagrams
 

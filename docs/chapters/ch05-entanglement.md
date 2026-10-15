@@ -1,9 +1,9 @@
 # Chapter 5 — Entanglement
 
 !!! abstract "In one sentence"
-    Two qubits can share a joint state that **cannot** be described one qubit at
-    a time: the **CNOT** gate turns a superposition into a **Bell state**, whose
-    two qubits always measure the *same* — perfectly correlated, yet each random.
+    The **CNOT** gate turns a superposition into a **Bell state**, whose two
+    qubits always measure the *same* — a joint state that cannot be described one
+    qubit at a time.
 
 ## Two qubits at once
 
@@ -107,9 +107,13 @@ independent coins. This is a **product state**: knowing qubit 0 tells you nothin
 about qubit 1.
 
 A neat test separates the two cases. Reshape the four amplitudes into a 2×2
-matrix. A product state has a **rank-1** matrix (every row is a multiple of the
-other); a Bell state has **rank 2**. The [coefficient matrices](#coefficient-matrices)
-below show the two side by side.
+matrix. A product state has a **rank-1** matrix — every row is a multiple of the
+other, so the state factors apart. A Bell state has **rank 2** — the rows are
+independent, so it does not factor.
+
+Rank is the number of independent rows; for a 2×2 matrix it is simply 1 or 2.
+This is the state's **Schmidt rank**: 1 means product, 2 means entangled. The
+[coefficient matrices](#coefficient-matrices) below show the two side by side.
 
 | | Two `H` qubits (product) | Bell state (entangled) |
 |---|---|---|

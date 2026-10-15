@@ -26,10 +26,10 @@ Tên chương bám theo mục lục của sách.
 |--------|-----------|-----------------------|-------|
 | [1 — Tiến hoá, cách mạng, hay cường điệu?](chapters/ch01-evolution-revolution-hype.md) | hoàn thành | Điện toán lượng tử là một bước tiến hoá với tăng tốc cách mạng cho một nhóm bài toán hẹp, ví dụ phân tích thừa số | [cổ điển so với Shor, cổ điển riêng](chapters/ch01-evolution-revolution-hype.md) |
 | [2 — Hello World kiểu điện toán lượng tử](chapters/ch02-hello-world.md) | hoàn thành | Qubit ở trạng thái chồng chập cho ra `0`/`1` thực sự ngẫu nhiên khi đo | [mạch, biểu đồ, Bloch](chapters/ch02-hello-world.md) |
-| [3 — Qubit và cổng lượng tử](chapters/ch03-qubits-and-gates.md) | hoàn thành | Qubit là đơn vị cơ bản và cổng là phép toán khả nghịch; `X` lật <code>\|0⟩</code> thành <code>\|1⟩</code> tất định | [mạch, Bloch, số lần đo](chapters/ch03-qubits-and-gates.md) |
+| [3 — Qubit và cổng lượng tử](chapters/ch03-qubits-and-gates.md) | hoàn thành | Qubit là đơn vị cơ bản và cổng là phép toán khả nghịch; `X` lật <code⟩\|0⟩</code⟩ thành <code⟩\|1⟩</code⟩ tất định | [mạch, Bloch, số lần đo](chapters/ch03-qubits-and-gates.md) |
 | [4 — Chồng chập](chapters/ch04-superposition.md) | hoàn thành | Trạng thái là vector và cổng là ma trận; `H` tạo chồng chập đều và `H·H` xoá nó | [mạch, Bloch, số lần đo, ma trận](chapters/ch04-superposition.md) |
 | [5 — Rối lượng tử](chapters/ch05-entanglement.md) | hoàn thành | Hai qubit có thể chia sẻ một trạng thái chung không thể mô tả riêng từng qubit | [mạch, số lần đo, so sánh, ma trận](chapters/ch05-entanglement.md) |
-| [6 — Mạng lượng tử: những điều cơ bản](chapters/ch06-quantum-networking.md) | hoàn thành | Một qubit không thể nhân bản, nên nó phải được *chuyển đi*: teleportation dựng lại một trạng thái từ cặp rối dùng chung cộng hai bit cổ điển, và bộ lặp nối các mắt xích lại | [không nhân bản, CZ, dịch chuyển, bộ lặp](chapters/ch06-quantum-networking.md#so-o) |
+| [6 — Mạng lượng tử: những điều cơ bản](chapters/ch06-quantum-networking.md) | hoàn thành | Một qubit không thể nhân bản, nên nó phải được *dựng lại ở nơi khác*: truyền tải lượng tử tái tạo một trạng thái từ cặp rối dùng chung cộng hai bit cổ điển, và trạm lặp nối các liên kết lại | [không nhân bản, CZ, truyền tải, trạm lặp](chapters/ch06-quantum-networking.md#so-do) |
 | [7 — HelloWorld của chúng ta, giải thích](chapters/ch07-helloworld-explained.md) | dự kiến | Dựng lại mạch tạo bit ngẫu nhiên từng cổng một để thấy nó thực sự hoạt động ra sao | — |
 | [8 — Truyền thông an toàn bằng điện toán lượng tử](chapters/ch08-secure-communication.md) | dự kiến | Phân phối khoá lượng tử (BB84) khiến hành vi nghe lén bị phát hiện | — |
 | [9 — Thuật toán Deutsch–Jozsa](chapters/ch09-deutsch-jozsa.md) | dự kiến | Quyết định hàm là hằng số hay cân bằng chỉ trong một truy vấn | — |
@@ -77,13 +77,15 @@ cho biết nó đến từ đâu.
 ![Cách thử nhân bản thất bại](assets/ch06-clone-attempt-circuit.png){ width="360" }
 ![Bản sao hoàn hảo so với cách thử bằng CNOT](assets/ch06-clone-agreement.png){ width="560" }
 ![Mạch teleportation](assets/ch06-teleport-circuit.png){ width="620" }
-![Hai mắt xích nối qua một nút trung gian](assets/ch06-repeater-circuit.png){ width="620" }
+![Hai đoạn liên kết nối qua một nút trung gian](assets/ch06-repeater-circuit.png){ width="620" }
 
 ## Đi tiếp ở đâu
 
 - Mới bắt đầu? Xem **[Bắt đầu](getting-started.md)** để chạy ví dụ và vẽ lại sơ đồ.
 - Mới với các ý nền (bit, biên độ, pha, mặt cầu Bloch)? Đọc lướt trang
   **[Kiến thức nền](foundations.md)**.
+- Vướng một từ như *độ trung thực*, *hạng Schmidt*, hay *dưới hàm mũ*? Tra trong
+  bảng **[Thuật ngữ](glossary.md)**.
 - Chỉ muốn phần khái niệm? Đi thẳng tới
   **[Chương 1](chapters/ch01-evolution-revolution-hype.md)**.
 - Tìm mã tạo ra một hình? Xem bảng trong **[Tham chiếu](reference.md)**, ánh xạ mỗi

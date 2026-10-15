@@ -1,11 +1,9 @@
 # Chapter 1 — Evolution, revolution, or hype?
 
 !!! abstract "In one sentence"
-    Quantum computing is a genuine **evolution** of computing, but it is not a
-    drop-in replacement: it matters because **Shor's algorithm factors large
-    numbers in polynomial time**, while the best known classical algorithm needs
-    *super-polynomial* (sub-exponential) time — and modern encryption assumes
-    that fact is hard.
+    Quantum computing matters for one reason: **Shor's algorithm factors large
+    numbers in polynomial time**, while the best classical algorithm needs
+    sub-exponential time — and modern encryption relies on factoring being hard.
 
 ## The evolution of computing
 
@@ -51,8 +49,12 @@ are exactly the algorithms this book walks through.
 
 A related idea the book uses is **hybrid computing**: a small quantum device
 handles the part where quantum rules win, and a classical computer drives the
-rest. Speed-ups are not all equal either — Shor's is **exponential**, while
-Grover's search is only **quadratic** — so "faster" always needs a qualifier.
+rest.
+
+Speed-ups are not all equal either. Shor's is **exponential**. Grover's is only
+**quadratic** — it cuts an `N`-step search to about `√N` steps, which is a
+square-root improvement, not an exponential one. So "faster" always needs a
+qualifier.
 
 ## Why factoring is the hook
 
@@ -84,9 +86,10 @@ foundations):
 |--------|------|-----------|
 | grows like `b`, `b²`, `b³` … | **polynomial** | Doubling `b` multiplies the work by a small constant factor — manageable |
 | grows like `2^b`, `e^b` … | **exponential** | Adding *one* bit can roughly double the work — quickly hopeless |
+| sits between the two | **sub-exponential** | Faster than any polynomial, slower than a true exponential |
 
 The whole promise of quantum computing, in this chapter, is a jump from the
-second row to the first.
+bottom rows to the top one.
 
 ## The classical cost
 
@@ -96,10 +99,14 @@ sieve (GNFS)**. Its running time is roughly
 $$e^{\left(\tfrac{64}{9}\,b\,(\ln b)^2\right)^{1/3}}$$
 
 This is the book's simplified estimate of GNFS. The key detail is the
-`(ln b)^2` inside the root: the exponent grows with `b`, which makes the whole
-expression grow **super-polynomially**. Adding bits does not just add work — it
-multiplies it, again and again. Strictly speaking, GNFS is **sub-exponential** —
-faster than a full exponential but still far beyond any polynomial.
+`(ln b)^2` inside the root: the exponent itself grows with `b`, which makes the
+whole expression grow **sub-exponentially**.
+
+Sub-exponential is a precise term, and it is not the same as
+"super-polynomial". Sub-exponential means *faster than every polynomial but
+slower than a true exponential*. Both statements are true of GNFS; only the
+second one is more informative here. The practical effect: adding bits does not
+just add work, it *multiplies* it — again and again.
 
 Practical consequence: every few extra bits of key length make classical
 factoring dramatically more expensive. That is why keys of 2048 bits are
@@ -117,10 +124,11 @@ method explodes far more violently.
 
 !!! warning "Reality check"
     "Polynomial" is not the same as "easy today". Shor still needs a large,
-    error-corrected quantum computer. Today's machines are **NISQ** — noisy,
-    intermediate-scale, and not error-corrected — so they use many *physical*
-    qubits to encode one reliable **logical** qubit. The chapter is about the
-    *asymptotic promise*, not about breaking RSA on current hardware.
+    error-corrected quantum computer. Today's machines are **NISQ** — *Noisy
+    Intermediate-Scale Quantum*: a few hundred error-prone qubits with no error
+    correction at all. They spend many *physical* qubits to encode one reliable
+    **logical** qubit. The chapter is about the *asymptotic promise*, not about
+    breaking RSA on current hardware.
 
 ## The diagrams
 
@@ -132,7 +140,8 @@ curve.
 
 ![The classical curve on its own](../assets/ch01-time-complexity-classical.png){ width="520" }
 
-- The **classical** curve (yellow) climbs steeply — it is the super-polynomial wall.
+- The **classical** curve (yellow) climbs steeply — that is the sub-exponential
+  wall.
 - The **Shor** curve (green) stays low and almost flat by comparison — this is
   the polynomial path.
 
@@ -150,7 +159,7 @@ comparatively modest. The figures above tell the same story as a picture.
 - Quantum computing is an **evolution** with a **revolutionary** speed-up for a
   narrow set of problems — not a universal faster computer.
 - The clearest wins are cryptography, quantum simulation, and search.
-- Classical GNFS is **super-polynomial**; Shor is **polynomial** (`b³`).
+- Classical GNFS is **sub-exponential**; Shor is **polynomial** (`b³`).
 - The speed-up is about *asymptotic growth*, not present-day machines.
 - This is exactly why post-quantum cryptography is an active field.
 

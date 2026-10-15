@@ -35,8 +35,8 @@ Một thuộc tính định hình của cổng lượng tử là chúng **khả 
 bao giờ bị ném đi. Mỗi cổng đều có nghịch đảo khôi phục trạng thái trước đó. Điều
 này tương phản với các cổng cổ điển quen thuộc — `AND` nhận hai đầu vào nhưng chỉ
 trả một đầu ra, nên không thể khôi phục đầu vào từ đầu ra. Về mặt toán học, tính
-khả nghịch nghĩa là cổng là một ma trận **unitary**
-(xem [vector, ma trận và cổng unitary](../foundations.md)), điều Chương 4 sẽ trình
+khả nghịch nghĩa là cổng là một ma trận **unita**
+(xem [vector, ma trận và cổng unita](../foundations.md)), điều Chương 4 sẽ trình
 bày rõ.
 
 - Nghịch đảo của `X` chính là `X`: `X·X = I`.
@@ -79,9 +79,14 @@ So sánh trực tiếp hai chương:
 | Đo lặp nhiều lần | lẫn lộn `0` và `1` | luôn là `1` |
 
 Khác biệt nằm ở trạng thái, không phải ở thiết bị đo. Trạng thái xác định cho kết
-quả xác định; chồng chập đều cho kết quả ngẫu nhiên. (Xuyên suốt ghi chú, "đo"
-nghĩa là đo trong cơ sở tính toán `{|0⟩, |1⟩}` — chính trục Z mà các cực của mặt
-cầu Bloch biểu diễn.)
+quả xác định; chồng chập đều cho kết quả ngẫu nhiên.
+
+!!! info "Cơ sở đo là gì"
+    Xuyên suốt ghi chú, "đo" luôn có nghĩa là đo trong cơ sở tính toán
+    `{|0⟩, |1⟩}` — chính đường xích đạo của mặt cầu Bloch, hay trục Z mà hai
+    cực của nó biểu diễn. Chọn cơ sở khác sẽ cho ra kết quả khác; Chương 6 gặp
+    một trường hợp mà dấu hiệu trạng thái thay đổi mà mọi xác suất đo vẫn giữ
+    nguyên.
 
 ## Các sơ đồ
 

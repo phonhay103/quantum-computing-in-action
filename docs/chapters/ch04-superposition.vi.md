@@ -156,7 +156,7 @@ Cùng mạch đó với **cổng `H` thứ hai**. Hai cổng triệt tiêu nhau,
 
 ### Trên mặt cầu Bloch
 
-![|0>, sau H, và sau H·H](../assets/ch04-hadamard-bloch.png){ width="640" }
+![|0⟩, sau H, và sau H·H](../assets/ch04-hadamard-bloch.png){ width="640" }
 
 - **`|0⟩`** — cực bắc, điểm xuất phát.
 - **sau `H`** — nằm trên đường xích đạo: chồng chập cực đại, ngẫu nhiên 50/50.

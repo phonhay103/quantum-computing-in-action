@@ -4,6 +4,9 @@ Ghi chú này giả định bạn đọc được một chút đại số tuyế
 học lượng tử. Trang này gom các ý tưởng nền nhỏ mà mọi chương đều dựa vào. Đọc
 lướt một lần, rồi quay lại mỗi khi một chương dùng thuật ngữ bạn chưa nhận ra.
 
+Mọi thuật ngữ ở đây đều có mục trong bảng **[Thuật ngữ](glossary.md)**, kèm
+tiếng Anh tương ứng.
+
 ## Bit, qubit và ký hiệu Dirac
 
 **Bit** cổ điển là `0` hoặc `1`. Bit lượng tử — **qubit** — còn có thể là *tổ hợp*
@@ -37,7 +40,7 @@ tả cùng một vật lý. Thứ *quan sát được* là **pha tương đối*
 giữa hai phần của cùng một trạng thái. Pha tương đối là thứ khiến các biên độ
 cộng vào hoặc triệt tiêu nhau — hiệu ứng gọi là **giao thoa**.
 
-## Vector, ma trận và cổng unitary
+## Vector, ma trận và cổng unita
 
 Trạng thái một qubit là một **vector cột** hai phần tử:
 
@@ -47,8 +50,8 @@ Một **cổng** là một ma trận nhân vào trạng thái:
 
 $$|\psi'\rangle = U\,|\psi\rangle$$
 
-Cổng lượng tử là **unitary**: `U^† U = I`. Tính unitary là lý do toán học khiến một
-cổng khả nghịch và bảo toàn chuẩn hoá của trạng thái.
+Cổng lượng tử là **unita** (unitary): `U^† U = I`. Tính chất unita là lý do toán học
+khiến một cổng khả nghịch và bảo toàn chuẩn hoá của trạng thái.
 
 ## Nhiều qubit và tích tensor
 

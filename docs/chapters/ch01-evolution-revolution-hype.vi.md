@@ -1,11 +1,9 @@
 # Chương 1 — Tiến hoá, cách mạng, hay cường điệu?
 
 !!! abstract "Trong một câu"
-    Điện toán lượng tử là một **bước tiến hoá** thực sự của máy tính, nhưng không
-    phải bản nâng cấp thay thế tất cả: nó quan trọng vì **thuật toán Shor phân
-    tích thừa số trong thời gian đa thức**, còn phương pháp cổ điển tốt nhất cần
-    thời gian *siêu đa thức* (dưới hàm mũ) — và mã hoá hiện đại dựa vào việc bài
-    toán đó là khó.
+    Điện toán lượng tử đáng giá vì một lý do: **thuật toán Shor phân tích thừa
+    số trong thời gian đa thức**, còn phương pháp cổ điển tốt nhất cần thời gian
+    *dưới hàm mũ* — và mã hoá hiện đại dựa vào việc bài toán đó là khó.
 
 ## Tiến hoá của máy tính
 
@@ -51,9 +49,12 @@ Ba nhóm đầu có lợi thế thuật toán rõ ràng nhất, và đúng là n
 cuốn sách này lần lượt đi qua.
 
 Một ý liên quan mà sách dùng là **điện toán lai**: thiết bị lượng tử nhỏ đảm nhận
-phần mà quy tắc lượng tử thắng thế, còn máy cổ điển điều khiển phần còn lại. Các
-mức tăng tốc cũng không như nhau — Shor là **hàm mũ**, còn tìm kiếm Grover chỉ là
-**bậc hai** — nên "nhanh hơn" luôn cần thêm vế định tính.
+phần mà quy tắc lượng tử thắng thế, còn máy cổ điển điều khiển phần còn lại.
+
+Các mức tăng tốc cũng không như nhau. Shor là **hàm mũ**. Còn Grover chỉ là
+**bậc hai** — nó cắt một bài tìm kiếm `N` bước xuống còn khoảng `√N` bước, tức là
+cải thiện cỡ căn bậc hai chứ không phải hàm mũ. Vì vậy "nhanh hơn" luôn cần
+thêm vế định tính.
 
 ## Vì sao phân tích thừa số là "mồi nhử"
 
@@ -81,9 +82,10 @@ giây chính xác mà quan tâm **hình dạng** của sự tăng trưởng (xem
 |-------------|-----|-----------|
 | tăng như `b`, `b²`, `b³` … | **đa thức** | Gấp đôi `b` chỉ nhân công việc lên một hằng số nhỏ — xử lý được |
 | tăng như `2^b`, `e^b` … | **hàm mũ** | Thêm *một* bit có thể gấp đôi công việc — nhanh chóng vô vọng |
+| nằm giữa hai loại trên | **dưới hàm mũ** | Nhanh hơn mọi đa thức, chậm hơn một hàm mũ đầy đủ |
 
-Toàn bộ lời hứa của điện toán lượng tử, trong chương này, là bước nhảy từ hàng thứ
-hai xuống hàng thứ nhất.
+Toàn bộ lời hứa của điện toán lượng tử, trong chương này, là bước nhảy từ các
+hàng dưới lên hàng trên cùng.
 
 ## Chi phí cổ điển
 
@@ -93,10 +95,14 @@ tổng quát (GNFS)**. Thời gian chạy của nó xấp xỉ
 $$e^{\left(\tfrac{64}{9}\,b\,(\ln b)^2\right)^{1/3}}$$
 
 Đây là ước lượng rút gọn của sách cho GNFS. Chi tiết then chốt là `(ln b)^2` nằm
-trong căn: số mũ tăng theo `b`, khiến cả biểu thức tăng **siêu đa thức**. Thêm bit
-không chỉ thêm việc — nó nhân việc lên, hết lần này đến lần khác. Nói chặt chẽ,
-GNFS là **dưới hàm mũ** — nhanh hơn một hàm mũ đầy đủ nhưng vẫn vượt xa mọi đa
-thức.
+trong căn: chính số mũ đó tăng theo `b`, khiến cả biểu thức tăng **dưới hàm
+mũ**.
+
+"Dưới hàm mũ" là một thuật ngữ có nghĩa chính xác, và nó *không* giống "siêu đa
+thức". Dưới hàm mũ nghĩa là *nhanh hơn mọi đa thức nhưng chậm hơn một hàm mũ thật*.
+Cả hai mô tả đều đúng với GNFS, nhưng ở đây cái thứ hai mới có thêm thông tin.
+Hệ quả thực tế: thêm bit không chỉ thêm việc, nó *nhân* việc lên — hết lần này
+đến lần khác.
 
 Hệ quả thực tế: mỗi vài bit khoá thêm vào khiến việc phân tích cổ điển đắt lên
 rất nhiều. Đó là lý do khoá 2048 bit được coi là an toàn ngày nay.
@@ -113,10 +119,10 @@ dữ dội hơn hẳn.
 
 !!! warning "Kiểm chứng thực tế"
     "Đa thức" không đồng nghĩa với "dễ ngay hôm nay". Shor vẫn cần một máy lượng
-    tử lớn, đã sửa lỗi. Máy hiện nay là **NISQ** — nhiễu, quy mô trung bình, và
-    chưa sửa lỗi — nên phải dùng nhiều qubit *vật lý* để mã hoá một qubit
-    **logic** đáng tin. Chương này nói về *lời hứa tiệm cận*, không phải về việc
-    phá RSA trên phần cứng hiện tại.
+    tử lớn, đã sửa lỗi. Máy hiện nay là **NISQ** — *Noisy Intermediate-Scale
+    Quantum*: vài trăm qubit nhiễu, hoàn toàn chưa có sửa lỗi. Chúng dùng nhiều
+    qubit *vật lý* để mã hoá một qubit **logic** đáng tin. Chương này nói về *lời
+    hứa tiệm cận*, không phải về việc phá RSA trên phần cứng hiện tại.
 
 ## Các sơ đồ
 
@@ -127,7 +133,7 @@ Sách vẽ **hai** biểu đồ: một so sánh cả hai thuật toán, và mộ
 
 ![Đường cổ điển riêng lẻ](../assets/ch01-time-complexity-classical.png){ width="520" }
 
-- Đường **cổ điển** (vàng) dốc đứng — đó là bức tường siêu đa thức.
+- Đường **cổ điển** (vàng) dốc đứng — đó là bức tường dưới hàm mũ.
 - Đường **Shor** (xanh lá) thấp và gần như phẳng khi so sánh — đó là con đường đa
   thức.
 
@@ -145,7 +151,7 @@ chuyện đó bằng hình ảnh.
 - Điện toán lượng tử là một **bước tiến hoá** với tăng tốc **cách mạng** cho một
   nhóm bài toán hẹp — không phải máy tính nhanh phổ quát.
 - Lợi thế rõ nhất là mật mã, mô phỏng lượng tử và tìm kiếm.
-- GNFS cổ điển là **siêu đa thức**; Shor là **đa thức** (`b³`).
+- GNFS cổ điển là **dưới hàm mũ**; Shor là **đa thức** (`b³`).
 - Tăng tốc nằm ở *tăng trưởng tiệm cận*, không phải máy móc hiện nay.
 - Đây chính là lý do mật mã hậu lượng tử đang được nghiên cứu tích cực.
 

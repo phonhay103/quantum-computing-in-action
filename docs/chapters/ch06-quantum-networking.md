@@ -2,9 +2,9 @@
 
 !!! abstract "In one sentence"
     A qubit **cannot** be copied, so a quantum network cannot forward a packet the
-    way ordinary networking does. It has to *rebuild* the state at each node —
-    which is what **teleportation** does with shared entanglement and two
-    classical bits, and what a **repeater** chains across a long link.
+    way ordinary networking does — it has to *rebuild* the state at each node, which
+    is what **teleportation** does with shared entanglement and two classical
+    bits.
 
 ## A byte over a socket
 
@@ -39,20 +39,20 @@ That works because reading a classical bit does not disturb it. The same is
 **not** true of a qubit, and not for want of trying — the **no-cloning
 theorem** says no machine can copy an arbitrary unknown state.
 
-The argument is short. Suppose a machine could copy any state `|ψ>` while
+The argument is short. Suppose a machine could copy any state `|ψ⟩` while
 leaving the original untouched.
 
-1. Feed it `|+>`. The copy comes out as `|+>`, and nothing is wrong yet.
-2. Feed it `( |0> + |1> ) / √2` instead. Since copying must be a *linear*
+1. Feed it `|+⟩`. The copy comes out as `|+⟩`, and nothing is wrong yet.
+2. Feed it `( |0⟩ + |1⟩ ) / √2` instead. Since copying must be a *linear*
    operation on amplitudes, the copy is then forced to be
-   `( |00> + |11> ) / √2`.
-3. But measuring **one** qubit of `( |00> + |11> ) / √2` gives 0 or 1 with
-   certainty, collapsing the other qubit to `|0>` or `|1>`.
-4. So the "copy" is either `|0>` or `|1>` — never `|+>`. Contradiction.
+   `( |00⟩ + |11⟩ ) / √2`.
+3. But measuring **one** qubit of `( |00⟩ + |11⟩ ) / √2` gives 0 or 1 with
+   certainty, collapsing the other qubit to `|0⟩` or `|1⟩`.
+4. So the "copy" is either `|0⟩` or `|1⟩` — never `|+⟩`. Contradiction.
 
 ### What a failed attempt looks like
 
-The obvious attempt is a `CNOT`: prepare `|+>` on `q0`, then `CNOT` into `q1`.
+The obvious attempt is a `CNOT`: prepare `|+⟩` on `q0`, then `CNOT` into `q1`.
 Qiskit will happily build and run it. The result is quietly wrong:
 
 ![The clone attempt](../assets/ch06-clone-attempt-circuit.png){ width="420" }
@@ -62,14 +62,14 @@ The control qubit is never touched, so `q0` *does* keep the original state. But
 
 $$H(0),\; CNOT(0,1) \quad\longrightarrow\quad \frac{|00\rangle + |11\rangle}{\sqrt{2}}$$
 
-That is a **Bell state**, not two `|+>` states. Measure the pair and the outcomes
+That is a **Bell state**, not two `|+⟩` states. Measure the pair and the outcomes
 come out perfectly *correlated* — `01` and `10` never occur — where two genuine
 copies would be independent and give all four outcomes at 25% each:
 
 ![A perfect clone vs. the CNOT attempt](../assets/ch06-clone-agreement.png){ width="620" }
 
 The sample also tries the mirror-image trick: forget about copying, just prepare
-a fresh `|+>` on the copy with `H`. Neither strategy covers every input.
+a fresh `|+⟩` on the copy with `H`. Neither strategy covers every input.
 
 | Input | `CNOT` clone: copy | `CNOT` clone: source | Fresh `H` on the copy | A real copy |
 |---|---|---|---|---|
@@ -87,7 +87,7 @@ for all four inputs.** That gap is the no-cloning theorem, measured.
 !!! note "What this costs a real network"
     Classical networks make a copy of every packet so the original can be
     retransmitted if the link drops. A quantum network cannot do that. It has to
-    re-*create* the state at every hop, which is what the rest of this chapter
+    re-*create* the state at every link, which is what the rest of this chapter
     is about.
 
 ## A phase you cannot see
@@ -124,7 +124,7 @@ exactly the trick teleportation uses.
 ![Coefficient matrices](../assets/ch06-cz-matrices.png){ width="620" }
 
 Two contrast cases round this out. `CZ` after a *lone* `H` does nothing at all,
-because qubit 1 stays `|0>` and the control never fires. And `CZ` on the Bell
+because qubit 1 stays `|0⟩` and the control never fires. And `CZ` on the Bell
 state flips the same single sign while leaving the outcome set `{00, 11}`
 unchanged, because `CNOT` had already done the correlating.
 
@@ -161,7 +161,10 @@ The protocol:
 | `11` | `X` then `Z` | <code>\|0⟩</code> | 1.000 |
 
 All four messages occur with probability ¼, and **all four rebuild the state
-exactly**. That is the protocol's whole claim, and it holds for every input:
+exactly**. That is the protocol's whole claim, and it holds for every input.
+
+The **fidelity** column below measures how close two states are, from 0 to 1. A
+fidelity of 1.0 means the two states are identical:
 
 | Alice sends | Bob measures | Fidelity |
 |---|---|---|
@@ -172,8 +175,8 @@ exactly**. That is the protocol's whole claim, and it holds for every input:
 
 ![Every message reconstructs the state](../assets/ch06-teleport-fidelity.png){ width="620" }
 
-Note what fidelity 1.0 does *not* mean: Bob cannot prepare `|+>` from `|0>` by
-himself, and he cannot prepare `|0>` from `|+>`. He only *rebuilds* a state that
+Note what fidelity 1.0 does *not* mean: Bob cannot prepare `|+⟩` from `|0⟩` by
+himself, and he cannot prepare `|0⟩` from `|+⟩`. He only *rebuilds* a state that
 already existed at Alice's end. Teleportation moves the **information**, not the
 particle — Alice's `q0` is gone either way.
 
@@ -196,15 +199,15 @@ Alice (q0)  ---  link 1  ---  relay (q2)  ---  link 2  ---  Bob (q4)
                         with q1                     with q3
 ```
 
-![Two chained hops across a relay](../assets/ch06-repeater-circuit.png){ width="620" }
+![Two chained links across a relay](../assets/ch06-repeater-circuit.png){ width="620" }
 
-The relay is the interesting part. It **measures** its qubits in the first hop,
+The relay is the interesting part. It **measures** its qubits on the first link,
 exactly as Alice does, so it never holds the state cleanly in between. What
 travels is not the state: it is the chain of **correlations** plus *four*
 classical bits — two from Alice, two from the relay.
 
 To show the state really arrives, Alice starts with a qubit that is neither
-`|0>` nor `|1>`: a rotation with `P(1) = 0.4`. If the relay were only forwarding
+`|0⟩` nor `|1⟩`: a rotation with `P(1) = 0.4`. If the relay were only forwarding
 classical bits, Bob could see nothing but 0s and 1s. Instead his statistics match
 hers, for every input:
 
@@ -226,12 +229,18 @@ that the relay had to *measure* to forward it — the state was never in transit
 a copy, which is precisely why this works even though copying is impossible.
 
 !!! note "Where this leads"
-    Distance in a quantum network is limited by **loss**, not by the speed of
-    light: a state that decoheres cannot be repaired, because there is no copy to
-    fall back on. A repeater does not amplify a weak signal the way a classical
-    repeater does — it *recreates* the state at each node from shared
-    entanglement plus a classical message. [Chapter 8](ch08-secure-communication.md)
-    turns the same idea into secure communication.
+    Distance in a quantum network is limited by loss, not by the speed of light.
+    Two distinct mechanisms are at work:
+
+    - **Loss** — the state is absorbed or scattered on the way and never arrives.
+    - **Decoherence** — the state arrives, but noise has scrambled its
+      superposition and its phase.
+
+    Neither can be repaired, because there is no copy to fall back on. That is why
+    a repeater does not amplify a weak signal the way a classical repeater does —
+    it *rebuilds* the state at each node from shared entanglement plus a classical
+    message. [Chapter 8](ch08-secure-communication.md) turns the same idea into
+    secure communication.
 
 ## The diagrams
 
@@ -244,7 +253,7 @@ target holds a Bell partner rather than a copy.
 
 ![A perfect clone vs. the CNOT attempt](../assets/ch06-clone-agreement.png){ width="620" }
 
-Two real copies of `|+>` would be independent (25% each outcome); the attempt is
+Two real copies of `|+⟩` would be independent (25% each outcome); the attempt is
 perfectly correlated, and `01`/`10` vanish.
 
 ![Fidelity of the CNOT copy](../assets/ch06-clone-fidelity.png){ width="420" }
@@ -277,7 +286,7 @@ measurement results.
 
 ### Repeater
 
-![Two chained hops across a relay](../assets/ch06-repeater-circuit.png){ width="620" }
+![Two chained links across a relay](../assets/ch06-repeater-circuit.png){ width="620" }
 
 Two Bell pairs, two Bell measurements, four classical corrections.
 
@@ -297,7 +306,7 @@ Two Bell pairs, two Bell measurements, four classical corrections.
 - **Teleportation** moves a state by destroying the original and rebuilding it
   from shared entanglement plus **two classical bits**. It moves information, not
   a particle, and it is not faster than light.
-- A **repeater** chains teleportation hops; a relay that measures can still pass
+- A **repeater** chains teleportation links; a relay that measures can still pass
   a state on, and the delivered qubit keeps the statistics it started with.
 - Because loss cannot be repaired from a spare copy, real quantum networks are
   limited by decoherence — the price of the no-copy trick.
@@ -313,7 +322,7 @@ Four samples, one per book section, plus a small shared simulator:
 - [`ch06/teleportation.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch06/teleportation.py)
   — the teleportation circuit and its correction table.
 - [`ch06/repeater.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch06/repeater.py)
-  — the two-hop chain across a relay.
+  — the two-link chain across a relay.
 - [`ch06/protocol.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch06/protocol.py)
   — the branch simulator they share. Teleportation needs a **mid-circuit
   measurement** whose result drives classical gates, and Qiskit's `Statevector`

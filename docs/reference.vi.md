@@ -60,15 +60,15 @@ biết nó đến từ đâu.
 | `ch05-bell-vs-independent.png` | 5 | Cột nhóm: kết quả độc lập so với rối |
 | `ch05-amplitude-matrices.png` | 5 | Ma trận hệ số: trạng thái tích (hạng 1) so với Bell (hạng 2) |
 | `ch06-clone-attempt-circuit.png` | 6 | Mạch: `H` rồi `CNOT`, cách thử nhân bản thất bại |
-| `ch06-clone-fidelity.png` | 6 | Độ trung thành của bản sao bằng `CNOT` theo từng trạng thái đầu vào |
-| `ch06-clone-agreement.png` | 6 | Nhân bản `\|+>`: hai bản độc lập so với cách thử tương quan bằng `CNOT` |
+| `ch06-clone-fidelity.png` | 6 | Độ trung thực của bản sao bằng `CNOT` theo từng trạng thái đầu vào |
+| `ch06-clone-agreement.png` | 6 | Nhân bản `\|+⟩`: hai bản độc lập so với cách thử tương quan bằng `CNOT` |
 | `ch06-cz-circuit.png` | 6 | Mạch: `H` rồi `CZ`, rồi đo |
 | `ch06-cz-vs-bell.png` | 6 | `CZ` rối cặp qubit mà không đổi xác suất nào |
 | `ch06-cz-matrices.png` | 6 | Ma trận hệ số: một dấu đổi đưa hạng từ 1 lên 2 |
 | `ch06-teleport-circuit.png` | 6 | Teleportation: cặp Bell, đo kiểu Bell, phép sửa `If X` / `If Z` |
 | `ch06-teleport-outcomes.png` | 6 | Kết quả của Bob theo trạng thái Alice gửi, gắn với tin nhắn |
 | `ch06-teleport-fidelity.png` | 6 | Mọi tin nhắn đều dựng lại trạng thái chính xác |
-| `ch06-repeater-circuit.png` | 6 | Hai mắt xích nối qua năm qubit và bốn bit cổ điển |
+| `ch06-repeater-circuit.png` | 6 | Hai đoạn liên kết nối qua năm qubit và bốn bit cổ điển |
 | `ch06-repeater-consistency.png` | 6 | P(1) khởi đầu của Alice so với P(0) Bob nhận được |
 | `ch06-repeater-counts.png` | 6 | Gửi P(1) = 0.4 qua nút trung gian: kỳ vọng so với đo được |
 
@@ -92,5 +92,5 @@ biết nó đến từ đâu.
 | `U` | Cổng tổng quát, viết dưới dạng ma trận 2×2 |
 | `P(0)`, `P(1)` | Xác suất đo (quy tắc Born: biên độ bình phương) |
 | Mặt cầu Bloch | Hình học mô tả trạng thái của một qubit |
-| Độ trung thành | Độ chồng lấn của hai trạng thái, <code>\|⟨a\|b⟩\|²</code>; bằng 1 nghĩa là giống hệt |
+| Độ trung thực | Độ chồng lấn của hai trạng thái, <code>\|⟨a\|b⟩\|²</code>; bằng 1 nghĩa là giống hệt |
 | Hạng Schmidt | 1 = trạng thái tích, 2 = rối (xem [ma trận hệ số](chapters/ch05-entanglement.md#trang-thai-tich-so-voi-trang-thai-roi)) |

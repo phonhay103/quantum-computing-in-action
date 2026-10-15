@@ -5,6 +5,9 @@ mechanics. This page collects the small set of background ideas every chapter
 leans on. Skim it once, then come back whenever a chapter uses a term you do not
 recognise.
 
+Every term here has its own entry in the **[Glossary](glossary.md)**, with the
+Vietnamese equivalent alongside.
+
 ## Bits, qubits, and Dirac notation
 
 A classical **bit** is `0` or `1`. A quantum bit — a **qubit** — can also be a

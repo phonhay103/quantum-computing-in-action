@@ -159,7 +159,7 @@ reads `0`.
 
 ### On the Bloch sphere
 
-![|0>, after H, and after H·H](../assets/ch04-hadamard-bloch.png){ width="640" }
+![|0⟩, after H, and after H·H](../assets/ch04-hadamard-bloch.png){ width="640" }
 
 - **`|0⟩`** — north pole, the starting point.
 - **after `H`** — on the equator: maximum superposition, 50/50 randomness.
