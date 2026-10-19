@@ -56,11 +56,13 @@ def render_counts(
     title: str = "Measurement results",
     xlabel: str = "measured bit",
     ylabel: str = "count",
+    rotation: float = 0.0,
 ) -> Path:
     """Render a bar chart of measurement results on a dark background.
 
     Values need not be counts: any numeric mapping works, so the same chart can
-    show e.g. measurement *probabilities* or a fidelity.
+    show e.g. measurement *probabilities* or a fidelity. ``rotation`` tilts the
+    tick labels, which a chart with many labels (a whole register, say) needs.
     """
     path = _prepare(output)
     from matplotlib import pyplot as plt
@@ -74,6 +76,8 @@ def render_counts(
         ax.set_xlabel(xlabel)
         ax.set_ylabel(ylabel)
         ax.set_title(title)
+        if rotation:
+            plt.setp(ax.get_xticklabels(), rotation=rotation, ha="right")
         fig.savefig(path)
         plt.close(fig)
     return path
@@ -86,11 +90,16 @@ def render_grouped_counts(
     title: str = "Measurement results",
     xlabel: str = "measured two-bit outcome",
     ylabel: str = "count",
+    rotation: float = 0.0,
+    bar_labels: bool = True,
 ) -> Path:
     """Render grouped bars (one bar per series) for several count dictionaries.
 
     Values need not be counts: any numeric mapping works, so the same chart can
-    show e.g. measurement *probabilities* or a fidelity.
+    show e.g. measurement *probabilities* or a fidelity. ``rotation`` tilts the
+    tick labels, which a chart with many labels (a whole register, say) needs;
+    set ``bar_labels`` to ``False`` to drop the per-bar value labels when there
+    are too many bars for them to stay legible.
     """
     path = _prepare(output)
     from matplotlib import pyplot as plt
@@ -103,9 +112,10 @@ def render_grouped_counts(
         for offset, (name, counts) in enumerate(series):
             values = [counts.get(label, 0) for label in labels]
             bars = ax.bar(positions + offset * width, values, width, label=name)
-            ax.bar_label(bars, fontsize=8)
+            if bar_labels:
+                ax.bar_label(bars, fontsize=8)
         ax.set_xticks(positions + width * (len(series) - 1) / 2)
-        ax.set_xticklabels(labels)
+        ax.set_xticklabels(labels, rotation=rotation, ha="right" if rotation else "center")
         ax.set_xlabel(xlabel)
         ax.set_ylabel(ylabel)
         ax.set_title(title, fontsize=11)

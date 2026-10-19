@@ -61,6 +61,34 @@ sai, một nửa trong đó lật, và tỉ lệ lỗi thô rơi vào khoảng m
 Cách chữa không phải là thêm qubit, mà là một **cuộc trò chuyện công khai** ngắn
 về các cơ sở.
 
+## Dùng chồng chập cũng không đủ
+
+Ý tưởng thứ ba hiển nhiên: nếu bit thuần ai cũng đọc được và một cơ sở giấu kín là
+chưa đủ, sao không gửi các bit **trong chồng chập**? Hadamard mọi qubit và thanh ghi
+giữ cả `2^n` trạng thái cùng lúc.
+
+Đúng là như vậy — và đó là một khả năng thật, không phải mẹo. Với bốn qubit, thanh
+ghi đi qua **mười sáu** trạng thái cơ sở, mỗi trạng thái biên độ `1/4`:
+
+![Một thanh ghi trong chồng chập, và chính thanh ghi đó được khôi phục](../assets/ch08-superposition-states.png){ width="620" }
+
+Nhưng nó rời khỏi chồng chập dễ như khi bước vào, vì quy tắc ở đầu chương:
+**`H·H = I`**. Một vòng Hadamard trải trạng thái ra mười sáu trạng thái; vòng thứ hai
+là nghịch đảo của nó, nên thứ đến phép đo đúng là trạng thái đã chuẩn bị — và Bob đọc
+bit của Alice hoàn hảo.
+
+![Mạch chồng chập bốn qubit](../assets/ch08-superposition-circuit.png){ width="620" }
+
+| Bước | Phân bố |
+|---|---|
+| đã chuẩn bị | một trạng thái: chuỗi bit đã chuẩn bị |
+| sau một `H` trên mọi qubit | cả 16 trạng thái, mỗi trạng thái xác suất `1/16` |
+| sau hai `H` trên mọi qubit | lại đúng chuỗi bit đã chuẩn bị |
+
+Vậy chồng chập không phải là bí mật. Nó là một **phép xoay**, và ai biết cách xoay
+ngược lại thì thấy hết. Muốn giữ bí mật cần đúng một thành phần mà BB84 thêm vào: một
+cơ sở do Alice chọn ngẫu nhiên và chỉ công bố sau khi các qubit đã đi qua.
+
 ## BB84: giữ lại những qubit có cơ sở khớp nhau
 
 Giao thức là một lần tung đồng xu cho mỗi qubit ở mỗi bên, cộng một thông báo công
@@ -137,6 +165,12 @@ hàng `X` — một cơ sở được đi vào rồi rời ra miễn phí.
 Không lỗi nào từ một kênh không cơ sở không phải là thành công — đó là sự vắng
 mặt của một bí mật.
 
+### Chồng chập: cả mười sáu trạng thái, rồi chính thanh ghi đó trở lại
+
+![Mạch chồng chập bốn qubit](../assets/ch08-superposition-circuit.png){ width="620" }
+
+![Một thanh ghi trong chồng chập, và chính thanh ghi đó được khôi phục](../assets/ch08-superposition-states.png){ width="620" }
+
 ### BB84 và kẻ nghe trộm
 
 ![Một mạch BB84](../assets/ch08-bb84-circuit.png){ width="620" }
@@ -154,6 +188,9 @@ cơ sở của Bob, và phép đo.
   không phải là bí mật.
 - Thêm một cơ sở ngẫu nhiên không tự cứu được: nếu Bob không bao giờ biết cơ sở
   đó, một phần tư số bit sẽ sai.
+- Gửi các bit **trong chồng chập** cũng không phải bí mật: thanh ghi thật sự trải
+  trên cả `2^n` trạng thái, nhưng `H·H = I` đưa đúng các bit đã chuẩn bị trở lại,
+  nên Bob đọc chúng hoàn hảo.
 - **BB84** khắc phục bằng cách sàng lọc theo **cơ sở**: công bố cơ sở, giữ những
   qubit khớp nhau, và các bit giữ lại là giống hệt nhau.
 - **Không nhân bản** nghĩa là kẻ nghe lén buộc phải làm nhiễu trạng thái. Một đòn
@@ -168,6 +205,9 @@ Ba mẫu, mỗi mẫu cho một mục của sách, cùng một mô hình dùng c
   — mẫu ``haha``: `X` rồi `H`, `H`, và trạng thái trở về (8.2).
 - [`ch08/attempts.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch08/attempts.py)
   — hai cách làm ``naive`` và ``guess`` thất bại.
+- [`ch08/superposition.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch08/superposition.py)
+  — mẫu ``superposition``: cả thanh ghi trong `2^n` trạng thái cùng lúc, và `H·H = I`
+  đưa đúng các bit đã chuẩn bị trở lại.
 - [`ch08/bb84.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch08/bb84.py)
   — giao thức đúng, với kẻ nghe lén chặn-rồi-gửi-lại và sự tách biệt tỉ lệ lỗi.
 - [`ch08/protocol.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch08/protocol.py)

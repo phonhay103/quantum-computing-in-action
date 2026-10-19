@@ -60,6 +60,34 @@ those flip, and the raw error rate lands on a quarter:
 
 The fix is not more qubits. It is a short **public conversation** about bases.
 
+## Using superposition is not enough either
+
+The obvious third idea: if a plain bit is readable and a hidden base is not enough,
+why not send the bits **in superposition**? Hadamard every qubit and the register
+holds all `2^n` states at once.
+
+It does — and that is a genuine capability, not a trick. For four qubits the register
+passes through **sixteen** basis states, each with amplitude `1/4`:
+
+![A register in superposition, and the same register recovered](../assets/ch08-superposition-states.png){ width="620" }
+
+But it leaves the superposition as easily as it entered, because of the rule from the
+top of the chapter: **`H·H = I`**. One Hadamard round spreads the state over all
+sixteen; the second round is its inverse, so what reaches the measurement is exactly
+the prepared state — and Bob reads Alice's bits perfectly.
+
+![The four-qubit superposition circuit](../assets/ch08-superposition-circuit.png){ width="620" }
+
+| Stage | Distribution |
+|---|---|
+| prepared | one state: the prepared bit string |
+| after one `H` on every qubit | all 16 states, each with probability `1/16` |
+| after two `H` on every qubit | the prepared bit string again |
+
+So a superposition is not a secret. It is a **rotation**, and whoever knows how to
+rotate back sees everything. Secrecy needs the one ingredient BB84 adds: a base that
+Alice chooses at random and reveals only after the qubits are gone.
+
 ## BB84: keep the qubits whose bases agree
 
 The protocol is a coin flip per qubit on each side, plus one public announcement.
@@ -135,6 +163,12 @@ the `X` row again — a base entered and left for free.
 Zero errors out of a base-less channel is not success — it is the absence of a
 secret.
 
+### Superposition: all sixteen states, then the same register back
+
+![The four-qubit superposition circuit](../assets/ch08-superposition-circuit.png){ width="620" }
+
+![A register in superposition, and the same register recovered](../assets/ch08-superposition-states.png){ width="620" }
+
 ### BB84 and its wiretap
 
 ![One BB84 circuit](../assets/ch08-bb84-circuit.png){ width="620" }
@@ -152,6 +186,9 @@ rotation, and the measurement.
   not secrecy.
 - Prepending a random base does not help on its own: if Bob never learns it, a
   quarter of the bits come out wrong.
+- Sending the bits **in superposition** is not secrecy either: the register really
+  ranges over all `2^n` states, but `H·H = I` brings the prepared bits straight
+  back, so Bob reads them perfectly.
 - **BB84** fixes this by sifting on **bases**: announce the bases, keep the qubits
   where they agree, and the kept bits are identical.
 - **No-cloning** means any eavesdropper must disturb the state. An intercept-resend
@@ -166,6 +203,9 @@ Three samples, one per book section, plus a small shared model:
   — the ``haha`` sample: `X` then `H`, `H`, and the state comes back (8.2).
 - [`ch08/attempts.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch08/attempts.py)
   — the ``naive`` and ``guess`` designs that fail.
+- [`ch08/superposition.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch08/superposition.py)
+  — the ``superposition`` sample: a whole register in all `2^n` states at once, and
+  `H·H = I` bringing the prepared bits straight back.
 - [`ch08/bb84.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch08/bb84.py)
   — the working protocol, with an intercept-resend eavesdropper and the error-rate
   separation.

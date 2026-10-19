@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from quantum_computing_in_action.ch08 import attempts, bb84, identity, protocol
+from quantum_computing_in_action.ch08 import attempts, bb84, identity, protocol, superposition
 from quantum_computing_in_action.ch08.protocol import Run, X, Z
 
 # ----------------------------------------------------------------- protocol
@@ -175,13 +175,64 @@ def test_bb84_circuit_prepares_and_measures_every_qubit() -> None:
     assert names.count("measure") == 4
 
 
+# ---------------------------------------------------------- superposition
+
+
+def test_superposition_circuit_matches_the_sample() -> None:
+    """Prepare (X on the 1s), H on all four, H on all four, measure."""
+    names = [instruction.operation.name for instruction in superposition.superposition_circuit((0, 1, 1, 0)).data]
+    assert names == ["x", "x", "h", "h", "h", "h", "h", "h", "h", "h", "measure", "measure", "measure", "measure"]
+
+
+def test_one_hadamard_round_spreads_the_register_over_all_sixteen_states() -> None:
+    distribution = superposition.stage_distributions((0, 1, 1, 0))[1][1]
+    assert len(distribution) == 16
+    for probability in distribution.values():
+        assert probability == pytest.approx(1 / 16)
+
+
+def test_the_second_hadamard_round_recovers_the_prepared_state() -> None:
+    """H·H = I, so the register ends in exactly the state Alice prepared."""
+    stages = superposition.stage_distributions((0, 1, 1, 0))
+    recovered = stages[2][1]
+    assert recovered["0110"] == pytest.approx(1.0)
+    # Every other state is empty up to floating-point noise.
+    assert sum(p for label, p in recovered.items() if label != "0110") == pytest.approx(0.0, abs=1e-9)
+
+
+@pytest.mark.parametrize("bits", [(0, 0, 0, 0), (1, 1, 1, 1), (0, 1, 0, 1), (1, 0, 0, 1)])
+def test_bob_receives_alice_bits_exactly(bits: tuple[int, ...]) -> None:
+    assert superposition.recover(bits) == bits
+
+
+def test_superposition_run_is_deterministic_and_matches() -> None:
+    exchange = superposition.run(size=6, seed=4)
+    assert exchange.matches
+    assert exchange.alice_string == exchange.bob_string
+    assert superposition.run(size=6, seed=4) == exchange
+
+
+def test_superposition_run_rejects_bad_size() -> None:
+    with pytest.raises(ValueError, match="at least 1"):
+        superposition.run(0)
+
+
+def test_superposition_probability_is_one_over_n() -> None:
+    assert superposition.superposition_probability((1, 0, 1, 0)) == pytest.approx(1 / 16)
+
+
+def test_superposition_draws_write_files(tmp_path) -> None:
+    assert superposition.draw(tmp_path / "ch08-superposition-circuit.png").exists()
+    assert superposition.states_diagram(tmp_path / "ch08-superposition-states.png").exists()
+
+
 # ------------------------------------------------------------------ package
 
 
-def test_chapter_runs_all_three_samples_in_order() -> None:
+def test_chapter_runs_all_four_samples_in_order() -> None:
     from quantum_computing_in_action import ch08
 
-    assert (identity, attempts, bb84) == ch08.SAMPLES
+    assert (identity, attempts, superposition, bb84) == ch08.SAMPLES
 
 
 def test_run_dataclass_exposes_the_sift() -> None:
