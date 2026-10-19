@@ -40,7 +40,12 @@ def render_circuit(circuit: QuantumCircuit, output: str | Path, *, reverse_bits:
     circuit can be shown in the conventional "control first" order.
     """
     path = _prepare(output)
-    circuit.draw("mpl", filename=str(path), style=DARK_CIRCUIT_STYLE, reverse_bits=reverse_bits)
+    figure = circuit.draw("mpl", filename=str(path), style=DARK_CIRCUIT_STYLE, reverse_bits=reverse_bits)
+    # Qiskit's drawer leaves the figure open; close it so long test runs do not
+    # pile up figures in memory.
+    from matplotlib import pyplot as plt
+
+    plt.close(figure)
     return path
 
 
@@ -140,14 +145,21 @@ def render_matrices(
     output: str | Path,
     *,
     title: str | None = None,
+    figsize: tuple[float, float] | None = None,
+    fontsize: float = 9.0,
 ) -> Path:
-    """Render gate matrices as labelled heatmaps on a dark background."""
+    """Render gate matrices as labelled heatmaps on a dark background.
+
+    ``figsize`` overrides the default width (``3.2`` inches per matrix) and
+    ``fontsize`` the cell labels, which is worth raising the size for when a
+    matrix is large — the Toffoli gate of Chapter 7 is 8x8.
+    """
     path = _prepare(output)
     from matplotlib import pyplot as plt
 
     with plt.style.context(DARK_PLOT_STYLE):
         columns = len(matrices)
-        fig, axes = plt.subplots(1, columns, figsize=(3.2 * columns, 3.6))
+        fig, axes = plt.subplots(1, columns, figsize=figsize or (3.2 * columns, 3.6))
         axes = np.atleast_1d(axes)
         for ax, (label, matrix) in zip(axes, matrices, strict=True):
             values = np.real_if_close(matrix)
@@ -159,7 +171,7 @@ def render_matrices(
                 for column in range(matrix.shape[1]):
                     value = matrix[row, column]
                     text = f"{value.real:.2f}" if abs(value.imag) < 1e-9 else f"{value:.2f}"
-                    ax.text(column, row, text, ha="center", va="center", color="white", fontsize=9)
+                    ax.text(column, row, text, ha="center", va="center", color="white", fontsize=fontsize)
             fig.colorbar(image, ax=ax, fraction=0.046)
         if title is not None:
             fig.suptitle(title)

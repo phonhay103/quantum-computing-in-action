@@ -13,11 +13,11 @@ module trỏ tới mã; muốn hiểu *khái niệm*, hãy theo liên kết chư
 | [4](chapters/ch04-superposition.md) | Chồng chập | [`ch04/hadamard.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch04/hadamard.py), [`ch04/matrices.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch04/matrices.py) | `make ch04` |
 | [5](chapters/ch05-entanglement.md) | Rối lượng tử | [`ch05/entanglement.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch05/entanglement.py), [`ch05/states.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch05/states.py) | `make ch05` |
 | [6](chapters/ch06-quantum-networking.md) | Mạng lượng tử: những điều cơ bản | [`ch06/networking.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch06/networking.py), [`ch06/czmeasure.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch06/czmeasure.py), [`ch06/teleportation.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch06/teleportation.py), [`ch06/repeater.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch06/repeater.py), [`ch06/protocol.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch06/protocol.py) | `make ch06` |
-| [7](chapters/ch07-helloworld-explained.md) | HelloWorld của chúng ta, giải thích | — | dự kiến |
-| [8](chapters/ch08-secure-communication.md) | Truyền thông an toàn bằng điện toán lượng tử | — | dự kiến |
-| [9](chapters/ch09-deutsch-jozsa.md) | Thuật toán Deutsch–Jozsa | — | dự kiến |
-| [10](chapters/ch10-grovers-search.md) | Thuật toán tìm kiếm của Grover | — | dự kiến |
-| [11](chapters/ch11-shors-algorithm.md) | Thuật toán Shor | — | dự kiến |
+| [7](chapters/ch07-helloworld-explained.md) | HelloWorld của chúng ta, giải thích | [`ch07/randombit.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch07/randombit.py), [`ch07/debugging.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch07/debugging.py), [`ch07/half_adder.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch07/half_adder.py), [`ch07/full_adder.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch07/full_adder.py), [`ch07/circuits.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch07/circuits.py) | `make ch07` |
+| [8](chapters/ch08-secure-communication.md) | Truyền thông an toàn bằng điện toán lượng tử | [`ch08/protocol.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch08/protocol.py), [`ch08/identity.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch08/identity.py), [`ch08/attempts.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch08/attempts.py), [`ch08/bb84.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch08/bb84.py) | `make ch08` |
+| [9](chapters/ch09-deutsch-jozsa.md) | Thuật toán Deutsch–Jozsa | [`ch09/reversible.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch09/reversible.py), [`ch09/oracles.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch09/oracles.py), [`ch09/deutsch.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch09/deutsch.py), [`ch09/deutschjozsa.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch09/deutschjozsa.py) | `make ch09` |
+| [10](chapters/ch10-grovers-search.md) | Thuật toán tìm kiếm của Grover | [`ch10/search.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch10/search.py), [`ch10/oracle.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch10/oracle.py), [`ch10/step_by_step.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch10/step_by_step.py), [`ch10/grover.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch10/grover.py) | `make ch10` |
+| [11](chapters/ch11-shors-algorithm.md) | Thuật toán Shor | [`ch11/classical.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch11/classical.py), [`ch11/qft.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch11/qft.py), [`ch11/shor.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch11/shor.py) | `make ch11` |
 
 CLI nhận id của chương:
 
@@ -28,6 +28,11 @@ uv run python -m quantum_computing_in_action ch03
 uv run python -m quantum_computing_in_action ch04
 uv run python -m quantum_computing_in_action ch05
 uv run python -m quantum_computing_in_action ch06
+uv run python -m quantum_computing_in_action ch07
+uv run python -m quantum_computing_in_action ch08
+uv run python -m quantum_computing_in_action ch09
+uv run python -m quantum_computing_in_action ch10
+uv run python -m quantum_computing_in_action ch11
 ```
 
 ## Các tệp sơ đồ
@@ -71,6 +76,40 @@ biết nó đến từ đâu.
 | `ch06-repeater-circuit.png` | 6 | Hai đoạn liên kết nối qua năm qubit và bốn bit cổ điển |
 | `ch06-repeater-consistency.png` | 6 | P(1) khởi đầu của Alice so với P(0) Bob nhận được |
 | `ch06-repeater-counts.png` | 6 | Gửi P(1) = 0.4 qua nút trung gian: kỳ vọng so với đo được |
+| `ch07-randombit-circuit.png` | 7 | Mạch: chương trình bốn qubit (`H`, `X`, `CNOT`) |
+| `ch07-randombit-counts.png` | 7 | Biểu đồ hai kết quả khả dĩ (`q0 = q1`) |
+| `ch07-randombit-qubits.png` | 7 | `P(1)` của từng qubit: `q0`/`q1` bằng 0.50, `q2` 0, `q3` 1 |
+| `ch07-debug-circuit.png` | 7 | Chương trình với một vạch chắn đánh dấu mỗi bước |
+| `ch07-debug-steps.png` | 7 | Xác suất trạng thái cơ sở sau mỗi bước |
+| `ch07-debug-marginals.png` | 7 | `P(1)` của từng qubit sau mỗi bước: bước nào đổi qubit nào |
+| `ch07-add1-circuit.png` | 7 | Bộ bán cộng: `CNOT` cho `1 + 1`, cộng modulo 2 |
+| `ch07-add2-circuit.png` | 7 | Bộ cộng đầy đủ: `Toffoli` (số nhớ) rồi `CNOT` (tổng) |
+| `ch07-toffoli-matrices.png` | 7 | Ma trận `X`, `CNOT` và `Toffoli`: mỗi cổng thêm một điều khiển |
+| `ch07-adder-comparison.png` | 7 | Bán cộng so với cộng đầy đủ: `1 + 1` bằng 0 khi không có số nhớ, bằng 2 khi có |
+| `ch08-haha-circuit.png` | 8 | Mạch: `X` rồi `H`, `H` — một cơ sở được đi vào rồi rời ra |
+| `ch08-haha-bloch.png` | 8 | Điều tương tự trên mặt cầu Bloch: `H·H = I` |
+| `ch08-attempts-error.png` | 8 | Tỉ lệ lỗi thô: không cơ sở so với cơ sở không đối chiếu |
+| `ch08-bb84-circuit.png` | 8 | Một trao đổi BB84: chuẩn bị, cơ sở của Bob, đo |
+| `ch08-eavesdropper-error.png` | 8 | Lỗi sau sàng lọc qua 200 trao đổi: đường sạch so với nghe trộm |
+| `ch09-reversible-circuit.png` | 9 | Mạch: `X`, `X` — mọi cổng đều khả nghịch |
+| `ch09-oracle-matrices.png` | 9 | Bốn ma trận oracle một bit |
+| `ch09-oracle-circuit.png` | 9 | Oracle cân bằng `f(x) = x`: một `CNOT` |
+| `ch09-deutsch-circuit.png` | 9 | Mạch Deutsch (`X`, `H`, `H`, oracle, `H`) |
+| `ch09-deutsch-outcomes.png` | 9 | Một truy vấn: hằng số đo 0, cân bằng đo 1 |
+| `ch09-dj-circuit.png` | 9 | Deutsch–Jozsa cho `n = 3` |
+| `ch09-dj-outcomes.png` | 9 | `n = 2`: oracle hằng số trả về `00`, oracle cân bằng thì không |
+| `ch10-classical-tries.png` | 10 | Quét tuyến tính cổ điển: số lần thử để tìm mục tiêu |
+| `ch10-oracle-matrix.png` | 10 | Oracle pha của Grover: một lần lật dấu |
+| `ch10-step-by-step.png` | 10 | Grover trên 2 qubit: xác suất mỗi trạng thái cơ sở theo vòng |
+| `ch10-grover-circuit.png` | 10 | Mạch Grover 3 qubit: `H`, rồi các cặp oracle/khuếch tán |
+| `ch10-grover-curve.png` | 10 | Grover trên 64 mục: xác suất tăng rồi vọt quá |
+| `ch10-grover-outcomes.png` | 10 | 64 kết quả sau 6 vòng: đáp án chiếm ưu thế |
+| `ch11-classical-factor.png` | 11 | Chia thử: công việc tăng như `sqrt(n)` |
+| `ch11-period-function.png` | 11 | `2^x mod 15` lặp lại với chu kỳ 4 |
+| `ch11-qft-circuit.png` | 11 | Mạch QFT ba qubit |
+| `ch11-qft-phase.png` | 11 | `QFT\|1⟩`: độ lớn đều, dốc pha tuyến tính |
+| `ch11-order-circuit.png` | 11 | Mạch tìm bậc gọn cho `2^x mod 15` |
+| `ch11-order-peaks.png` | 11 | QFT nghịch đảo: bốn đỉnh, cách nhau 64 |
 
 ## Ký hiệu dùng trong ghi chú
 
@@ -84,6 +123,11 @@ biết nó đến từ đâu.
 | `H` | Cổng Hadamard — tạo chồng chập đều |
 | `X` | Cổng Pauli-X — lật <code>\|0⟩ ↔ \|1⟩</code> |
 | `CNOT` | Controlled-NOT — lật đích khi điều khiển bằng `1` |
+| `Toffoli` | Controlled-controlled-NOT (`CCNOT`) — lật đích khi **cả hai** điều khiển bằng `1`; một phép `AND` khả nghịch |
+| `XOR` | Phép hoặc loại trừ — bit tổng của phép cộng modulo 2 |
+| `U_f` | Oracle của một hàm: `\|x⟩\|y⟩ → \|x⟩\|y ⊕ f(x)⟩` |
+| `QFT` | Biến đổi Fourier lượng tử — biến đổi Fourier rời rạc dưới dạng mạch |
+| `\|s⟩` | Chồng chập đều trên mọi trạng thái cơ sở |
 | `Z` | Cổng Pauli-Z — lật **pha** mà không đổi bit |
 | `CZ` | Controlled-Z — áp dụng `Z` lên đích khi điều khiển bằng `1` |
 | `⊗` | Tích tensor — ghép các qubit thành trạng thái chung |

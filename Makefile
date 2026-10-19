@@ -1,4 +1,4 @@
-.PHONY: help install sync lint format test clean ch01 ch02 ch03 ch04 ch05 ch06 docs docs-serve
+.PHONY: help install sync lint format test clean ch01 ch02 ch03 ch04 ch05 ch06 ch07 ch08 ch09 ch10 ch11 docs docs-serve
 
 # Default target
 .DEFAULT_GOAL := help
@@ -7,7 +7,7 @@ help: ## Display available commands
 	@echo "Usage: make [target]"
 	@echo ""
 	@echo "Targets:"
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2}'
+	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2}'
 
 install: sync ## Alias for sync
 
@@ -41,6 +41,21 @@ ch05: ## Run chapter 5 (entanglement)
 
 ch06: ## Run chapter 6 (quantum networking: teleportation and repeaters)
 	uv run python -m quantum_computing_in_action ch06
+
+ch07: ## Run chapter 7 (our HelloWorld, explained: circuits and quantum adders)
+	uv run python -m quantum_computing_in_action ch07
+
+ch08: ## Run chapter 8 (secure communication: BB84)
+	uv run python -m quantum_computing_in_action ch08
+
+ch09: ## Run chapter 9 (Deutsch–Jozsa algorithm)
+	uv run python -m quantum_computing_in_action ch09
+
+ch10: ## Run chapter 10 (Grover's search algorithm)
+	uv run python -m quantum_computing_in_action ch10
+
+ch11: ## Run chapter 11 (Shor's algorithm)
+	uv run python -m quantum_computing_in_action ch11
 
 assets: ## Copy generated diagrams into the docs tree
 	@mkdir -p docs/assets

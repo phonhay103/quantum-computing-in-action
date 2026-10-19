@@ -18,6 +18,11 @@ _MODULES: dict[str, str] = {
     "ch04": "quantum_computing_in_action.ch04.hadamard",
     "ch05": "quantum_computing_in_action.ch05.entanglement",
     "ch06": "quantum_computing_in_action.ch06",
+    "ch07": "quantum_computing_in_action.ch07",
+    "ch08": "quantum_computing_in_action.ch08",
+    "ch09": "quantum_computing_in_action.ch09",
+    "ch10": "quantum_computing_in_action.ch10",
+    "ch11": "quantum_computing_in_action.ch11",
 }
 
 

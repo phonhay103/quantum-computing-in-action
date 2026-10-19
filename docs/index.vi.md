@@ -30,11 +30,11 @@ Tên chương bám theo mục lục của sách.
 | [4 — Chồng chập](chapters/ch04-superposition.md) | hoàn thành | Trạng thái là vector và cổng là ma trận; `H` tạo chồng chập đều và `H·H` xoá nó | [mạch, Bloch, số lần đo, ma trận](chapters/ch04-superposition.md) |
 | [5 — Rối lượng tử](chapters/ch05-entanglement.md) | hoàn thành | Hai qubit có thể chia sẻ một trạng thái chung không thể mô tả riêng từng qubit | [mạch, số lần đo, so sánh, ma trận](chapters/ch05-entanglement.md) |
 | [6 — Mạng lượng tử: những điều cơ bản](chapters/ch06-quantum-networking.md) | hoàn thành | Một qubit không thể nhân bản, nên nó phải được *dựng lại ở nơi khác*: truyền tải lượng tử tái tạo một trạng thái từ cặp rối dùng chung cộng hai bit cổ điển, và trạm lặp nối các liên kết lại | [không nhân bản, CZ, truyền tải, trạm lặp](chapters/ch06-quantum-networking.md#so-do) |
-| [7 — HelloWorld của chúng ta, giải thích](chapters/ch07-helloworld-explained.md) | dự kiến | Dựng lại mạch tạo bit ngẫu nhiên từng cổng một để thấy nó thực sự hoạt động ra sao | — |
-| [8 — Truyền thông an toàn bằng điện toán lượng tử](chapters/ch08-secure-communication.md) | dự kiến | Phân phối khoá lượng tử (BB84) khiến hành vi nghe lén bị phát hiện | — |
-| [9 — Thuật toán Deutsch–Jozsa](chapters/ch09-deutsch-jozsa.md) | dự kiến | Quyết định hàm là hằng số hay cân bằng chỉ trong một truy vấn | — |
-| [10 — Thuật toán tìm kiếm của Grover](chapters/ch10-grovers-search.md) | dự kiến | Tăng tốc bậc hai cho tìm kiếm không cấu trúc | — |
-| [11 — Thuật toán Shor](chapters/ch11-shors-algorithm.md) | dự kiến | Phân tích thừa số thời gian đa thức nhờ tìm bậc và biến đổi Fourier lượng tử | — |
+| [7 — HelloWorld của chúng ta, giải thích](chapters/ch07-helloworld-explained.md) | hoàn thành | Một mạch là danh sách các bước có thứ tự, và có thể đọc trạng thái sau mỗi bước — cùng ý tưởng đó tạo nên một bộ cộng khả nghịch từ `CNOT` và `Toffoli` | [mạch, từng bước, bộ cộng, Toffoli](chapters/ch07-helloworld-explained.md#so-do) |
+| [8 — Truyền thông an toàn bằng điện toán lượng tử](chapters/ch08-secure-communication.md) | hoàn thành | Một qubit chỉ mang bit trong một **cơ sở** được chọn, nên Alice và Bob có thể sàng lọc các cơ sở khớp nhau thành khoá bí mật — và phép đo của kẻ nghe lén để lại tỉ lệ lỗi ~25% | [vòng xoay, các cách thử, BB84, nghe trộm](chapters/ch08-secure-communication.md#so-do) |
+| [9 — Thuật toán Deutsch–Jozsa](chapters/ch09-deutsch-jozsa.md) | hoàn thành | Một truy vấn lượng tử quyết định hàm được hứa là hằng số hay cân bằng, nơi kiểm tra cổ điển có thể cần `2^(n-1) + 1` | [khả nghịch, oracle, Deutsch, DJ](chapters/ch09-deutsch-jozsa.md#so-do) |
+| [10 — Thuật toán tìm kiếm của Grover](chapters/ch10-grovers-search.md) | hoàn thành | Oracle lật một dấu; khuếch tán phản xạ quanh trung bình; `(π/4)√N` vòng tìm ra mục — tăng tốc bậc hai | [cổ điển, oracle, từng bước, 64 mục](chapters/ch10-grovers-search.md#so-do) |
+| [11 — Thuật toán Shor](chapters/ch11-shors-algorithm.md) | hoàn thành | Phân tích thừa số quy giản về tìm bậc, và biến đổi Fourier lượng tử đọc chu kỳ từ vài đỉnh — thời gian đa thức | [cổ điển, QFT, tìm bậc](chapters/ch11-shors-algorithm.md#so-do) |
 
 ## Thư viện sơ đồ
 
@@ -78,6 +78,41 @@ cho biết nó đến từ đâu.
 ![Bản sao hoàn hảo so với cách thử bằng CNOT](assets/ch06-clone-agreement.png){ width="560" }
 ![Mạch teleportation](assets/ch06-teleport-circuit.png){ width="620" }
 ![Hai đoạn liên kết nối qua một nút trung gian](assets/ch06-repeater-circuit.png){ width="620" }
+
+### Chương 7 — HelloWorld của chúng ta, giải thích
+
+![Chương trình bốn qubit](assets/ch07-randombit-circuit.png){ width="360" }
+![Xác suất trạng thái cơ sở sau mỗi bước](assets/ch07-debug-steps.png){ width="560" }
+![Bộ bán cộng cho 1 + 1](assets/ch07-add1-circuit.png){ width="360" }
+![Bộ cộng đầy đủ cho 1 + 1](assets/ch07-add2-circuit.png){ width="420" }
+![Từ X tới CNOT tới Toffoli](assets/ch07-toffoli-matrices.png){ width="560" }
+![Bán cộng so với cộng đầy đủ](assets/ch07-adder-comparison.png){ width="560" }
+
+### Chương 8 — truyền thông an toàn
+
+![Vòng xoay Hadamard](assets/ch08-haha-circuit.png){ width="360" }
+![Đường sạch so với một đường bị nghe trộm](assets/ch08-eavesdropper-error.png){ width="560" }
+![Một mạch BB84](assets/ch08-bb84-circuit.png){ width="620" }
+
+### Chương 9 — Deutsch–Jozsa
+
+![Bốn ma trận oracle](assets/ch09-oracle-matrices.png){ width="560" }
+![Mạch Deutsch](assets/ch09-deutsch-circuit.png){ width="360" }
+![Một truy vấn: hằng số đo 0, cân bằng đo 1](assets/ch09-deutsch-outcomes.png){ width="560" }
+![Deutsch–Jozsa cho n = 3](assets/ch09-dj-circuit.png){ width="620" }
+
+### Chương 10 — tìm kiếm của Grover
+
+![Oracle của Grover](assets/ch10-oracle-matrix.png){ width="360" }
+![Grover trên 2 qubit](assets/ch10-step-by-step.png){ width="560" }
+![Grover trên 64 mục: xác suất tăng rồi vọt quá](assets/ch10-grover-curve.png){ width="560" }
+
+### Chương 11 — thuật toán Shor
+
+![Chia thử cổ điển](assets/ch11-classical-factor.png){ width="560" }
+![QFT|1>: dốc pha tuyến tính](assets/ch11-qft-phase.png){ width="560" }
+![Một mạch tìm bậc gọn](assets/ch11-order-circuit.png){ width="620" }
+![QFT nghịch đảo của thanh ghi tuần hoàn: bốn đỉnh](assets/ch11-order-peaks.png){ width="560" }
 
 ## Đi tiếp ở đâu
 

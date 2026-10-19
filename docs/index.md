@@ -31,11 +31,11 @@ Chapter titles follow the book's table of contents.
 | [4 — Superposition](chapters/ch04-superposition.md) | done | A state is a vector and a gate is a matrix; `H` creates an even superposition and `H·H` cancels it | [circuits, Bloch, counts, matrices](chapters/ch04-superposition.md#the-diagrams) |
 | [5 — Entanglement](chapters/ch05-entanglement.md) | done | Two qubits can share a joint state that cannot be described one qubit at a time | [circuits, counts, comparison, matrices](chapters/ch05-entanglement.md#the-diagrams) |
 | [6 — Quantum networking: The basics](chapters/ch06-quantum-networking.md) | done | A qubit cannot be copied, so it has to be *moved*: teleportation rebuilds a state from shared entanglement plus two classical bits, and repeaters chain the links | [no-cloning, CZ, teleport, repeater](chapters/ch06-quantum-networking.md#the-diagrams) |
-| [7 — Our HelloWorld, explained](chapters/ch07-helloworld-explained.md) | planned | Rebuild the random-bit circuit gate by gate to see how it really works | — |
-| [8 — Secure communication using quantum computing](chapters/ch08-secure-communication.md) | planned | Quantum key distribution (BB84) makes eavesdropping detectable | — |
-| [9 — Deutsch–Jozsa algorithm](chapters/ch09-deutsch-jozsa.md) | planned | Decide whether a function is constant or balanced in a single query | — |
-| [10 — Grover's search algorithm](chapters/ch10-grovers-search.md) | planned | A quadratic speed-up for unstructured search | — |
-| [11 — Shor's algorithm](chapters/ch11-shors-algorithm.md) | planned | Polynomial-time factoring via order finding and the quantum Fourier transform | — |
+| [7 — Our HelloWorld, explained](chapters/ch07-helloworld-explained.md) | done | A circuit is an ordered list of steps, and the state can be read after every one — the same idea makes a reversible adder from `CNOT` and `Toffoli` | [circuit, step-by-step, adders, Toffoli](chapters/ch07-helloworld-explained.md#the-diagrams) |
+| [8 — Secure communication using quantum computing](chapters/ch08-secure-communication.md) | done | A qubit only carries a bit in a chosen **base**, so Alice and Bob can sift matching bases into a secret key — and an eavesdropper's measurement leaves a ~25% error rate | [round trip, attempts, BB84, wiretap](chapters/ch08-secure-communication.md#the-diagrams) |
+| [9 — Deutsch–Jozsa algorithm](chapters/ch09-deutsch-jozsa.md) | done | One quantum query decides whether a promised function is constant or balanced, where a classical check may need `2^(n-1) + 1` | [reversibility, oracles, Deutsch, DJ](chapters/ch09-deutsch-jozsa.md#the-diagrams) |
+| [10 — Grover's search algorithm](chapters/ch10-grovers-search.md) | done | An oracle flips one sign; diffusion reflects about the mean; `(π/4)√N` rounds find the item — a quadratic speed-up | [classical, oracle, step by step, 64 items](chapters/ch10-grovers-search.md#the-diagrams) |
+| [11 — Shor's algorithm](chapters/ch11-shors-algorithm.md) | done | Factoring reduces to order finding, and the quantum Fourier transform reads the period off a few peaks — polynomial time | [classical, QFT, order finding](chapters/ch11-shors-algorithm.md#the-diagrams) |
 
 ## Diagram gallery
 
@@ -79,6 +79,41 @@ a figure always tells you where it came from.
 ![A perfect clone vs. the CNOT attempt](assets/ch06-clone-agreement.png){ width="560" }
 ![Teleportation circuit](assets/ch06-teleport-circuit.png){ width="620" }
 ![Two chained links across a relay](assets/ch06-repeater-circuit.png){ width="620" }
+
+### Chapter 7 — our HelloWorld, explained
+
+![The four-qubit program](assets/ch07-randombit-circuit.png){ width="360" }
+![Basis-state probabilities after each step](assets/ch07-debug-steps.png){ width="560" }
+![The half-adder for 1 + 1](assets/ch07-add1-circuit.png){ width="360" }
+![The full adder for 1 + 1](assets/ch07-add2-circuit.png){ width="420" }
+![From X to CNOT to Toffoli](assets/ch07-toffoli-matrices.png){ width="560" }
+![Half-adder vs. full adder](assets/ch07-adder-comparison.png){ width="560" }
+
+### Chapter 8 — secure communication
+
+![The Hadamard round trip](assets/ch08-haha-circuit.png){ width="360" }
+![A clean line vs. a wiretap](assets/ch08-eavesdropper-error.png){ width="560" }
+![One BB84 circuit](assets/ch08-bb84-circuit.png){ width="620" }
+
+### Chapter 9 — Deutsch–Jozsa
+
+![The four oracle matrices](assets/ch09-oracle-matrices.png){ width="560" }
+![The Deutsch circuit](assets/ch09-deutsch-circuit.png){ width="360" }
+![One query: constant measures 0, balanced measures 1](assets/ch09-deutsch-outcomes.png){ width="560" }
+![Deutsch–Jozsa for n = 3](assets/ch09-dj-circuit.png){ width="620" }
+
+### Chapter 10 — Grover's search
+
+![Grover's oracle](assets/ch10-oracle-matrix.png){ width="360" }
+![Grover on 2 qubits](assets/ch10-step-by-step.png){ width="560" }
+![Grover on 64 items: probability rises, then overshoots](assets/ch10-grover-curve.png){ width="560" }
+
+### Chapter 11 — Shor's algorithm
+
+![Classical trial division](assets/ch11-classical-factor.png){ width="560" }
+![QFT|1>: a linear phase ramp](assets/ch11-qft-phase.png){ width="560" }
+![A compact order-finding circuit](assets/ch11-order-circuit.png){ width="620" }
+![Inverse QFT of the periodic register: four peaks](assets/ch11-order-peaks.png){ width="560" }
 
 ## Where to go next
 

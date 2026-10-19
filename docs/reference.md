@@ -13,11 +13,11 @@ The module links point to the code; for the *concepts*, follow the chapter links
 | [4](chapters/ch04-superposition.md) | Superposition | [`ch04/hadamard.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch04/hadamard.py), [`ch04/matrices.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch04/matrices.py) | `make ch04` |
 | [5](chapters/ch05-entanglement.md) | Entanglement | [`ch05/entanglement.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch05/entanglement.py), [`ch05/states.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch05/states.py) | `make ch05` |
 | [6](chapters/ch06-quantum-networking.md) | Quantum networking: The basics | [`ch06/networking.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch06/networking.py), [`ch06/czmeasure.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch06/czmeasure.py), [`ch06/teleportation.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch06/teleportation.py), [`ch06/repeater.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch06/repeater.py), [`ch06/protocol.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch06/protocol.py) | `make ch06` |
-| [7](chapters/ch07-helloworld-explained.md) | Our HelloWorld, explained | — | planned |
-| [8](chapters/ch08-secure-communication.md) | Secure communication using quantum computing | — | planned |
-| [9](chapters/ch09-deutsch-jozsa.md) | Deutsch–Jozsa algorithm | — | planned |
-| [10](chapters/ch10-grovers-search.md) | Grover's search algorithm | — | planned |
-| [11](chapters/ch11-shors-algorithm.md) | Shor's algorithm | — | planned |
+| [7](chapters/ch07-helloworld-explained.md) | Our HelloWorld, explained | [`ch07/randombit.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch07/randombit.py), [`ch07/debugging.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch07/debugging.py), [`ch07/half_adder.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch07/half_adder.py), [`ch07/full_adder.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch07/full_adder.py), [`ch07/circuits.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch07/circuits.py) | `make ch07` |
+| [8](chapters/ch08-secure-communication.md) | Secure communication using quantum computing | [`ch08/protocol.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch08/protocol.py), [`ch08/identity.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch08/identity.py), [`ch08/attempts.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch08/attempts.py), [`ch08/bb84.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch08/bb84.py) | `make ch08` |
+| [9](chapters/ch09-deutsch-jozsa.md) | Deutsch–Jozsa algorithm | [`ch09/reversible.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch09/reversible.py), [`ch09/oracles.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch09/oracles.py), [`ch09/deutsch.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch09/deutsch.py), [`ch09/deutschjozsa.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch09/deutschjozsa.py) | `make ch09` |
+| [10](chapters/ch10-grovers-search.md) | Grover's search algorithm | [`ch10/search.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch10/search.py), [`ch10/oracle.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch10/oracle.py), [`ch10/step_by_step.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch10/step_by_step.py), [`ch10/grover.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch10/grover.py) | `make ch10` |
+| [11](chapters/ch11-shors-algorithm.md) | Shor's algorithm | [`ch11/classical.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch11/classical.py), [`ch11/qft.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch11/qft.py), [`ch11/shor.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch11/shor.py) | `make ch11` |
 
 The CLI takes the chapter id:
 
@@ -28,6 +28,11 @@ uv run python -m quantum_computing_in_action ch03
 uv run python -m quantum_computing_in_action ch04
 uv run python -m quantum_computing_in_action ch05
 uv run python -m quantum_computing_in_action ch06
+uv run python -m quantum_computing_in_action ch07
+uv run python -m quantum_computing_in_action ch08
+uv run python -m quantum_computing_in_action ch09
+uv run python -m quantum_computing_in_action ch10
+uv run python -m quantum_computing_in_action ch11
 ```
 
 ## Diagram files
@@ -71,6 +76,40 @@ always shows where it came from.
 | `ch06-repeater-circuit.png` | 6 | Two chained links over five qubits and four classical bits |
 | `ch06-repeater-consistency.png` | 6 | Alice's starting `P(1)` vs. Bob's delivered `P(0)` |
 | `ch06-repeater-counts.png` | 6 | `P(1) = 0.4` sent through the relay: expected vs. measured |
+| `ch07-randombit-circuit.png` | 7 | Circuit: the four-qubit program (`H`, `X`, `CNOT`) |
+| `ch07-randombit-counts.png` | 7 | Histogram of the two possible outcomes (`q0 = q1`) |
+| `ch07-randombit-qubits.png` | 7 | `P(1)` for each qubit: `q0`/`q1` at 0.50, `q2` 0, `q3` 1 |
+| `ch07-debug-circuit.png` | 7 | The program with a barrier marking each step |
+| `ch07-debug-steps.png` | 7 | Basis-state probabilities after each step |
+| `ch07-debug-marginals.png` | 7 | `P(1)` per qubit after each step: which step moved which qubit |
+| `ch07-add1-circuit.png` | 7 | Half-adder: `CNOT` for `1 + 1`, summing modulo 2 |
+| `ch07-add2-circuit.png` | 7 | Full adder: `Toffoli` (carry) then `CNOT` (sum) |
+| `ch07-toffoli-matrices.png` | 7 | The `X`, `CNOT`, and `Toffoli` matrices: each adds a control |
+| `ch07-adder-comparison.png` | 7 | Half-adder vs. full adder: `1 + 1` is 0 without a carry, 2 with one |
+| `ch08-haha-circuit.png` | 8 | Circuit: `X` then `H`, `H` — a base entered and left |
+| `ch08-haha-bloch.png` | 8 | The same on the Bloch sphere: `H·H = I` |
+| `ch08-attempts-error.png` | 8 | Raw error rate: no base vs. an unreconciled one |
+| `ch08-bb84-circuit.png` | 8 | One BB84 exchange: prepare, Bob's base, measure |
+| `ch08-eavesdropper-error.png` | 8 | Sifted errors over 200 exchanges: clean line vs. wiretap |
+| `ch09-reversible-circuit.png` | 9 | Circuit: `X`, `X` — every gate is reversible |
+| `ch09-oracle-matrices.png` | 9 | The four one-bit oracle matrices |
+| `ch09-oracle-circuit.png` | 9 | The balanced `f(x) = x` oracle: one `CNOT` |
+| `ch09-deutsch-circuit.png` | 9 | The Deutsch circuit (`X`, `H`, `H`, oracle, `H`) |
+| `ch09-deutsch-outcomes.png` | 9 | One query: constant measures 0, balanced measures 1 |
+| `ch09-dj-circuit.png` | 9 | Deutsch–Jozsa for `n = 3` |
+| `ch09-dj-outcomes.png` | 9 | `n = 2`: a constant oracle returns `00`, a balanced one never does |
+| `ch10-classical-tries.png` | 10 | Classical linear scan: tries to find the target |
+| `ch10-oracle-matrix.png` | 10 | Grover's phase oracle: one sign flip |
+| `ch10-step-by-step.png` | 10 | Grover on 2 qubits: probability per basis state per round |
+| `ch10-grover-circuit.png` | 10 | A 3-qubit Grover circuit: `H`, then oracle/diffusion pairs |
+| `ch10-grover-curve.png` | 10 | Grover on 64 items: probability rises then overshoots |
+| `ch10-grover-outcomes.png` | 10 | 64 outcomes after 6 rounds: the answer dominates |
+| `ch11-classical-factor.png` | 11 | Trial division: work grows like `sqrt(n)` |
+| `ch11-period-function.png` | 11 | `2^x mod 15` repeats with period 4 |
+| `ch11-qft-circuit.png` | 11 | The three-qubit QFT circuit |
+| `ch11-qft-phase.png` | 11 | `QFT\|1⟩`: uniform magnitude, linear phase ramp |
+| `ch11-order-circuit.png` | 11 | A compact order-finding circuit for `2^x mod 15` |
+| `ch11-order-peaks.png` | 11 | The inverse QFT: four peaks, 64 apart |
 
 ## Notation used in these notes
 
@@ -84,6 +123,11 @@ always shows where it came from.
 | `H` | Hadamard gate — creates an even superposition |
 | `X` | Pauli-X gate — flips <code>\|0⟩ ↔ \|1⟩</code> |
 | `CNOT` | Controlled-NOT — flips the target when the control is `1` |
+| `Toffoli` | Controlled-controlled-NOT (`CCNOT`) — flips the target when **both** controls are `1`; a reversible `AND` |
+| `XOR` | Exclusive-or — the sum bit of addition modulo 2 |
+| `U_f` | A function oracle: `\|x⟩\|y⟩ → \|x⟩\|y ⊕ f(x)⟩` |
+| `QFT` | The quantum Fourier transform — the discrete Fourier transform as a circuit |
+| `\|s⟩` | The uniform superposition over all `N` basis states |
 | `Z` | Pauli-Z gate — flips the **phase** without changing the bit |
 | `CZ` | Controlled-Z — applies `Z` to the target when the control is `1` |
 | `⊗` | Tensor product — combines qubits into a joint state |
