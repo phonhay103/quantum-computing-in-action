@@ -32,7 +32,7 @@ Chapter titles follow the book's table of contents.
 | [5 — Entanglement](chapters/ch05-entanglement.md) | done | Two qubits can share a joint state that cannot be described one qubit at a time | [circuits, counts, comparison, matrices](chapters/ch05-entanglement.md#the-diagrams) |
 | [6 — Quantum networking: The basics](chapters/ch06-quantum-networking.md) | done | A qubit cannot be copied, so it has to be *moved*: teleportation rebuilds a state from shared entanglement plus two classical bits, and repeaters chain the links | [no-cloning, CZ, teleport, repeater](chapters/ch06-quantum-networking.md#the-diagrams) |
 | [7 — Our HelloWorld, explained](chapters/ch07-helloworld-explained.md) | done | A circuit is an ordered list of steps, and the state can be read after every one — the same idea makes a reversible adder from `CNOT` and `Toffoli` | [circuit, step-by-step, adders, Toffoli](chapters/ch07-helloworld-explained.md#the-diagrams) |
-| [8 — Secure communication using quantum computing](chapters/ch08-secure-communication.md) | done | A qubit only carries a bit in a chosen **base**, so Alice and Bob can sift matching bases into a secret key — and an eavesdropper's measurement leaves a ~25% error rate | [round trip, attempts, BB84, wiretap](chapters/ch08-secure-communication.md#the-diagrams) |
+| [8 — Secure communication using quantum computing](chapters/ch08-secure-communication.md) | done | A qubit only carries a bit in a chosen **base**, so Alice and Bob can sift matching bases into a secret key — and an eavesdropper's measurement leaves a ~25% error rate | [round trip, attempts, superposition, BB84, wiretap](chapters/ch08-secure-communication.md#the-diagrams) |
 | [9 — Deutsch–Jozsa algorithm](chapters/ch09-deutsch-jozsa.md) | done | One quantum query decides whether a promised function is constant or balanced, where a classical check may need `2^(n-1) + 1` | [reversibility, oracles, Deutsch, DJ](chapters/ch09-deutsch-jozsa.md#the-diagrams) |
 | [10 — Grover's search algorithm](chapters/ch10-grovers-search.md) | done | An oracle flips one sign; diffusion reflects about the mean; `(π/4)√N` rounds find the item — a quadratic speed-up | [classical, oracle, step by step, 64 items](chapters/ch10-grovers-search.md#the-diagrams) |
 | [11 — Shor's algorithm](chapters/ch11-shors-algorithm.md) | done | Factoring reduces to order finding, and the quantum Fourier transform reads the period off a few peaks — polynomial time | [classical, QFT, order finding](chapters/ch11-shors-algorithm.md#the-diagrams) |
@@ -93,6 +93,7 @@ a figure always tells you where it came from.
 
 ![The Hadamard round trip](assets/ch08-haha-circuit.png){ width="360" }
 ![A clean line vs. a wiretap](assets/ch08-eavesdropper-error.png){ width="560" }
+![A register in superposition, and the same register recovered](assets/ch08-superposition-states.png){ width="560" }
 ![One BB84 circuit](assets/ch08-bb84-circuit.png){ width="620" }
 
 ### Chapter 9 — Deutsch–Jozsa

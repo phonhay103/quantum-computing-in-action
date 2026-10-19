@@ -14,7 +14,7 @@ The module links point to the code; for the *concepts*, follow the chapter links
 | [5](chapters/ch05-entanglement.md) | Entanglement | [`ch05/entanglement.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch05/entanglement.py), [`ch05/states.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch05/states.py) | `make ch05` |
 | [6](chapters/ch06-quantum-networking.md) | Quantum networking: The basics | [`ch06/networking.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch06/networking.py), [`ch06/czmeasure.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch06/czmeasure.py), [`ch06/teleportation.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch06/teleportation.py), [`ch06/repeater.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch06/repeater.py), [`ch06/protocol.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch06/protocol.py) | `make ch06` |
 | [7](chapters/ch07-helloworld-explained.md) | Our HelloWorld, explained | [`ch07/randombit.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch07/randombit.py), [`ch07/debugging.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch07/debugging.py), [`ch07/half_adder.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch07/half_adder.py), [`ch07/full_adder.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch07/full_adder.py), [`ch07/circuits.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch07/circuits.py) | `make ch07` |
-| [8](chapters/ch08-secure-communication.md) | Secure communication using quantum computing | [`ch08/protocol.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch08/protocol.py), [`ch08/identity.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch08/identity.py), [`ch08/attempts.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch08/attempts.py), [`ch08/bb84.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch08/bb84.py) | `make ch08` |
+| [8](chapters/ch08-secure-communication.md) | Secure communication using quantum computing | [`ch08/protocol.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch08/protocol.py), [`ch08/identity.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch08/identity.py), [`ch08/attempts.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch08/attempts.py), [`ch08/superposition.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch08/superposition.py), [`ch08/bb84.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch08/bb84.py) | `make ch08` |
 | [9](chapters/ch09-deutsch-jozsa.md) | Deutsch–Jozsa algorithm | [`ch09/reversible.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch09/reversible.py), [`ch09/oracles.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch09/oracles.py), [`ch09/deutsch.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch09/deutsch.py), [`ch09/deutschjozsa.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch09/deutschjozsa.py) | `make ch09` |
 | [10](chapters/ch10-grovers-search.md) | Grover's search algorithm | [`ch10/search.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch10/search.py), [`ch10/oracle.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch10/oracle.py), [`ch10/step_by_step.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch10/step_by_step.py), [`ch10/grover.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch10/grover.py) | `make ch10` |
 | [11](chapters/ch11-shors-algorithm.md) | Shor's algorithm | [`ch11/classical.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch11/classical.py), [`ch11/qft.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch11/qft.py), [`ch11/shor.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch11/shor.py) | `make ch11` |
@@ -89,6 +89,8 @@ always shows where it came from.
 | `ch08-haha-circuit.png` | 8 | Circuit: `X` then `H`, `H` — a base entered and left |
 | `ch08-haha-bloch.png` | 8 | The same on the Bloch sphere: `H·H = I` |
 | `ch08-attempts-error.png` | 8 | Raw error rate: no base vs. an unreconciled one |
+| `ch08-superposition-circuit.png` | 8 | The four-qubit superposition circuit |
+| `ch08-superposition-states.png` | 8 | All sixteen states at once, then the prepared bits back |
 | `ch08-bb84-circuit.png` | 8 | One BB84 exchange: prepare, Bob's base, measure |
 | `ch08-eavesdropper-error.png` | 8 | Sifted errors over 200 exchanges: clean line vs. wiretap |
 | `ch09-reversible-circuit.png` | 9 | Circuit: `X`, `X` — every gate is reversible |
@@ -110,6 +112,31 @@ always shows where it came from.
 | `ch11-qft-phase.png` | 11 | `QFT\|1⟩`: uniform magnitude, linear phase ramp |
 | `ch11-order-circuit.png` | 11 | A compact order-finding circuit for `2^x mod 15` |
 | `ch11-order-peaks.png` | 11 | The inverse QFT: four peaks, 64 apart |
+
+## Book samples and their Python ports
+
+The book's Java samples live in one directory per program (`quantumjava/chNN/sample`).
+This table maps them to the Python modules here, chapter by chapter.
+
+| Book chapter | Java samples (`quantumjava/chNN/`) | Python modules |
+|---|---|---|
+| 1 | `time` | `ch01.time_complexity` |
+| 2 | `hellostrange` | `ch02.random_bits` |
+| 3 | `paulix`, `paulixui` | `ch03.pauli_x` |
+| 4 | `hadamard`, `hadamard2` | `ch04.hadamard`, `ch04.matrices` |
+| 5 | `bellstate`, `classiccoin`, `cnot`, `maryqubit`, `quantumcoin` | `ch05.entanglement`, `ch05.states` |
+| 6 | `classic`, `classiccopy`, `hczmeasure`, `teleport`, `repeater` | `ch06.networking`, `ch06.czmeasure`, `ch06.teleportation`, `ch06.repeater`, `ch06.protocol` |
+| 7 | `randombit`, `randombitdebug`, `add1`, `add2` | `ch07.randombit`, `ch07.debugging`, `ch07.half_adder`, `ch07.full_adder`, `ch07.circuits` |
+| 8 | `haha`, `naive`, `guess`, `superposition`, `bb84` | `ch08.identity`, `ch08.attempts`, `ch08.superposition`, `ch08.bb84`, `ch08.protocol` |
+| 9 | `reversibleX`, `function`, `oracle`, `applyoracle`, `deutsch`, `deutschjozsa` | `ch09.reversible`, `ch09.oracles`, `ch09.deutsch`, `ch09.deutschjozsa` |
+| 10 | `classicsearch`, `quantumsearch`, `groveroracle`, `stepbystepgrover`, `grover` | `ch10.search`, `ch10.oracle`, `ch10.step_by_step`, `ch10.grover` |
+| 11 | `classicfactor`, `semiclassicfactor`, `quantumfactor`, `jshell` | `ch11.classical`, `ch11.qft`, `ch11.shor` |
+
+Some samples share a module (the four chapter 9 oracle samples, for instance, are
+all in `ch09.oracles`), and a few add support code with no Java counterpart
+(`ch07.circuits`, `ch08.protocol`). The `quantumjava/ch11/jshell` snippets are the
+book's hand calculations; `ch11.classical.reduction_steps(6, 493)` reproduces
+them.
 
 ## Notation used in these notes
 

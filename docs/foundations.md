@@ -86,6 +86,40 @@ are an even 50/50 mix of the two. Any single-qubit state is a point on the
 surface, described by two angles, `θ` and `φ`. The sphere only works for one
 qubit — it does not extend to entangled states.
 
+## Measurement bases
+
+A measurement is always made **in a basis**, and a qubit carries a definite bit
+only once the basis is fixed. The default is the **Z basis**, whose states are
+`|0⟩` and `|1⟩` — the ordinary bit. Rotating both states by a Hadamard gives the
+**X basis**, `|+⟩ = (|0⟩ + |1⟩)/√2` and `|−⟩ = (|0⟩ − |1⟩)/√2`.
+
+The rule that makes bases matter is short: **measure in the basis a state was
+prepared in and you get a certain answer; measure in the other basis and you get a
+fair coin.** Formally, `|⟨+|0⟩|² = ½` — the two bases are 45° apart on the Bloch
+sphere, so each basis state is an even mix of the other basis's states. This is
+the fact behind [Chapter 8](chapters/ch08-secure-communication.md): a base is
+something you can hide a bit behind, and an eavesdropper who guesses the wrong
+base disturbs the state.
+
+## Periodic functions and modular arithmetic
+
+`a mod N` is the **remainder** when `a` is divided by `N`: `17 mod 15 = 2`, and
+`a mod N` always lands between `0` and `N − 1`. Two numbers are **coprime** when
+their only common divisor is 1, and `gcd(a, N)` — the greatest common divisor —
+is computed by the Euclidean algorithm in time `O(log N)`.
+
+The **sequence** `f(x) = a^x mod N` is what [Chapter 11](chapters/ch11-shors-algorithm.md)
+hunts. It is always **periodic** when `a` and `N` are coprime: after some number of
+steps `r` the values repeat exactly (`a^(x+r) = a^x mod N`), and the smallest such
+`r` is the **order** of `a` modulo `N`. For `a = 2`, `N = 15` the values run
+`1, 2, 4, 8, 1, 2, 4, 8, …`, so the order is 4.
+
+Finding that `r` is *order finding*, and it is as hard as factoring classically.
+The trick that makes it easy quantumly is the **Fourier transform**: a periodic
+list of values turns into a few sharp **peaks** when you transform it, and the
+peaks sit at multiples of `1/r`. Reading a peak back as a fraction recovers `r`,
+and `r` turns into the factors of `N` with two `gcd` calls.
+
 ## Growth rates and Big-O
 
 We describe how fast a computation grows using **Big-O notation**: `O(f)` means

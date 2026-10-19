@@ -82,6 +82,40 @@ là `|1⟩`. **Đường xích đạo** chứa các trạng thái hỗn hợp đ
 một qubit là một điểm trên mặt cầu, mô tả bởi hai góc `θ` và `φ`. Mặt cầu chỉ dùng
 được cho một qubit — không mở rộng sang các trạng thái rối.
 
+## Cơ sở đo
+
+Một phép đo luôn được thực hiện **trong một cơ sở**, và một qubit chỉ mang một bit
+xác định sau khi cơ sở được chốt. Mặc định là **cơ sở Z**, với các trạng thái `|0⟩`
+và `|1⟩` — bit thông thường. Xoay cả hai trạng thái bằng một cổng Hadamard cho **cơ
+sở X**, gồm `|+⟩ = (|0⟩ + |1⟩)/√2` và `|−⟩ = (|0⟩ − |1⟩)/√2`.
+
+Quy tắc khiến cơ sở trở nên quan trọng rất ngắn: **đo trong đúng cơ sở mà trạng thái
+được chuẩn bị thì được câu trả lời chắc chắn; đo trong cơ sở kia thì được một đồng
+xu công bằng.** Về hình thức, `|⟨+|0⟩|² = ½` — hai cơ sở cách nhau 45° trên mặt cầu
+Bloch, nên mỗi trạng thái của cơ sở này là hỗn hợp đều của các trạng thái cơ sở kia.
+Đây chính là sự thật đứng sau [Chương 8](chapters/ch08-secure-communication.md): một
+cơ sở là thứ bạn có thể nấp một bit phía sau, và kẻ nghe lén đoán sai cơ sở sẽ làm
+nhiễu trạng thái.
+
+## Hàm tuần hoàn và số học modular
+
+`a mod N` là **số dư** khi chia `a` cho `N`: `17 mod 15 = 2`, và `a mod N` luôn nằm
+giữa `0` và `N − 1`. Hai số **nguyên tố cùng nhau** khi ước chung duy nhất của chúng
+là 1, và `gcd(a, N)` — ước chung lớn nhất — được tính bằng thuật toán Euclid trong
+thời gian `O(log N)`.
+
+**Dãy** `f(x) = a^x mod N` chính là thứ [Chương 11](chapters/ch11-shors-algorithm.md)
+đi tìm. Nó luôn **tuần hoàn** khi `a` và `N` nguyên tố cùng nhau: sau một số bước `r`
+các giá trị lặp lại y hệt (`a^(x+r) = a^x mod N`), và `r` nhỏ nhất như vậy là **bậc**
+của `a` modulo `N`. Với `a = 2`, `N = 15`, dãy chạy `1, 2, 4, 8, 1, 2, 4, 8, …`, nên
+bậc là 4.
+
+Tìm `r` đó là *tìm bậc*, và nó khó ngang với việc phân tích thừa số nếu làm cổ điển.
+Mẹo khiến nó dễ trên máy lượng tử là **biến đổi Fourier**: một danh sách giá trị tuần
+hoàn biến thành vài **đỉnh** nhọn khi lấy biến đổi, và các đỉnh nằm tại các bội của
+`1/r`. Đọc một đỉnh ngược lại thành phân số sẽ khôi phục `r`, và `r` biến thành các
+thừa số của `N` chỉ với hai phép `gcd`.
+
 ## Tốc độ tăng trưởng và Big-O
 
 Ta mô tả mức độ tăng của một phép tính bằng **ký hiệu Big-O**: `O(f)` nghĩa là
