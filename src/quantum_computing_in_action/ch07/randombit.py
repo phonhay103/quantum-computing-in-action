@@ -134,9 +134,11 @@ This four-qubit program is two steps:
     CNOT(0, 1)     step 2: flip q1 exactly when q0 is |1>
 
 `H` makes `q0` a 50/50 mix of `|0>` and `|1>`. `X` turns `q3` into a definite
-`|1>`; `q2` is never touched and stays `|0>`. Then `CNOT` ties `q1` to `q0`: the
-pair is now the state `( |00> + |11> ) / sqrt(2)`, so whatever `q0` measures,
-`q1` agrees.
+`|1>`; `q2` is never touched and stays `|0>`. In numbers: after step 1 the
+register is `( |0001> + |1001> ) / sqrt(2)` — the two branches differ only in
+`q0`. Then `CNOT` ties `q1` to `q0`, giving `( |0001> + |1101> ) / sqrt(2)`:
+nothing got *more* random, `q1` just became correlated with `q0`, so whatever
+`q0` measures, `q1` agrees.
 
 Measured, that is a random bit with a witness: `q0` is the random value and `q1`
 is a copy of it that the circuit produced for free — not by cloning (Chapter 6
