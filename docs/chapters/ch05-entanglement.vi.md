@@ -112,6 +112,9 @@ Hạng là số hàng độc lập; với ma trận 2×2 nó chỉ là 1 hoặc 
 Schmidt** của trạng thái: 1 là trạng thái tích, 2 là rối. Các [ma trận hệ số](#ma-tran-he-so)
 bên dưới cho thấy hai cái cạnh nhau.
 
+Bảng dưới đây đặt hai trạng thái đối chọi nhau, mỗi hàng một câu hỏi; hàng cuối
+là phép kiểm tra mà các sơ đồ cuối chương minh hoạ:
+
 | | Hai qubit `H` (tích) | Trạng thái Bell (rối) |
 |---|---|---|
 | Kết quả | cả bốn | chỉ `00`, `11` |
@@ -121,6 +124,13 @@ bên dưới cho thấy hai cái cạnh nhau.
 
 Cả hai hệ đều trông "ngẫu nhiên" nếu bạn chỉ liếc một qubit. Khác biệt nằm ở các
 **tương quan**.
+
+??? question "Tự kiểm tra — từng qubit riêng đều 50/50 ở cả hai trạng thái. Một thí nghiệm nào đó phân biệt được chúng?"
+    Hãy đếm xem hai kết quả đo *khớp nhau* bao nhiêu lần. Với hai qubit `H` độc
+    lập, cả bốn kết quả chung đều ngang nhau, nên hai kết quả khớp xảy ra khoảng
+    một nửa số lần (`00` và `11` là 2 trong 4 kết quả). Với trạng thái Bell, tỉ
+    lệ khớp là 100% — `00` và `11` là *hai kết quả duy nhất*. Riêng một con số đó
+    đã là khác biệt giữa hai đồng xu ngẫu nhiên và một đồng xu chia sẻ.
 
 ## Các sơ đồ
 

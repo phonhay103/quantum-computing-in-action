@@ -93,7 +93,7 @@ def main() -> None:
         """
 Factoring a large integer is **hard for classical computers**. The best known
 classical algorithm (the general number field sieve) grows roughly
-*exponentially* with the number of bits, so doubling the bits makes the job
+*sub-exponentially* with the number of bits, so doubling the bits makes the job
 dramatically harder.
 
 Shor's quantum algorithm factors in **polynomial time** — `O(b^3)`. That is the

@@ -11,9 +11,9 @@ Mọi ngôn ngữ lập trình đều bắt đầu bằng chương trình in ra 
 để gõ, nhưng chứng minh cả chuỗi công cụ hoạt động. Điện toán lượng tử cũng cần
 một chương trình đầu tiên như vậy.
 
-Điểm thú vị là chương trình lượng tử nhỏ nhất nhưng vẫn *thú vị* lại làm được điều máy cổ
-điển không làm được: tạo ra một **bit thực sự ngẫu nhiên**. Đó là "Hello World"
-lượng tử — một qubit, một cổng, một phép đo.
+Điểm thú vị là chương trình lượng tử nhỏ nhất mà vẫn *đáng chú ý* lại làm được
+điều máy cổ điển không làm được: tạo ra một **bit thực sự ngẫu nhiên**. Đó là
+"Hello World" lượng tử — một qubit, một cổng, một phép đo.
 
 ## Bit cổ điển so với qubit
 

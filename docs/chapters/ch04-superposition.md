@@ -103,6 +103,13 @@ That minus sign is a **relative phase** (see [complex numbers and phase](../foun
 Both states measure 50/50, yet they are different states — and the difference is
 exactly what makes interference possible.
 
+??? question "Check yourself — if `|+⟩` and `|−⟩` both measure 50/50, how can a minus sign ever matter?"
+    It matters as soon as the amplitudes are made to meet. Apply one more `H`:
+    `H|+⟩ = |0⟩` with certainty, while `H|−⟩ = |1⟩` with certainty. Measuring
+    squares amplitudes, so it loses the sign; the extra `H` turns the sign back
+    into a visible difference. That is **interference**, the mechanism behind
+    every algorithm in this book.
+
 ## `H` is its own inverse
 
 Every quantum gate is reversible, but `H` has a special property: it is its **own
@@ -119,6 +126,9 @@ So the same gate both **creates** and **removes** superposition, depending on
 whether it is applied an odd or an even number of times.
 
 ## One `H` versus two
+
+Both circuits of this chapter side by side — each row is one question you can
+put to the finished circuit:
 
 | | One `H` | Two `H`s (`H·H`) |
 |---|---|---|

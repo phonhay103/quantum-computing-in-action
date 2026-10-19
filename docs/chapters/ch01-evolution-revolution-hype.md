@@ -14,11 +14,13 @@ now a few atoms wide, and shrinking further runs into heat and quantum effects.
 Quantum computing is the next step in that evolution, but it changes the *kind*
 of machine we build. Instead of more classical switches, it uses **qubits** and
 the rules of quantum mechanics — superposition, interference, and entanglement —
-to compute in ways a classical computer cannot imitate efficiently.
+to compute in ways a classical computer cannot imitate efficiently. Those three
+words are unpacked one at a time in Chapters 2, 4, and 5.
 
 ## Revolution or hype?
 
-Both words get used, so it helps to separate the two:
+Both words get used, so it helps to separate the two. Read each row as a claim
+you might hear, and the verdict a fair look at the evidence gives it:
 
 | Claim | Verdict |
 |-------|---------|
@@ -102,11 +104,14 @@ This is the book's simplified estimate of GNFS. The key detail is the
 `(ln b)^2` inside the root: the exponent itself grows with `b`, which makes the
 whole expression grow **sub-exponentially**.
 
-Sub-exponential is a precise term, and it is not the same as
-"super-polynomial". Sub-exponential means *faster than every polynomial but
-slower than a true exponential*. Both statements are true of GNFS; only the
-second one is more informative here. The practical effect: adding bits does not
-just add work, it *multiplies* it — again and again.
+Sub-exponential is a precise term, and it is *not* the same as
+"super-polynomial". *Super-polynomial* only says the work grows faster than
+every polynomial. *Sub-exponential* says that **and** that it still grows
+slower than a true exponential such as `2^b` — the growth sits between the two.
+Both descriptions are true of GNFS, and the second one is the stronger (more
+informative) claim because it adds an upper bound as well as a lower one.
+The practical effect: adding bits does not just add work, it *multiplies* it —
+again and again.
 
 Practical consequence: every few extra bits of key length make classical
 factoring dramatically more expensive. That is why keys of 2048 bits are

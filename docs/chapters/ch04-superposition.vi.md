@@ -97,9 +97,15 @@ hỗn hợp đều *kia*, chỉ khác ở dấu trừ:
 
 $$H\,|1\rangle = \frac{|0\rangle - |1\rangle}{\sqrt{2}} = |-\rangle$$
 
-Dấu trừ đó là một **pha tương đối** (xem [số phức và pha](../foundations.md)). Cả
-hai trạng thái đều đo 50/50, nhưng chúng khác nhau — và sự khác biệt đó chính là
-thứ khiến giao thoa khả thi.
+Dấu trừ đó là một **pha tương đối** (xem [số phức và pha](../foundations.md)).
+Cả hai trạng thái đều đo 50/50, nhưng chúng khác nhau — và sự khác biệt đó chính
+là thứ khiến giao thoa khả thi.
+
+??? question "Tự kiểm tra — nếu `|+⟩` và `|−⟩` đều đo ra 50/50, thì dấu trừ làm sao có thể quan trọng?"
+    Nó quan trọng ngay khi các biên độ được đưa về gặp nhau. Áp thêm một `H`:
+    `H|+⟩ = |0⟩` chắc chắn, còn `H|−⟩ = |1⟩` chắc chắn. Phép đo bình phương biên
+    độ nên làm mất dấu; `H` thêm vào biến dấu trở lại thành khác biệt nhìn thấy
+    được. Đó là **giao thoa** — cơ chế đứng sau mọi thuật toán trong cuốn sách.
 
 ## `H` là nghịch đảo của chính nó
 
@@ -117,6 +123,9 @@ Vậy cùng một cổng vừa **tạo** vừa **xoá** chồng chập, tuỳ th
 số lẻ hay số chẵn lần.
 
 ## Một `H` so với hai `H`
+
+Hai mạch của chương này đặt cạnh nhau — mỗi hàng là một câu hỏi bạn có thể đặt
+ra cho mạch đã chạy xong:
 
 | | Một `H` | Hai `H` (`H·H`) |
 |---|---|---|

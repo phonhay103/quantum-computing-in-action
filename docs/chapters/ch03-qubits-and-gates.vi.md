@@ -69,7 +69,9 @@ qubit tới một điểm xác định trên mặt cầu Bloch.
 
 ## Vì sao kết quả là tất định
 
-So sánh trực tiếp hai chương:
+Vì sao cùng một kiểu thí nghiệm — một cổng, rồi đo — lại cho kết quả ngẫu nhiên
+ở chương này nhưng tất định ở chương kia? So sánh trực tiếp hai chương, mỗi
+hàng một đặc điểm:
 
 | | Chương 2 (Hadamard) | Chương 3 (Pauli-X) |
 |---|---|---|
@@ -83,10 +85,15 @@ quả xác định; chồng chập đều cho kết quả ngẫu nhiên.
 
 !!! info "Cơ sở đo là gì"
     Xuyên suốt ghi chú, "đo" luôn có nghĩa là đo trong cơ sở tính toán
-    `{|0⟩, |1⟩}` — chính đường xích đạo của mặt cầu Bloch, hay trục Z mà hai
-    cực của nó biểu diễn. Chọn cơ sở khác sẽ cho ra kết quả khác; Chương 6 gặp
-    một trường hợp mà dấu hiệu trạng thái thay đổi mà mọi xác suất đo vẫn giữ
-    nguyên.
+    `{|0⟩, |1⟩}` — chính trục Z mà hai cực của mặt cầu Bloch biểu diễn. Chọn cơ
+    sở khác sẽ cho ra kết quả khác; Chương 6 gặp một trường hợp mà dấu hiệu
+    trạng thái thay đổi mà mọi xác suất đo vẫn giữ nguyên.
+
+??? question "Tự kiểm tra — cổng `H` của Chương 2 cũng khả nghịch. Vậy tính ngẫu nhiên của nó có thể bị hoàn tác không?"
+    Có — miễn là qubit chưa bị đo. Áp `H` thứ hai trước khi đo, qubit quay về
+    `|0⟩`; đo khi đó luôn ra `0` (Chương 4 lấy điều này làm tiêu đề). Tính
+    ngẫu nhiên chỉ trở nên vĩnh viễn ở chính phép đo — đúng là ngoại lệ mà ghi
+    chú phía trên mô tả.
 
 ## Các sơ đồ
 

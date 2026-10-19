@@ -15,11 +15,13 @@ cùng các hiệu ứng lượng tử.
 Điện toán lượng tử là bước kế tiếp trong tiến hoá đó, nhưng nó thay đổi *loại*
 máy mà ta chế tạo. Thay vì thêm nhiều công tắc cổ điển, nó dùng **qubit** và các
 quy luật cơ học lượng tử — chồng chập, giao thoa và rối lượng tử — để tính theo
-cách mà máy cổ điển không thể bắt chước một cách hiệu quả.
+cách mà máy cổ điển không thể bắt chước một cách hiệu quả. Ba từ đó lần lượt
+được mở ra ở Chương 2, 4 và 5.
 
 ## Cách mạng hay cường điệu?
 
-Người ta dùng cả hai từ, nên cần tách bạch:
+Người ta dùng cả hai từ, nên cần tách bạch. Đọc mỗi hàng như một nhận định bạn
+có thể nghe thấy, và phần kết luận là phán quyết sau khi xét công bằng:
 
 | Nhận định | Kết luận |
 |-----------|----------|
@@ -28,8 +30,9 @@ Người ta dùng cả hai từ, nên cần tách bạch:
 | "Hôm nay đã dùng được trong sản xuất" | **Cường điệu** — máy hiện tại còn nhỏ và nhiễu |
 | "Nền tảng lý thuyết vững và tiến bộ nhanh" | **Cách mạng** — các thuật toán là thật |
 
-Tóm lại cho trung thực: một **cuộc cách mạng cho một nhóm bài toán hẹp**, không
-phải tăng tốc phổ quát. Biết *bài toán nào* chính là mục đích của cuốn sách này.
+Tóm lại một cách trung thực: một **cuộc cách mạng cho một nhóm bài toán hẹp**,
+không phải tăng tốc phổ quát. Biết *bài toán nào* chính là mục đích của cuốn
+sách này.
 
 ## Máy lượng tử giúp được ở đâu
 
@@ -98,9 +101,11 @@ $$e^{\left(\tfrac{64}{9}\,b\,(\ln b)^2\right)^{1/3}}$$
 trong căn: chính số mũ đó tăng theo `b`, khiến cả biểu thức tăng **dưới hàm
 mũ**.
 
-"Dưới hàm mũ" là một thuật ngữ có nghĩa chính xác, và nó *không* giống "siêu đa
-thức". Dưới hàm mũ nghĩa là *nhanh hơn mọi đa thức nhưng chậm hơn một hàm mũ thật*.
-Cả hai mô tả đều đúng với GNFS, nhưng ở đây cái thứ hai mới có thêm thông tin.
+"Dưới hàm mũ" là một thuật ngữ chính xác, và nó *không* giống "siêu đa thức".
+*Siêu đa thức* chỉ nói rằng công việc tăng nhanh hơn mọi đa thức. *Dưới hàm mũ*
+nói điều đó **và** nói rằng nó vẫn tăng chậm hơn một hàm mũ thật như `2^b` — tốc
+độ tăng trưởng nằm giữa hai loại. Cả hai mô tả đều đúng với GNFS, và mô tả thứ
+hai mới là nhận định mạnh hơn vì nó thêm cả cận trên, không chỉ cận dưới.
 Hệ quả thực tế: thêm bit không chỉ thêm việc, nó *nhân* việc lên — hết lần này
 đến lần khác.
 

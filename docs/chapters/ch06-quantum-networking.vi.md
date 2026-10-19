@@ -7,7 +7,7 @@
 
 ## Một byte qua socket
 
-Chương mở đầu bằng mạng đơn giản nhất có thể có. Một tiến trình thu nhận chiếm
+Chương mở đầu bằng mạng đơn giản nhất có thể có. Một tiến trình nhận chiếm
 một cổng và chờ; một tiến trình gửi kết nối và ghi một byte:
 
 ```
@@ -21,8 +21,8 @@ một cổng và chờ; một tiến trình gửi kết nối và ghi một byte
 Mẫu trong
 [`ch06/networking.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch06/networking.py)
 làm đúng điều đó với module `socket` của Python. Không có gì ghê gớm ở đây —
-và đó chính là điểm. Mọi mạng cổ điển đều làm vậy, và làm đi lặp đi lặp lại
-bằng cùng một mẹo: **đọc một gói tin, sao chép nó, chuyển tiếp bản sao.**
+và đó chính là điểm. Mọi mạng cổ điển đều làm vậy, và lặp đi lặp lại cùng một
+mẹo: **đọc một gói tin, sao chép nó, chuyển tiếp bản sao.**
 
 ## Vì sao không thể nhân bản một qubit
 
@@ -42,12 +42,13 @@ chưa biết.
 Lập luận rất ngắn. Giả sử có một máy sao chép được mọi trạng thái `|ψ⟩` mà vẫn
 để nguyên bản gốc.
 
-1. Cho nó vào `|+⟩`. Bản sao ra cũng là `|+⟩`, chưa thấy vấn đề gì.
-2. Cho nó vào `( |0⟩ + |1⟩ ) / √2`. Vì việc sao chép phải là một phép *tuyến
-   tính* trên các biên độ, bản sao bị buộc phải là
-   `( |00⟩ + |11⟩ ) / √2`.
-3. Nhưng đo **một** qubit của `( |00⟩ + |11⟩ ) / √2` cho kết quả 0 hoặc 1 chắc
-   chắn, khiến qubit còn lại sụp về `|0⟩` hoặc `|1⟩`.
+1. Cho nó vào `|0⟩` và `|1⟩`. Các bản sao ra đúng, chưa thấy vấn đề gì.
+2. Cho nó vào `|+⟩ = ( |0⟩ + |1⟩ ) / √2`. Vì việc sao chép phải là một phép
+   *tuyến tính* trên các biên độ, kết quả bị buộc phải là
+   `( |00⟩ + |11⟩ ) / √2` — một cặp rối, không phải hai bản sao độc lập của
+   `|+⟩`.
+3. Nhưng đo **một** qubit của `( |00⟩ + |11⟩ ) / √2` cho một giá trị `0` hoặc
+   `1` xác định, khiến qubit còn lại sụp về `|0⟩` hoặc `|1⟩`.
 4. Vậy "bản sao" chỉ là `|0⟩` hoặc `|1⟩` — không bao giờ là `|+⟩`. Mâu thuẫn.
 
 ### Một lần thử thất bại trông như thế nào
@@ -92,7 +93,7 @@ trống đó là định lý không nhân bản, đo được.
 ## Một pha mà bạn không nhìn thấy
 
 Bài tập của Chương 6 ("Pauli-Z gate and Measurement") hỏi rằng *cổng hai qubit*
-còn lại làm gì. `CZ`, cổng controlled-Z, giống `CNOT` ở một điểm: khi qubit
+còn lại làm gì. `CZ`, cổng controlled-Z, chỉ khác `CNOT` ở một điểm: khi qubit
 điều khiển bằng `1`, nó lật **pha** của qubit đích thay vì lật bit của nó.
 
 ![Mạch H + CZ](../assets/ch06-cz-circuit.png){ width="420" }
@@ -185,6 +186,14 @@ tin**, không chuyển hạt — dù sao thì `q0` của Alice vẫn mất.
     sáng. Không có hai bit đó, Bob chỉ có một trạng thái với lỗi pha ngẫu nhiên
     và không cách nào sửa. Đó là hai "bit cổ điển" trong tên của giao thức, và đó
     là lý do teleportation **không** vượt ánh sáng.
+
+??? question "Tự kiểm tra — bước 3 nói phép đo của Alice *hủy* `q0`. Chẳng phải trạng thái đã mất trước khi Bob dựng lại được sao?"
+    `q0` mất rồi, nhưng thông tin của trạng thái thì không: bước 2 đã trải nó
+    lên các tương quan giữa cả ba qubit. Sau khi Alice đo, `q2` của Bob đã giữ
+    trạng thái được gửi kèm một trong bốn lỗi đã biết — có thể bị lật (`X`),
+    có thể bị lật pha (`Z`), có thể cả hai. Bốn tin nhắn của Alice, mỗi cái xác
+    suất như nhau, ghi đúng lỗi đang xảy ra — vì vậy hai bit là đủ để sửa trạng
+    thái, và cũng vì thế chúng là cần thiết.
 
 ## Từ mạch tới mạng: trạm lặp
 
@@ -336,7 +345,7 @@ uv run python -m quantum_computing_in_action.ch06.teleportation
 ```
 
 !!! note "Cách đọc nhãn trên mạch"
-    Các mạch được *vẽ ra* là mạch Qiski bình thường có khối `if_test`, đúng như
+    Các mạch được *vẽ ra* là mạch Qiskit bình thường có khối `if_test`, đúng như
     cách bạn sẽ viết. Các con số đến từ bộ mô phỏng nhánh, vốn tính ra cùng phân
     phối mà không cần thực thi control flow. Các qubit được đánh số theo chỉ số
     thuần (`q0`, `q1`, ...), khớp với mẫu Java của sách, nên `q0` là qubit ở

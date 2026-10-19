@@ -69,7 +69,9 @@ is reversible, and it moves the qubit to a definite point on the Bloch sphere.
 
 ## Why the result is deterministic
 
-Contrast the two chapters directly:
+Why does the same kind of experiment — one gate, then a measurement — give
+randomness in one chapter and certainty in the other? Contrast the two chapters
+directly, one fact per row:
 
 | | Chapter 2 (Hadamard) | Chapter 3 (Pauli-X) |
 |---|---|---|
@@ -86,6 +88,13 @@ definitely; a balanced superposition measures randomly.
     basis — the same Z axis the Bloch sphere's poles represent. A different basis
     gives different results; Chapter 6 runs into a case where the state changes
     sign yet every measurement probability stays exactly the same.
+
+??? question "Check yourself — Chapter 2's `H` is reversible too. Can its randomness be undone?"
+    Yes — as long as the qubit has not been measured yet. Apply a second `H`
+    before any measurement and the qubit is back in `|0⟩`; measure then, and you
+    get `0` every time (Chapter 4 makes this its headline). The randomness only
+    becomes permanent at the measurement itself — exactly the exception the
+    note above describes.
 
 ## The diagrams
 

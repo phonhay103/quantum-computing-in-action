@@ -384,11 +384,11 @@ because it is impossible: the **no-cloning theorem**. Trying anyway with a
 `CNOT` raises no error; it just quietly produces the wrong answer.
 
 The argument is short. Suppose a machine copies *any* state `|ψ>` and leaves the
-original alone. Feed it `|+>` and the copy looks fine. But feed it
-`( |0> + |1> ) / √2` and, by linearity, the copy must come out as
-`( |00> + |11> ) / √2`. Measure **one** qubit of that state and the outcome is
-0 or 1 with certainty, so the copy collapses to `|0>` or `|1>` — never `|+>`
-again. Contradiction.
+original alone. Feed it `|0>` and `|1>` and the copies come out right. But feed
+it `|+> = ( |0> + |1> ) / √2` and, by linearity, the copy must come out as
+`( |00> + |11> ) / √2` — an entangled pair, not two independent copies.
+Measure **one** qubit of that state and the outcome is a definite 0 or 1, so
+the copy collapses to `|0>` or `|1>` — never `|+>` again. Contradiction.
 
 So a quantum network has to **move** a state without **copying** it. That is what
 teleportation does, and it needs two classical bits to say it worked.

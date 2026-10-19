@@ -115,6 +115,9 @@ Rank is the number of independent rows; for a 2×2 matrix it is simply 1 or 2.
 This is the state's **Schmidt rank**: 1 means product, 2 means entangled. The
 [coefficient matrices](#coefficient-matrices) below show the two side by side.
 
+The table below pits the two states against each other, one question per row;
+the last row is the test the diagrams at the end make visual:
+
 | | Two `H` qubits (product) | Bell state (entangled) |
 |---|---|---|
 | Outcomes | all four | only `00`, `11` |
@@ -124,6 +127,13 @@ This is the state's **Schmidt rank**: 1 means product, 2 means entangled. The
 
 Both systems look "random" if you glance at a single qubit. The difference is in
 the **correlations**.
+
+??? question "Check yourself — each qubit alone is 50/50 in both states. What single experiment tells them apart?"
+    Count how often the two measurement outcomes *agree*. With two independent
+    `H` qubits, all four joint outcomes are equally likely, so agreement happens
+    about half the time (`00` and `11` are 2 of the 4 outcomes). With the Bell
+    state, agreement is 100% — `00` and `11` are the *only* outcomes. That one
+    count is the difference between two random coins and one shared coin.
 
 ## The diagrams
 

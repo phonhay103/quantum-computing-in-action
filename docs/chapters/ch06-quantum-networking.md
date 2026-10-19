@@ -42,12 +42,13 @@ theorem** says no machine can copy an arbitrary unknown state.
 The argument is short. Suppose a machine could copy any state `|ψ⟩` while
 leaving the original untouched.
 
-1. Feed it `|+⟩`. The copy comes out as `|+⟩`, and nothing is wrong yet.
-2. Feed it `( |0⟩ + |1⟩ ) / √2` instead. Since copying must be a *linear*
-   operation on amplitudes, the copy is then forced to be
-   `( |00⟩ + |11⟩ ) / √2`.
-3. But measuring **one** qubit of `( |00⟩ + |11⟩ ) / √2` gives 0 or 1 with
-   certainty, collapsing the other qubit to `|0⟩` or `|1⟩`.
+1. Feed it `|0⟩` and `|1⟩`. The copies come out right, and nothing is wrong yet.
+2. Feed it `|+⟩ = ( |0⟩ + |1⟩ ) / √2` instead. Since copying must be a *linear*
+   operation on amplitudes, the output is then forced to be
+   `( |00⟩ + |11⟩ ) / √2` — an entangled pair, not two independent copies
+   of `|+⟩`.
+3. But measuring **one** qubit of `( |00⟩ + |11⟩ ) / √2` gives a definite `0`
+   or `1`, collapsing the other qubit to `|0⟩` or `|1⟩`.
 4. So the "copy" is either `|0⟩` or `|1⟩` — never `|+⟩`. Contradiction.
 
 ### What a failed attempt looks like
@@ -187,6 +188,14 @@ particle — Alice's `q0` is gone either way.
     Without those two bits Bob has a state with a random phase error and no way
     to fix it. That is the "2 classical bits" in the protocol's name, and it is
     why teleportation is *not* superluminal.
+
+??? question "Check yourself — step 3 says Alice's measurement *destroys* `q0`. Isn't the state gone before Bob can rebuild it?"
+    `q0` is gone, but the state's information is not: step 2 spread it across the
+    correlations between all three qubits. After Alice measures, Bob's `q2`
+    already holds the sent state with one of four known errors — possibly
+    flipped (`X`), possibly phase-flipped (`Z`), possibly both. Each of Alice's
+    four equally likely messages names exactly which error it is, which is why
+    two bits are enough to repair the state — and why they are needed.
 
 ## From circuits to networks: the repeater
 
