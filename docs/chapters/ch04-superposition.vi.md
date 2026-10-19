@@ -147,7 +147,7 @@ sau cái thứ hai.
     cực xuống đường xích đạo (ngẫu nhiên); `H` thứ hai đưa nó trở lại cực (xác
     định). Theo ngôn ngữ ma trận, chuyến khứ hồi đó đơn giản là `H·H = I`.
 
-## Các sơ đồ
+## Các sơ đồ {#cac-so-do}
 
 ### Mạch một `H`
 
@@ -186,7 +186,7 @@ chứng trực quan rằng hai Hadamard triệt tiêu nhau.
 Sau một `H`, hai cột gần bằng nhau. Sau hai `H`, một cột chứa toàn bộ 1000 kết quả
 còn cột kia trống — không còn chút ngẫu nhiên nào.
 
-## Ghi nhớ chính
+## Những điều cần nhớ
 
 - Trạng thái qubit là một **vector** `[α, β]`; quy tắc Born biến nó thành xác suất.
 - Cổng là một **ma trận** nhân vào vector trạng thái.

@@ -1,6 +1,6 @@
 # Chương 9 — Deutsch và Deutsch–Jozsa
 
-!!! abstract "Tóm lại một câu"
+!!! abstract "Trong một câu"
     Nếu một hàm được hứa là **hằng số** hoặc **cân bằng**, một mạch lượng tử chỉ cần
     **một** lời gọi oracle là quyết định được — trong khi phép kiểm tra cổ điển
     muốn chắc chắn có thể cần tới `2^(n-1) + 1` lời gọi.
@@ -396,7 +396,7 @@ phí lượng tử vẫn là **một** truy vấn dù đầu vào rộng đến 
     như một tổng thể. Một truy vấn mua một bit toàn cục, không phải `2^n` bit cục
     bộ; tăng tốc hiệu quả được vì câu hỏi cũng chỉ cần đúng một bit đó.
 
-## Sơ đồ
+## Các sơ đồ {#cac-so-do}
 
 ### Tính khả nghịch
 

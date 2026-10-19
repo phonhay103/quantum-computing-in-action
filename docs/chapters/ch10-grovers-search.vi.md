@@ -1,6 +1,6 @@
 # Chương 10 — Thuật toán tìm kiếm của Grover
 
-!!! abstract "Tóm lại một câu"
+!!! abstract "Trong một câu"
     Với một danh sách không có cấu trúc và chỉ có một phép thử nhận ra đáp án,
     Grover tìm ra nó trong khoảng `(π/4)·√N` bước thay vì `N/2` của cổ điển — một
     tăng tốc **bậc hai**, và là mức tốt nhất mà một danh sách không sắp xếp cho
@@ -327,7 +327,7 @@ trúc để khai thác.
     vòng là thêm một phép xoay của vector biên độ, và vector ấy chỉ cần xoay một
     phần tư vòng để chỉ vào đáp án.
 
-## Sơ đồ
+## Các sơ đồ {#cac-so-do}
 
 ### Mốc cổ điển
 

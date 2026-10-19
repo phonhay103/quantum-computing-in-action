@@ -57,7 +57,7 @@ là một **lần chạy** (shot) — hai kết quả xuất hiện với số l
     đo. Đó là lý do "hello world" này là ví dụ đầu tiên phù hợp cho một chương
     trình lượng tử.
 
-## Các sơ đồ
+## Các sơ đồ {#cac-so-do}
 
 ### Mạch
 
@@ -85,7 +85,7 @@ nam là `|1⟩`. `H|0⟩` hạ cánh đúng trên đường xích đạo, hướ
 dấu hiệu thị giác của chồng chập đều 50/50. Một trạng thái nằm trên đường xích
 đạo chính là thứ bảo đảm kết quả đo cân bằng.
 
-## Ghi nhớ chính
+## Những điều cần nhớ
 
 - Qubit có thể ở chồng chập, không chỉ `0` hay `1`.
 - `H` biến `|0⟩` thành hỗn hợp đều `(|0⟩ + |1⟩)/√2`.

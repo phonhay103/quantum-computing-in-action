@@ -92,7 +92,7 @@ khoảng cách" mà tên chương nhắc tới.
     cho nhau, nhanh nhất là bằng tốc độ ánh sáng. Rối lượng tử cho *tương quan*,
     không phải truyền thông.
 
-## Trạng thái tích so với trạng thái rối
+## Trạng thái tích so với trạng thái rối {#trang-thai-tich-so-voi-trang-thai-roi}
 
 Sự tương phản với tính ngẫu nhiên thường là điểm chính của chương. Áp Hadamard lên
 **mỗi** qubit và không dùng `CNOT`:
@@ -132,7 +132,7 @@ Cả hai hệ đều trông "ngẫu nhiên" nếu bạn chỉ liếc một qubit
     lệ khớp là 100% — `00` và `11` là *hai kết quả duy nhất*. Riêng một con số đó
     đã là khác biệt giữa hai đồng xu ngẫu nhiên và một đồng xu chia sẻ.
 
-## Các sơ đồ
+## Các sơ đồ {#cac-so-do}
 
 ### Mạch Bell
 
@@ -169,7 +169,7 @@ nhưng các kết quả **không tương quan**.
 Cùng bốn kết quả, đặt cạnh nhau. Các qubit độc lập trải đều; cặp rối dồn về hai
 kết quả khớp nhau.
 
-### Ma trận hệ số
+### Ma trận hệ số {#ma-tran-he-so}
 
 ![Trạng thái tích so với trạng thái rối](../assets/ch05-amplitude-matrices.png){ width="640" }
 
@@ -177,7 +177,7 @@ Xếp các biên độ thành ma trận 2×2 khiến khác biệt trở nên tr�
 tích cho ma trận hạng 1 (mọi phần tử `0.50`); trạng thái Bell cho ma trận chéo hạng
 2. Hạng 1 nghĩa là "phân tích được thành tích"; hạng 2 nghĩa là "rối".
 
-## Điểm cốt lõi
+## Những điều cần nhớ
 
 - Hai qubit sống trong không gian bốn chiều sinh bởi `|00⟩, |01⟩, |10⟩, |11⟩`.
 - `CNOT` lật **đích** khi **điều khiển** bằng `1`; nó khả nghịch và unita.

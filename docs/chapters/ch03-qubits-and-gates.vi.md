@@ -95,7 +95,7 @@ quả xác định; chồng chập đều cho kết quả ngẫu nhiên.
     ngẫu nhiên chỉ trở nên vĩnh viễn ở chính phép đo — đúng là ngoại lệ mà ghi
     chú phía trên mô tả.
 
-## Các sơ đồ
+## Các sơ đồ {#cac-so-do}
 
 ### Mạch
 
@@ -134,7 +134,7 @@ Sau một `X`, cả 1000 kết quả đều là `1`; sau hai `X`, cả 1000 kế
 Tất định trong cả hai trường hợp — nguồn ngẫu nhiên duy nhất trong các chương này
 đến từ cổng Hadamard.
 
-## Ghi nhớ chính
+## Những điều cần nhớ
 
 - Qubit và cổng là hai **đơn vị cơ bản** của chương trình lượng tử.
 - Cổng lượng tử **khả nghịch**; mỗi cổng đều có nghịch đảo.

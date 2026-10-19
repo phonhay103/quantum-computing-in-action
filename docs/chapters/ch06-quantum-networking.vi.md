@@ -250,7 +250,7 @@ mọi thứ vẫn hoạt động dù không thể sao chép.
     [Chương 8](ch08-secure-communication.md) biến cùng ý tưởng đó thành truyền
     thông an toàn.
 
-## Sơ đồ
+## Các sơ đồ {#cac-so-do}
 
 ### Định lý không nhân bản
 

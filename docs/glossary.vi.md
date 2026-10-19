@@ -122,10 +122,10 @@ chỗ. Trang này là chỗ quay lại khi một định nghĩa đã mờ đi.
 
 | Ký hiệu | Ý nghĩa |
 |---|---|
-| <code⟩\|0⟩</code⟩, <code⟩\|1⟩</code⟩ | Hai trạng thái cơ sở của qubit |
-| <code⟩\|ψ⟩</code⟩ | Một trạng thái một-qubit bất kỳ |
-| <code⟩\|+⟩</code⟩, <code⟩\|−⟩</code⟩ | Hai chồng chập đều `(\|0⟩ ± \|1⟩)/√2` |
-| <code⟩\|00⟩</code⟩ … <code⟩\|11⟩</code⟩ | Các trạng thái cơ sở hai qubit, đọc từ trái sang phải |
+| <code>\|0⟩</code>, <code>\|1⟩</code> | Hai trạng thái cơ sở của qubit |
+| <code>\|ψ⟩</code> | Một trạng thái một-qubit bất kỳ |
+| <code>\|+⟩</code>, <code>\|−⟩</code> | Hai chồng chập đều `(\|0⟩ ± \|1⟩)/√2` |
+| <code>\|00⟩</code> … <code>\|11⟩</code> | Các trạng thái cơ sở hai qubit, đọc từ trái sang phải |
 | `α`, `β` | Biên độ — xác suất là bình phương độ lớn của chúng |
 | `H`, `X`, `Z`, `I`, `U` | Cổng Hadamard, Pauli-X, Pauli-Z, đơn vị, và cổng tổng quát |
 | `CNOT(c,t)`, `CZ` | Cổng hai qubit; ở đây viết qubit điều khiển trước |
@@ -135,7 +135,7 @@ chỗ. Trang này là chỗ quay lại khi một định nghĩa đã mờ đi.
 | <code>\|s⟩</code> | Chồng chập đều trên mọi trạng thái cơ sở |
 | `⊗` | Tích tensor |
 | `P(0)`, `P(1)` | Xác suất đo, theo quy tắc Born |
-| <code⟩\|⟨a\|b⟩\|²</code⟩ | Độ trung thực giữa hai trạng thái |
+| <code>\|⟨a\|b⟩\|²</code> | Độ trung thực giữa hai trạng thái |
 
 Bảng ký hiệu đầy đủ, kèm chương dùng ở đâu, nằm ở trang
 [Tham chiếu](reference.vi.md).

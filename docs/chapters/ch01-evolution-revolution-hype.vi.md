@@ -107,9 +107,7 @@ nói điều đó **và** nói rằng nó vẫn tăng chậm hơn một hàm mũ
 độ tăng trưởng nằm giữa hai loại. Cả hai mô tả đều đúng với GNFS, và mô tả thứ
 hai mới là nhận định mạnh hơn vì nó thêm cả cận trên, không chỉ cận dưới.
 Hệ quả thực tế: thêm bit không chỉ thêm việc, nó *nhân* việc lên — hết lần này
-đến lần khác.
-
-Hệ quả thực tế: mỗi vài bit khoá thêm vào khiến việc phân tích cổ điển đắt lên
+đến lần khác. Mỗi vài bit khoá thêm vào khiến việc phân tích cổ điển đắt lên
 rất nhiều. Đó là lý do khoá 2048 bit được coi là an toàn ngày nay.
 
 ## Chi phí của Shor
@@ -129,7 +127,7 @@ dữ dội hơn hẳn.
     qubit *vật lý* để mã hoá một qubit **logic** đáng tin. Chương này nói về *lời
     hứa tiệm cận*, không phải về việc phá RSA trên phần cứng hiện tại.
 
-## Các sơ đồ
+## Các sơ đồ {#cac-so-do}
 
 Sách vẽ **hai** biểu đồ: một so sánh cả hai thuật toán, và một chỉ vẽ đường cổ điển
 để hình dạng của nó không bị đường Shor thấp hơn che khuất.
@@ -151,7 +149,7 @@ cột giúp hai tốc độ tăng trưởng trở nên cụ thể: cột cổ đ
 số khổng lồ trong khi cột Shor vẫn tương đối khiêm tốn. Các hình trên kể cùng câu
 chuyện đó bằng hình ảnh.
 
-## Ghi nhớ chính
+## Những điều cần nhớ
 
 - Điện toán lượng tử là một **bước tiến hoá** với tăng tốc **cách mạng** cho một
   nhóm bài toán hẹp — không phải máy tính nhanh phổ quát.

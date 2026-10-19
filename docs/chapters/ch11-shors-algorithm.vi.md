@@ -1,6 +1,6 @@
 # Chương 11 — Thuật toán Shor
 
-!!! abstract "Tóm lại một câu"
+!!! abstract "Trong một câu"
     Phân tích thừa số chỉ khó vì **tìm bậc** khó; một chồng chập tuần hoàn cộng
     với **biến đổi Fourier lượng tử** tìm ra bậc trong thời gian đa thức, rồi vài phép
     `gcd` biến bậc đó thành các thừa số.
@@ -159,7 +159,7 @@ ngoặc. Với `a = 2`, `r = 4`, `N = 15`:
 2. ngược lại hai thừa số của `N` là `gcd(a^(r/2) − 1, N)` và
    `gcd(a^(r/2) + 1, N)`.
 
-Hai điều kiện loại đều tồn tại vì `N` phải *xẽ đôi* giữa hai ngoặc. Nếu `N`
+Hai điều kiện loại đều tồn tại vì `N` phải *xẻ đôi* giữa hai ngoặc. Nếu `N`
 chia hết trọn một ngoặc, ngoặc đó `≡ 0` hoặc `≡ −1` và `gcd` của nó cho đáp án
 tầm thường (`1` hoặc `N`) — không mang thông tin. Các trường hợp không may là
 thật: với `a = 2`, `N = 7` dãy là `2, 4, 1` với `r = 3` (lẻ — `a^(r/2)` thậm
@@ -385,7 +385,7 @@ vẫn đủ gần để phân số liên tục khôi phục `1/6`, vậy là `r 
     `N` lớn nó sẽ mất cả đời. Cặp demo (`semiclassic_factor` và `shor`) tồn tại
     chính để cho thấy máy lượng tử thay thế bước nào, và không bước nào khác.
 
-## Sơ đồ
+## Các sơ đồ {#cac-so-do}
 
 ### Mốc cổ điển
 
@@ -430,7 +430,7 @@ xác suất `0.25` — chu kỳ `4` dưới dạng đỉnh.
   phép cho số 12 chữ số `999999999989` — gấp đôi chữ số, nghìn lần công việc.
 - Phép quy giản của Shor: chu kỳ `r` của `a^x mod N` cho các thừa số qua
   `gcd(a^(r/2) − 1, N)` và `gcd(a^(r/2) + 1, N)`, vì `N` chia hết
-  `a^r − 1 = (a^(r/2) − 1)(a^(r/2) + 1)` và xẽ đôi giữa hai ngoặc. Thử lại với
+  `a^r − 1 = (a^(r/2) − 1)(a^(r/2) + 1)` và xẻ đôi giữa hai ngoặc. Thử lại với
   `a` khác nếu `r` lẻ hoặc `a^(r/2) ≡ −1`.
 - **QFT** là "đếm một mẫu lặp lại bao lâu một lần": một thanh ghi tuần hoàn
   với chu kỳ `r` biến thành các **đỉnh** nhọn tại các bội của `2^m / r` —

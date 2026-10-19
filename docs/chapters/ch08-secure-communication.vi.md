@@ -1,6 +1,6 @@
 # Chương 8 — Truyền thông an toàn bằng điện toán lượng tử
 
-!!! abstract "Tóm lại một câu"
+!!! abstract "Trong một câu"
     Alice và Bob có thể thống nhất một **khoá bí mật** qua một đường công khai vì
     một qubit chỉ mang một bit *trong một cơ sở được chọn* — và kẻ nghe lén không
     biết cơ sở buộc phải làm nhiễu trạng thái, để lại tỉ lệ lỗi khoảng 25%.
@@ -382,7 +382,7 @@ trộm, nên họ vứt khoá đi rồi thử lại.
     một mẫu, thấy tỉ lệ, và từ chối khoá. Đòn tấn công không chỉ phát hiện được —
     nó còn không lời.
 
-## Sơ đồ
+## Các sơ đồ {#cac-so-do}
 
 ### Vòng xoay Hadamard
 

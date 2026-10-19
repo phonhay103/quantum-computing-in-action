@@ -122,10 +122,10 @@ is the place to come back when a definition has faded.
 
 | Symbol | Meaning |
 |---|---|
-| <code⟩\|0⟩</code⟩, <code⟩\|1⟩</code⟩ | The two basis states of a qubit |
-| <code⟩\|ψ⟩</code⟩ | An arbitrary one-qubit state |
-| <code⟩\|+⟩</code⟩, <code⟩\|−⟩</code⟩ | The two even superpositions `(\|0⟩ ± \|1⟩)/√2` |
-| <code⟩\|00⟩</code⟩ … <code⟩\|11⟩</code⟩ | Two-qubit basis states, read left to right |
+| <code>\|0⟩</code>, <code>\|1⟩</code> | The two basis states of a qubit |
+| <code>\|ψ⟩</code> | An arbitrary one-qubit state |
+| <code>\|+⟩</code>, <code>\|−⟩</code> | The two even superpositions `(\|0⟩ ± \|1⟩)/√2` |
+| <code>\|00⟩</code> … <code>\|11⟩</code> | Two-qubit basis states, read left to right |
 | `α`, `β` | Amplitudes — probabilities are their squared magnitudes |
 | `H`, `X`, `Z`, `I`, `U` | The Hadamard, Pauli-X, Pauli-Z, identity, and generic gates |
 | `CNOT(c,t)`, `CZ` | Two-qubit gates; here the control is written first |
@@ -135,7 +135,7 @@ is the place to come back when a definition has faded.
 | <code>\|s⟩</code> | The uniform superposition over all `N` basis states |
 | `⊗` | Tensor product |
 | `P(0)`, `P(1)` | Measurement probabilities, by the Born rule |
-| <code⟩\|⟨a\|b⟩\|²</code⟩ | Fidelity between two states |
+| <code>\|⟨a\|b⟩\|²</code> | Fidelity between two states |
 
 The full symbol table, with the chapter each one is used in, is on the
 [Reference](reference.md) page.

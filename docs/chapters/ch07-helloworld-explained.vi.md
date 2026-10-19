@@ -1,6 +1,6 @@
 # Chương 7 — HelloWorld của chúng ta, giải thích
 
-!!! abstract "Tóm lại một câu"
+!!! abstract "Trong một câu"
     Một chương trình lượng tử không phải hộp đen: nó là một danh sách **các bước**
     có thứ tự, và trạng thái mà nó tạo ra đọc được sau *mỗi* bước — đó là tất cả
     ý nghĩa của việc "chạy một mạch".
@@ -196,7 +196,7 @@ không vừa trong một bit, nên kết quả quay vòng về `0`.
 
 Và vấn đề nằm ở đó: mạch *biết* là có số nhớ (cả hai đầu vào đều 1), nhưng nó
 **không có chỗ để đặt**. `CNOT` chỉ lật đích giữa `0` và `1`; không gì trong mạch
-nhớ rằng nó đã nhớ. Đây là một **bán bộ cộng**: đúng miễn là mọi kết quả vừa trong
+nhớ rằng nó đã nhớ. Đây là một **bộ bán cộng**: đúng miễn là mọi kết quả vừa trong
 một bit.
 
 ??? question "Tự kiểm tra — `1 + 1 = 0` có phải lỗi không?"
@@ -267,7 +267,7 @@ Bức tranh đầy đủ trên cả bốn đầu vào:
 | 1 | 0 | 1 | 0 | 1 |
 | 1 | 1 | 0 | 1 | **2** |
 
-![Bán bộ cộng so với bộ cộng đầy đủ](../assets/ch07-adder-comparison.png){ width="620" }
+![Bộ bán cộng so với bộ cộng đầy đủ](../assets/ch07-adder-comparison.png){ width="620" }
 
 Hai mạch đồng ý trên ba đầu vào và phân kỳ ở dòng thứ tư. Khoảng trống đó — số nhớ
 — là toàn bộ lý do Toffoli tồn tại trong hộp công cụ lượng tử, và là khuôn mẫu mà
@@ -281,7 +281,7 @@ kiện; `CNOT` lật đích theo một điều khiển; `Toffoli` theo hai. Mỗ
 thêm một điều khiển và một qubit, và chính gia đình *khả nghịch* này là chất liệu
 viết nên các thuật toán lượng tử — kể cả các oracle của [Chương 9](ch09-deutsch-jozsa.md).
 
-## Sơ đồ
+## Các sơ đồ {#cac-so-do}
 
 ### Chương trình
 
@@ -310,7 +310,7 @@ còn `q2` và `q3` không bao giờ.
 
 ### Các bộ cộng
 
-![Bán bộ cộng cho 1 + 1](../assets/ch07-add1-circuit.png){ width="420" }
+![Bộ bán cộng cho 1 + 1](../assets/ch07-add1-circuit.png){ width="420" }
 
 Trường hợp `1 + 1`: cả hai đầu vào đặt, và tổng đọc `0` vì không có chỗ đặt số nhớ.
 
@@ -318,7 +318,7 @@ Trường hợp `1 + 1`: cả hai đầu vào đặt, và tổng đọc `0` vì 
 
 `Toffoli` ghi số nhớ lên `q2`, `CNOT` ghi tổng lên `q1`.
 
-![Bán bộ cộng so với bộ cộng đầy đủ](../assets/ch07-adder-comparison.png){ width="620" }
+![Bộ bán cộng so với bộ cộng đầy đủ](../assets/ch07-adder-comparison.png){ width="620" }
 
 ![Từ X đến CNOT đến Toffoli](../assets/ch07-toffoli-matrices.png){ width="620" }
 
@@ -331,7 +331,7 @@ Trường hợp `1 + 1`: cả hai đầu vào đặt, và tổng đọc `0` vì 
 - Trong chương trình HelloWorld, `q0` trở nên ngẫu nhiên ở `H`, `q1` nhận giá trị
   ở `CNOT`, còn `q2` và `q3` không di chuyển. Biểu đồ cuối sẽ che mất tất cả.
 - `CNOT` tính `a XOR b`: cộng **modulo 2**, không số nhớ. Tự thân nó là một
-  **bán bộ cộng**, và `1 + 1 = 0`.
+  **bộ bán cộng**, và `1 + 1 = 0`.
 - Mọi cổng lượng tử đều **khả nghịch**, nên `AND` cổ điển bị cấm. Bản thay thế là
   **Toffoli** (`CCNOT`) — "một `CNOT` cần hai lần xin phép" — một `AND` khả nghịch
   giữ nguyên đầu vào.
@@ -348,7 +348,7 @@ Bốn mẫu, mỗi mẫu một mục sách, cộng một trợ giúp dùng chung
 - [`ch07/debugging.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch07/debugging.py)
   — cùng chương trình đó, với trạng thái được báo cáo sau mỗi bước (7.5.2).
 - [`ch07/half_adder.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch07/half_adder.py)
-  — bán bộ cộng `CNOT`, modulo 2, không số nhớ (7.6.2).
+  — bộ bán cộng `CNOT`, modulo 2, không số nhớ (7.6.2).
 - [`ch07/full_adder.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch07/full_adder.py)
   — bộ cộng đầy đủ `Toffoli` + `CNOT`, và ma trận `Toffoli` (7.6.3).
 - [`ch07/circuits.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch07/circuits.py)
