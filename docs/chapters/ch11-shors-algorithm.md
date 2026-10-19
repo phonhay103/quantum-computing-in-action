@@ -42,6 +42,14 @@ Once you know `r`, the factoring is a few `gcd` calls away:
 
 For `a = 2`, `r = 4`: `a^(r/2) = 4`, `gcd(4 − 1, 15) = 3`, and `15/3 = 5`. Done.
 
+The book then checks the same arithmetic on a larger example by hand:
+
+$$a = 6,\quad N = 493,\quad r = 112,\quad 6^{56} \bmod 493 = 407$$
+
+so `gcd(407 − 1, 493) = 29` and `gcd(407 + 1, 493) = 17` — and indeed
+`493 = 17 × 29`. The `jshell` snippets in the book's chapter 11 directory are those
+two checks; `ch11.classical.reduction_steps(6, 493)` reproduces them in one call.
+
 The catch: finding `r` classically is as hard as factoring, so this reduction buys
 nothing *by itself*. What it does is isolate the one step a quantum computer can
 do well — **order finding** — which is the rest of the chapter.

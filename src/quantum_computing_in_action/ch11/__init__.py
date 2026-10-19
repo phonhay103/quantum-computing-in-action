@@ -26,6 +26,7 @@ from quantum_computing_in_action.ch11.classical import (
     classical_period,
     factor_from_order,
     period_function,
+    reduction_steps,
     semiclassic_factor,
     trial_division,
 )
@@ -68,6 +69,8 @@ __all__ = [
     "qft_circuit",
     "qft_matrix",
     "quantum_order",
+    "random_semiclassic_factor",
+    "reduction_steps",
     "semiclassic_factor",
     "shor",
     "trial_division",

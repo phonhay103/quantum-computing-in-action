@@ -22,6 +22,8 @@ from __future__ import annotations
 import math
 from pathlib import Path
 
+import numpy as np
+
 from quantum_computing_in_action._console import console, explain, steps
 from quantum_computing_in_action._diagrams import render_counts
 
@@ -124,6 +126,55 @@ def semiclassic_factor(n: int, *, max_tries: int = 100) -> int:
         if factor is not None:
             return factor
     raise ValueError(f"failed to factor {n} after {max_tries} tries")
+
+
+def reduction_steps(a: int, n: int) -> dict[str, int]:
+    """Return the book's worked arithmetic for one ``(a, n)`` pair.
+
+    This is what the book's two ``jshell`` snippets check by hand: the period
+    ``r``, the value ``a^(r/2) mod n``, and the two ``gcd``s that turn the period
+    into factors. For the book's larger example — ``a = 6``, ``n = 493`` — the
+    period is 112, ``6^56 mod 493`` is 407, and the two gcds are 29 and 17, so
+    ``493 = 17 x 29``.
+
+    Raises:
+        ValueError: if ``a`` and ``n`` are not coprime, or the period is odd (in
+            which case ``a^(r/2)`` has no integer exponent).
+    """
+    period = classical_period(a, n)
+    if period % 2:
+        raise ValueError(f"the period {period} is odd, so a^(r/2) is not an integer power")
+    half = pow(a, period // 2, n)
+    return {
+        "period": period,
+        "a^(r/2) mod n": half,
+        "gcd(a^(r/2) - 1, n)": math.gcd(half - 1, n),
+        "gcd(a^(r/2) + 1, n)": math.gcd(half + 1, n),
+    }
+
+
+def random_semiclassic_factor(*, seed: int | None = None, upper: int = 10000) -> tuple[int, int]:
+    """Factor a random target below ``upper``, the way the book's sample does.
+
+    The book's ``semiclassicfactor`` picks a random ``N`` each run and retries on
+    its own; this is the same idea with the randomness made reproducible. Returns
+    ``(n, factor)`` for the first target that factorises.
+
+    Raises:
+        ValueError: if no target in one hundred draws could be factored.
+    """
+    if upper < 4:
+        raise ValueError("upper must be at least 4")
+    rng = np.random.default_rng(seed)
+    for _ in range(100):
+        n = int(rng.integers(4, upper))
+        if n % 2 == 0:
+            return n, 2
+        try:
+            return n, semiclassic_factor(n)
+        except ValueError:
+            continue
+    raise ValueError(f"no factorable target below {upper}")
 
 
 def steps_curve(limit: int = 200) -> dict[int, float]:
@@ -240,6 +291,20 @@ computer can do well: **order finding**. The next modules build it.
     for n in (15, 21, 35, 91):
         factor = semiclassic_factor(n)
         console.print(f"  [bits]semiclassic[/bits] {n:>4} = {factor} x {n // factor}")
+
+    console.rule("The book's larger example (a = 6, N = 493)")
+    worked = reduction_steps(6, 493)
+    console.print(
+        f"  [bits]period[/bits] r = {worked['period']}   [bits]6^(r/2) mod 493[/bits] = {worked['a^(r/2) mod n']}"
+    )
+    console.print(
+        f"  [bits]gcd(6^(r/2) - 1, 493)[/bits] = {worked['gcd(a^(r/2) - 1, n)']}   "
+        f"[bits]gcd(6^(r/2) + 1, 493)[/bits] = {worked['gcd(a^(r/2) + 1, n)']}"
+    )
+    console.print(
+        "[muted]493 = 17 x 29. These are the two numbers the book's jshell snippets check by hand: "
+        "the period is 112, and the two gcd's split 493.[/muted]"
+    )
 
     classical_path = draw_classical()
     period_path = draw_period()

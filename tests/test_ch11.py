@@ -71,6 +71,32 @@ def test_period_function_rejects_non_coprime() -> None:
         classical.period_function(5, 15)
 
 
+def test_reduction_steps_reproduce_the_book_larger_example() -> None:
+    """The book's jshell snippets: a = 6, N = 493, period 112, gcds 29 and 17."""
+    worked = classical.reduction_steps(6, 493)
+    assert worked["period"] == 112
+    assert worked["a^(r/2) mod n"] == 407
+    assert {worked["gcd(a^(r/2) - 1, n)"], worked["gcd(a^(r/2) + 1, n)"]} == {29, 17}
+
+
+def test_reduction_steps_reject_an_odd_period() -> None:
+    """The order of 2 modulo 7 is 3, so a^(r/2) has no integer exponent."""
+    assert classical.classical_period(2, 7) == 3
+    with pytest.raises(ValueError, match="odd"):
+        classical.reduction_steps(2, 7)
+
+
+def test_random_semiclassic_factor_finds_a_factor() -> None:
+    n, factor = classical.random_semiclassic_factor(seed=7)
+    assert 1 < factor < n
+    assert n % factor == 0
+
+
+def test_random_semiclassic_factor_rejects_a_small_upper_bound() -> None:
+    with pytest.raises(ValueError, match="at least 4"):
+        classical.random_semiclassic_factor(upper=3)
+
+
 def test_classical_curve_rejects_small_limit() -> None:
     with pytest.raises(ValueError, match="at least 3"):
         classical.steps_curve(2)

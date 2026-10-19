@@ -42,6 +42,14 @@ Khi đã biết `r`, việc phân tích chỉ còn vài phép `gcd`:
 
 Với `a = 2`, `r = 4`: `a^(r/2) = 4`, `gcd(4 − 1, 15) = 3`, và `15/3 = 5`. Xong.
 
+Sách kiểm lại phép tính đó trên một ví dụ lớn hơn, tính tay:
+
+$$a = 6,\quad N = 493,\quad r = 112,\quad 6^{56} \bmod 493 = 407$$
+
+nên `gcd(407 − 1, 493) = 29` và `gcd(407 + 1, 493) = 17` — và đúng là
+`493 = 17 × 29`. Hai snippet `jshell` trong thư mục chương 11 của sách chính là hai
+phép kiểm đó; `ch11.classical.reduction_steps(6, 493)` tái tạo chúng trong một lần gọi.
+
 Vấn đề là: tìm `r` bằng cổ điển cũng khó như phân tích thừa số, nên phép quy giản
 này *tự nó* không đem lại gì. Thứ nó làm là cô lập bước duy nhất mà máy lượng tử làm
 tốt — **tìm bậc** — và đó là phần còn lại của chương.
