@@ -148,6 +148,11 @@ every qubit, run the oracle once, then Hadamard the input register:
   **pairwise** on `|0...0>`, whose amplitude becomes `(1/2^n) * sum (-1)^f(x) = 0`.
   So `|0...0>` can never be measured.
 
+For `n = 2` both cases fit on one line. Take the balanced parity oracle
+`f(x) = q0 XOR q1`: its four branch signs are `(+1, -1, -1, +1)`, so the amplitude
+of `|00>` is `(1/4)(+1 -1 -1 +1) = 0`. A constant oracle has all four signs `+1`,
+giving `(1/4)(+1+1+1+1) = 1`: all zeros, with certainty.
+
 One outcome decides it: **all zeros means constant; anything else means balanced**.
 Adding wires does not add queries, because the oracle runs on all `2^n` inputs at
 once — this is *quantum parallelism*, and interference is what turns it into an

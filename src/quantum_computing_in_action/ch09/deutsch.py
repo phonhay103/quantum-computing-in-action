@@ -136,6 +136,17 @@ branches of `q0` carry `(-1)^f(0)` and `(-1)^f(1)`.
 * If `f` is **balanced**, the signs differ — a relative minus sign — and the final
   Hadamard turns `q0` into `|1>`. Measurement gives `1`.
 
+Follow the balanced oracle `f(x) = x` in amplitudes:
+
+    start        |0>|1>
+    H(0), H(1)   (|0>+|1>)/sqrt(2)  x  (|0>-|1>)/sqrt(2)
+    oracle       (|0>-|1>)/sqrt(2)  x  |->    x=1 branch gets a minus
+    H(0)         |1>  x  |->
+    measure q0   1  ->  balanced
+
+The constant-0 oracle changes nothing in step 3, so `H(0)` sends `|+>` back to
+`|0>`: measurement `0`, constant. Same circuit, one bit of answer, one query.
+
 One query. Constant leaves the qubit where it was; balanced flips it. The next
 section scales the same idea from one bit to `n`.
 """,
