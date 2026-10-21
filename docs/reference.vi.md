@@ -1,7 +1,11 @@
 # Tham chiếu
 
-Bảng tra nhanh từ mỗi chương tới module mã nguồn, lệnh CLI và các sơ đồ. Liên kết
-module trỏ tới mã; muốn hiểu *khái niệm*, hãy theo liên kết chương.
+Tham chiếu này cung cấp một bản đồ hệ thống từ mỗi chương của sách tới module mã
+nguồn tương ứng, lệnh khi thực thi module đó, và các sơ đồ được sinh ra trong
+quá trình chạy. Nó được thiết kế để tra cứu song song với nội dung các chương:
+liên kết module trỏ trực tiếp tới mã triển khai, còn phần *khái niệm* đằng sau
+mỗi chương trình được trình bày trên trang chương, cần theo liên kết chương để
+có phần giải thích khái niệm đầy đủ.
 
 ## Các chương trong nháy mắt
 
@@ -19,7 +23,9 @@ module trỏ tới mã; muốn hiểu *khái niệm*, hãy theo liên kết chư
 | [10](chapters/ch10-grovers-search.md) | Thuật toán tìm kiếm của Grover | [`ch10/search.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch10/search.py), [`ch10/oracle.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch10/oracle.py), [`ch10/step_by_step.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch10/step_by_step.py), [`ch10/grover.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch10/grover.py) | `make ch10` |
 | [11](chapters/ch11-shors-algorithm.md) | Thuật toán Shor | [`ch11/classical.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch11/classical.py), [`ch11/qft.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch11/qft.py), [`ch11/shor.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch11/shor.py) | `make ch11` |
 
-CLI nhận id của chương:
+Giao diện dòng lệnh đi kèm nhận id của chương làm đối số. Khi được gọi với một
+id chương cụ thể, CLI thực thi chương trình mẫu của chương đó và tạo ra các kết
+quả cùng hình vẽ tương ứng:
 
 ```bash
 uv run python -m quantum_computing_in_action ch01
@@ -37,86 +43,90 @@ uv run python -m quantum_computing_in_action ch11
 
 ## Các tệp sơ đồ
 
-Mọi sơ đồ được ghi vào `build/` và có tiền tố là số chương để một hình luôn cho
-biết nó đến từ đâu.
+Mọi sơ đồ do các chương trình mẫu sinh ra đều được ghi vào thư mục `build/` và
+có tiền tố là số chương, nhờ đó mỗi hình riêng lẻ luôn có thể được truy ngược về
+chương và chương trình đã tạo ra nó. Bảng dưới đây liệt kê từng tệp sinh ra kèm
+với phần mô tả nội dung mà hình đó thể hiện.
 
 | Sơ đồ | Chương | Thể hiện |
 |-------|--------|----------|
-| `ch01-time-complexity.png` | 1 | Đường cong thời gian phân tích thừa số cổ điển so với Shor |
-| `ch01-time-complexity-classical.png` | 1 | Đường cổ điển riêng lẻ |
-| `ch02-random-bits-circuit.png` | 2 | Mạch: `H` rồi đo |
-| `ch02-random-bits-counts.png` | 2 | Biểu đồ 10.000 bit đo được |
-| `ch02-random-bits-bloch.png` | 2 | Chồng chập trên mặt cầu Bloch |
-| `ch03-pauli-x.png` | 3 | Mạch: `X` rồi đo |
-| `ch03-pauli-x2-circuit.png` | 3 | Mạch: `X`, `X`, rồi đo |
-| `ch03-pauli-x-bloch.png` | 3 | (\|0⟩ → sau `X` → sau `X·X`) |
-| `ch03-pauli-x-counts.png` | 3 | Biểu đồ 1000 lần chạy `X` (toàn `1`) |
-| `ch03-pauli-x2-counts.png` | 3 | Biểu đồ 1000 lần chạy `X·X` (toàn `0`) |
-| `ch04-hadamard-circuit.png` | 4 | Mạch: một `H` rồi đo |
-| `ch04-hadamard2-circuit.png` | 4 | Mạch: `H`, `H`, rồi đo |
-| `ch04-hadamard-bloch.png` | 4 | (\|0⟩ → sau `H` → sau `H·H`) |
-| `ch04-hadamard-counts.png` | 4 | Biểu đồ 1000 lần chạy `H` |
-| `ch04-hadamard2-counts.png` | 4 | Biểu đồ 1000 lần chạy `H·H` (toàn `0`) |
-| `ch04-gate-matrices.png` | 4 | Ma trận `X`, `H` và `H·H` dưới dạng heatmap |
-| `ch05-bell-circuit.png` | 5 | Mạch: `H`, `CNOT`, rồi đo cả hai qubit |
-| `ch05-cnot-circuit.png` | 5 | Mạch: `CNOT(0,1)` trần |
-| `ch05-bell-counts.png` | 5 | Biểu đồ 1000 lần chạy trạng thái Bell (chỉ `00`, `11`) |
-| `ch05-independent-counts.png` | 5 | Biểu đồ 1000 lần chạy hai qubit `H` độc lập |
-| `ch05-bell-vs-independent.png` | 5 | Cột nhóm: kết quả độc lập so với rối |
-| `ch05-amplitude-matrices.png` | 5 | Ma trận hệ số: trạng thái tích (hạng 1) so với Bell (hạng 2) |
-| `ch06-clone-attempt-circuit.png` | 6 | Mạch: `H` rồi `CNOT`, cách thử nhân bản thất bại |
-| `ch06-clone-fidelity.png` | 6 | Độ trung thực của bản sao bằng `CNOT` theo từng trạng thái đầu vào |
-| `ch06-clone-agreement.png` | 6 | Nhân bản `\|+⟩`: hai bản độc lập so với cách thử tương quan bằng `CNOT` |
-| `ch06-cz-circuit.png` | 6 | Mạch: `H` rồi `CZ`, rồi đo |
-| `ch06-cz-vs-bell.png` | 6 | `CZ` rối cặp qubit mà không đổi xác suất nào |
-| `ch06-cz-matrices.png` | 6 | Ma trận hệ số: một dấu đổi đưa hạng từ 1 lên 2 |
-| `ch06-teleport-circuit.png` | 6 | Teleportation: cặp Bell, đo kiểu Bell, phép sửa `If X` / `If Z` |
-| `ch06-teleport-outcomes.png` | 6 | Kết quả của Bob theo trạng thái Alice gửi, gắn với tin nhắn |
-| `ch06-teleport-fidelity.png` | 6 | Mọi tin nhắn đều dựng lại trạng thái chính xác |
-| `ch06-repeater-circuit.png` | 6 | Hai đoạn liên kết nối qua năm qubit và bốn bit cổ điển |
-| `ch06-repeater-consistency.png` | 6 | P(1) khởi đầu của Alice so với P(0) Bob nhận được |
-| `ch06-repeater-counts.png` | 6 | Gửi P(1) = 0.4 qua nút trung gian: kỳ vọng so với đo được |
-| `ch07-randombit-circuit.png` | 7 | Mạch: chương trình bốn qubit (`H`, `X`, `CNOT`) |
-| `ch07-randombit-counts.png` | 7 | Biểu đồ hai kết quả khả dĩ (`q0 = q1`) |
-| `ch07-randombit-qubits.png` | 7 | `P(1)` của từng qubit: `q0`/`q1` bằng 0.50, `q2` 0, `q3` 1 |
-| `ch07-debug-circuit.png` | 7 | Chương trình với một vạch chắn đánh dấu mỗi bước |
-| `ch07-debug-steps.png` | 7 | Xác suất trạng thái cơ sở sau mỗi bước |
-| `ch07-debug-marginals.png` | 7 | `P(1)` của từng qubit sau mỗi bước: bước nào đổi qubit nào |
-| `ch07-add1-circuit.png` | 7 | Bộ bán cộng: `CNOT` cho `1 + 1`, cộng modulo 2 |
-| `ch07-add2-circuit.png` | 7 | Bộ cộng đầy đủ: `Toffoli` (số nhớ) rồi `CNOT` (tổng) |
-| `ch07-toffoli-matrices.png` | 7 | Ma trận `X`, `CNOT` và `Toffoli`: mỗi cổng thêm một điều khiển |
-| `ch07-adder-comparison.png` | 7 | Bán cộng so với cộng đầy đủ: `1 + 1` bằng 0 khi không có số nhớ, bằng 2 khi có |
-| `ch08-haha-circuit.png` | 8 | Mạch: `X` rồi `H`, `H` — một cơ sở được đi vào rồi rời ra |
-| `ch08-haha-bloch.png` | 8 | Điều tương tự trên mặt cầu Bloch: `H·H = I` |
-| `ch08-attempts-error.png` | 8 | Tỉ lệ lỗi thô: không cơ sở so với cơ sở không đối chiếu |
-| `ch08-superposition-circuit.png` | 8 | Mạch chồng chập bốn qubit |
-| `ch08-superposition-states.png` | 8 | Cả mười sáu trạng thái cùng lúc, rồi các bit đã chuẩn bị trở lại |
-| `ch08-bb84-circuit.png` | 8 | Một trao đổi BB84: chuẩn bị, cơ sở của Bob, đo |
-| `ch08-eavesdropper-error.png` | 8 | Lỗi sau sàng lọc qua 200 trao đổi: đường sạch so với nghe trộm |
-| `ch09-reversible-circuit.png` | 9 | Mạch: `X`, `X` — mọi cổng đều khả nghịch |
-| `ch09-oracle-matrices.png` | 9 | Bốn ma trận oracle một bit |
-| `ch09-oracle-circuit.png` | 9 | Oracle cân bằng `f(x) = x`: một `CNOT` |
-| `ch09-deutsch-circuit.png` | 9 | Mạch Deutsch (`X`, `H`, `H`, oracle, `H`) |
-| `ch09-deutsch-outcomes.png` | 9 | Một truy vấn: hằng số đo 0, cân bằng đo 1 |
-| `ch09-dj-circuit.png` | 9 | Deutsch–Jozsa cho `n = 3` |
-| `ch09-dj-outcomes.png` | 9 | `n = 2`: oracle hằng số trả về `00`, oracle cân bằng thì không |
-| `ch10-classical-tries.png` | 10 | Quét tuyến tính cổ điển: số lần thử để tìm mục tiêu |
-| `ch10-oracle-matrix.png` | 10 | Oracle pha của Grover: một lần lật dấu |
-| `ch10-step-by-step.png` | 10 | Grover trên 2 qubit: xác suất mỗi trạng thái cơ sở theo vòng |
-| `ch10-grover-circuit.png` | 10 | Mạch Grover 3 qubit: `H`, rồi các cặp oracle/khuếch tán |
-| `ch10-grover-curve.png` | 10 | Grover trên 64 mục: xác suất tăng rồi vọt quá |
-| `ch10-grover-outcomes.png` | 10 | 64 kết quả sau 6 vòng: đáp án chiếm ưu thế |
-| `ch11-classical-factor.png` | 11 | Chia thử: công việc tăng như `sqrt(n)` |
-| `ch11-period-function.png` | 11 | `2^x mod 15` lặp lại với chu kỳ 4 |
-| `ch11-qft-circuit.png` | 11 | Mạch QFT ba qubit |
-| `ch11-qft-phase.png` | 11 | `QFT\|1⟩`: độ lớn đều, dốc pha tuyến tính |
+| `ch01-time-complexity.png` | 1 | Đường cong thời gian phân tích thừa số của cách tiếp cận cổ điển so với cách dựa trên thuật toán Shor, đặt cạnh nhau |
+| `ch01-time-complexity-classical.png` | 1 | Đường cong thời gian cổ điển, vẽ riêng lẻ |
+| `ch02-random-bits-circuit.png` | 2 | Sơ đồ mạch: một cổng `H` duy nhất rồi đến phép đo |
+| `ch02-random-bits-counts.png` | 2 | Biểu đồ 10.000 bit đo được, cho thấy hai kết quả xuất hiện với tần suất gần bằng nhau |
+| `ch02-random-bits-bloch.png` | 2 | Chồng chập thu được, hiển thị trên mặt cầu Bloch |
+| `ch03-pauli-x.png` | 3 | Sơ đồ mạch: một cổng `X` duy nhất rồi đến phép đo |
+| `ch03-pauli-x2-circuit.png` | 3 | Sơ đồ mạch: hai cổng `X` liên tiếp rồi đến phép đo |
+| `ch03-pauli-x-bloch.png` | 3 | Quá trình biến đổi trạng thái <code>\|0⟩</code> → sau `X` → sau `X·X`, được theo dõi theo từng bước |
+| `ch03-pauli-x-counts.png` | 3 | Biểu đồ 1000 lần chạy `X` (mọi lần đều cho kết quả `1`) |
+| `ch03-pauli-x2-counts.png` | 3 | Biểu đồ 1000 lần chạy `X·X` (mọi lần đều cho kết quả `0`) |
+| `ch04-hadamard-circuit.png` | 4 | Sơ đồ mạch: một cổng `H` duy nhất rồi đến phép đo |
+| `ch04-hadamard2-circuit.png` | 4 | Sơ đồ mạch: hai cổng `H` liên tiếp rồi đến phép đo |
+| `ch04-hadamard-bloch.png` | 4 | Quá trình biến đổi trạng thái <code>\|0⟩</code> → sau `H` → sau `H·H`, được theo dõi theo từng bước |
+| `ch04-hadamard-counts.png` | 4 | Biểu đồ 1000 lần chạy `H`, cho thấy hai kết quả đo được |
+| `ch04-hadamard2-counts.png` | 4 | Biểu đồ 1000 lần chạy `H·H` (mọi lần đều cho kết quả `0`) |
+| `ch04-gate-matrices.png` | 4 | Các ma trận của `X`, `H` và `H·H`, được vẽ dưới dạng heatmap |
+| `ch05-bell-circuit.png` | 5 | Sơ đồ mạch: `H`, `CNOT`, rồi đến phép đo cả hai qubit |
+| `ch05-cnot-circuit.png` | 5 | Sơ đồ mạch: một `CNOT(0,1)` trần, áp dụng mà không có bước chuẩn bị thêm nào |
+| `ch05-bell-counts.png` | 5 | Biểu đồ 1000 lần chạy trạng thái Bell (chỉ có các kết quả `00` và `11` xuất hiện) |
+| `ch05-independent-counts.png` | 5 | Biểu đồ 1000 lần chạy hai qubit, mỗi qubit đi qua cổng `H` độc lập của riêng nó |
+| `ch05-bell-vs-independent.png` | 5 | Biểu đồ cột nhóm: kết quả của trường hợp độc lập so với trường hợp rối |
+| `ch05-amplitude-matrices.png` | 5 | Ma trận hệ số: trạng thái tích (hạng 1) đặt cạnh trạng thái Bell (hạng 2) |
+| `ch06-clone-attempt-circuit.png` | 6 | Sơ đồ mạch: `H` rồi `CNOT`, thể hiện cách thử nhân bản thất bại |
+| `ch06-clone-fidelity.png` | 6 | Độ trung thực của bản sao bằng `CNOT`, được đánh giá cho từng trạng thái đầu vào khả dĩ |
+| `ch06-clone-agreement.png` | 6 | Nhân bản `\|+⟩`: hai bản sao độc lập đặt cạnh cách thử tương quan bằng `CNOT` |
+| `ch06-cz-circuit.png` | 6 | Sơ đồ mạch: `H`, rồi `CZ`, rồi đến phép đo |
+| `ch06-cz-vs-bell.png` | 6 | Chứng minh rằng `CZ` khiến cặp qubit rối mà không làm thay đổi xác suất đo nào |
+| `ch06-cz-matrices.png` | 6 | Ma trận hệ số: một lần đổi dấu duy nhất đưa hạng từ 1 lên 2 |
+| `ch06-teleport-circuit.png` | 6 | Giao thức teleportation: một cặp Bell, phép đo kiểu Bell, và các phép sửa `If X` / `If Z` |
+| `ch06-teleport-outcomes.png` | 6 | Kết quả đo của Bob đối với mỗi trạng thái Alice gửi, được đánh chỉ số theo tin nhắn cổ điển |
+| `ch06-teleport-fidelity.png` | 6 | Chứng minh rằng mọi tin nhắn đều dựng lại trạng thái được truyền đi một cách chính xác |
+| `ch06-repeater-circuit.png` | 6 | Hai đoạn liên kết lặp nối tiếp nhau, được thực hiện trên năm qubit và bốn bit cổ điển |
+| `ch06-repeater-consistency.png` | 6 | P(1) khởi đầu của Alice đặt cạnh giá trị P(0) được chuyển đến cho Bob |
+| `ch06-repeater-counts.png` | 6 | Giá trị P(1) = 0.4 được gửi qua nút trung gian: phân phối kỳ vọng đặt cạnh phân phối đo được |
+| `ch07-randombit-circuit.png` | 7 | Sơ đồ mạch: chương trình bốn qubit, được tạo thành từ `H`, `X` và `CNOT` |
+| `ch07-randombit-counts.png` | 7 | Biểu đồ kết quả đo, vốn suy sập về hai kết quả khả dĩ thỏa mãn `q0 = q1` |
+| `ch07-randombit-qubits.png` | 7 | Giá trị `P(1)` của từng qubit: `q0`/`q1` bằng 0.50, `q2` bằng 0 và `q3` bằng 1 |
+| `ch07-debug-circuit.png` | 7 | Cùng chương trình đó, nhưng có một vạch chắn được chèn vào để đánh dấu mỗi bước |
+| `ch07-debug-steps.png` | 7 | Phân phối trên các trạng thái cơ sở sau mỗi bước |
+| `ch07-debug-marginals.png` | 7 | `P(1)` biên của từng qubit sau mỗi bước, cho biết bước nào làm thay đổi qubit nào |
+| `ch07-add1-circuit.png` | 7 | Bộ bán cộng: `CNOT` áp dụng cho `1 + 1`, cộng theo modulo 2 |
+| `ch07-add2-circuit.png` | 7 | Bộ cộng đầy đủ: `Toffoli` (tính số nhớ) theo sau bởi `CNOT` (tính tổng) |
+| `ch07-toffoli-matrices.png` | 7 | Các ma trận của `X`, `CNOT` và `Toffoli`: mỗi cổng kế tiếp bổ sung một điều khiển |
+| `ch07-adder-comparison.png` | 7 | Bán cộng so với cộng đầy đủ: `1 + 1` cho kết quả 0 khi không có số nhớ, và cho 2 khi có số nhớ |
+| `ch08-haha-circuit.png` | 8 | Sơ đồ mạch: `X` rồi `H`, `H` — một cơ sở được đi vào rồi lại rời ra |
+| `ch08-haha-bloch.png` | 8 | Quá trình biến đổi tương tự hiển thị trên mặt cầu Bloch, minh hoạ `H·H = I` |
+| `ch08-attempts-error.png` | 8 | Tỉ lệ lỗi thô: trường hợp không dùng cơ sở so với trường hợp cơ sở chưa được đối chiếu |
+| `ch08-superposition-circuit.png` | 8 | Mạch bốn qubit được dùng để chuẩn bị một chồng chập |
+| `ch08-superposition-states.png` | 8 | Cả mười sáu trạng thái hiển thị cùng lúc, theo sau là phần khôi phục lại các bit đã chuẩn bị |
+| `ch08-bb84-circuit.png` | 8 | Một trao đổi BB84 đơn lẻ: chuẩn bị trạng thái, lựa chọn cơ sở của Bob, và phép đo |
+| `ch08-eavesdropper-error.png` | 8 | Các lỗi sau sàng lọc tích lũy qua 200 trao đổi: kênh sạch so với kênh bị nghe trộm |
+| `ch09-reversible-circuit.png` | 9 | Sơ đồ mạch: `X`, `X` — chứng minh rằng mọi cổng trong dãy đều khả nghịch |
+| `ch09-oracle-matrices.png` | 9 | Bốn ma trận oracle khả dĩ cho một hàm một bit |
+| `ch09-oracle-circuit.png` | 9 | Oracle cân bằng `f(x) = x`, có thể hiện thực bằng một cổng `CNOT` duy nhất |
+| `ch09-deutsch-circuit.png` | 9 | Mạch Deutsch, được tạo thành từ `X`, `H`, `H`, oracle và một cổng `H` cuối cùng |
+| `ch09-deutsch-outcomes.png` | 9 | Một lần truy vấn oracle: hàm hằng cho kết quả đo 0, hàm cân bằng cho kết quả đo 1 |
+| `ch09-dj-circuit.png` | 9 | Mạch Deutsch–Jozsa cho `n = 3` |
+| `ch09-dj-outcomes.png` | 9 | Với `n = 2`: oracle hằng trả về `00`, trong khi oracle cân bằng thì không bao giờ như vậy |
+| `ch10-classical-tries.png` | 10 | Quét tuyến tính cổ điển: số lần thử cần thiết để tìm ra mục tiêu |
+| `ch10-oracle-matrix.png` | 10 | Oracle pha của Grover, được hiện thực bằng một lần lật dấu duy nhất |
+| `ch10-step-by-step.png` | 10 | Thuật toán Grover trên 2 qubit: xác suất của từng trạng thái cơ sở sau mỗi vòng |
+| `ch10-grover-circuit.png` | 10 | Mạch Grover 3 qubit: một lớp `H` ban đầu, theo sau bởi các cặp oracle/khuếch tán xen kẽ |
+| `ch10-grover-curve.png` | 10 | Thuật toán Grover trên 64 mục: xác suất thành công tăng lên rồi vọt quá |
+| `ch10-grover-outcomes.png` | 10 | 64 kết quả khả dĩ sau 6 vòng: đáp án đúng chiếm ưu thế trong phân phối |
+| `ch11-classical-factor.png` | 11 | Chia thử: lượng công việc tăng lên như `sqrt(n)` |
+| `ch11-period-function.png` | 11 | Hàm `2^x mod 15`, hàm lặp lại với chu kỳ 4 |
+| `ch11-qft-circuit.png` | 11 | Mạch biến đổi Fourier lượng tử cho ba qubit |
+| `ch11-qft-phase.png` | 11 | Trạng thái `QFT\|1⟩`: độ lớn đều kết hợp với dốc pha tuyến tính |
 | `ch11-order-circuit.png` | 11 | Mạch tìm bậc gọn cho `2^x mod 15` |
-| `ch11-order-peaks.png` | 11 | QFT nghịch đảo: bốn đỉnh, cách nhau 64 |
+| `ch11-order-peaks.png` | 11 | Đầu ra của QFT nghịch đảo: bốn đỉnh, cách nhau 64 |
 
 ## Mẫu trong sách và bản port Python
 
-Các mẫu Java của sách nằm mỗi chương trình một thư mục (`quantumjava/chNN/mẫu`).
-Bảng này ánh xạ chúng sang các mô-đun Python ở đây, theo từng chương.
+Các mẫu Java của sách được tổ chức thành một thư mục cho mỗi chương trình
+(`quantumjava/chNN/mẫu`). Bảng sau ánh xạ các thư mục này sang các mô-đun Python
+của kho lưu trữ này theo từng chương, nhờ đó mỗi chương trình minh hoạ trong
+sách đều có thể được xác định trực tiếp dưới dạng bản port của nó.
 
 | Chương sách | Mẫu Java (`quantumjava/chNN/`) | Mô-đun Python |
 |---|---|---|
@@ -132,35 +142,41 @@ Bảng này ánh xạ chúng sang các mô-đun Python ở đây, theo từng ch
 | 10 | `classicsearch`, `quantumsearch`, `groveroracle`, `stepbystepgrover`, `grover` | `ch10.search`, `ch10.oracle`, `ch10.step_by_step`, `ch10.grover` |
 | 11 | `classicfactor`, `semiclassicfactor`, `quantumfactor`, `jshell` | `ch11.classical`, `ch11.qft`, `ch11.shor` |
 
-Một số mẫu dùng chung một mô-đun (bốn mẫu oracle của chương 9, chẳng hạn, đều nằm
-trong `ch09.oracles`), và vài mô-đun thêm mã hỗ trợ không có bản Java tương ứng
-(`ch07.circuits`, `ch08.protocol`). Các snippet `quantumjava/ch11/jshell` là phần
-tính tay của sách; `ch11.classical.reduction_steps(6, 493)` tái tạo chúng.
+Một số mẫu dùng chung một mô-đun duy nhất: chẳng hạn, bốn mẫu oracle của chương
+9 đều nằm trong `ch09.oracles`. Ngoài ra, một số mô-đun cung cấp mã hỗ trợ không
+có bản Java tương ứng (`ch07.circuits`, `ch08.protocol`). Cần lưu ý rằng các
+snippet `quantumjava/ch11/jshell` tương ứng với phần tính tay trong sách; lời
+gọi `ch11.classical.reduction_steps(6, 493)` tái tạo lại các phép tính đó dưới
+dạng chương trình.
 
 ## Ký hiệu dùng trong ghi chú
 
+Các ký hiệu dưới đây được dùng xuyên suốt trong ghi chú này. Mỗi ký hiệu được
+giới thiệu tại vị trí xuất hiện lần đầu, và bảng dưới đây tập hợp các định nghĩa
+về một nơi để tiện tra cứu trong lúc đọc.
+
 | Ký hiệu | Ý nghĩa |
 |---------|---------|
-| <code>\|0⟩</code>, <code>\|1⟩</code> | Hai trạng thái cơ sở của qubit |
-| <code>\|ψ⟩</code> | Trạng thái một-qubit tổng quát (bất kỳ) |
-| <code>\|+⟩</code>, <code>\|−⟩</code> | Hai chồng chập đều <code>(\|0⟩ ± \|1⟩)/√2</code> |
-| <code>(a\|0⟩ + b\|1⟩)</code> | Chồng chập với biên độ `a` và `b` |
-| `[α, β]` | Cùng trạng thái đó viết dưới dạng vector cột |
-| `H` | Cổng Hadamard — tạo chồng chập đều |
+| <code>\|0⟩</code>, <code>\|1⟩</code> | Hai trạng thái cơ sở tính toán của qubit, tương ứng với hai giá trị bit 0 và 1 |
+| <code>\|ψ⟩</code> | Trạng thái một-qubit tổng quát (bất kỳ), không bị hạn chế ở một trạng thái cơ sở nào |
+| <code>\|+⟩</code>, <code>\|−⟩</code> | Hai chồng chập đều <code>(\|0⟩ ± \|1⟩)/√2</code>, chỉ khác nhau ở pha tương đối |
+| <code>(a\|0⟩ + b\|1⟩)</code> | Chồng chập của <code>\|0⟩</code> và <code>\|1⟩</code> với biên độ `a` và `b` tương ứng |
+| `[α, β]` | Cùng trạng thái đó viết dưới dạng vector cột, với các thành phần `α` và `β` |
+| `H` | Cổng Hadamard — tạo chồng chập đều từ một trạng thái cơ sở |
 | `X` | Cổng Pauli-X — lật <code>\|0⟩ ↔ \|1⟩</code> |
-| `CNOT` | Controlled-NOT — lật đích khi điều khiển bằng `1` |
-| `Toffoli` | Controlled-controlled-NOT (`CCNOT`) — lật đích khi **cả hai** điều khiển bằng `1`; một phép `AND` khả nghịch |
+| `CNOT` | Controlled-NOT — lật qubit đích khi qubit điều khiển bằng `1` |
+| `Toffoli` | Controlled-controlled-NOT (`CCNOT`) — lật đích khi **cả hai** điều khiển bằng `1`; một cách hiện thực khả nghịch của `AND` |
 | `XOR` | Phép hoặc loại trừ — bit tổng của phép cộng modulo 2 |
-| `U_f` | Oracle của một hàm: `\|x⟩\|y⟩ → \|x⟩\|y ⊕ f(x)⟩` |
-| `QFT` | Biến đổi Fourier lượng tử — biến đổi Fourier rời rạc dưới dạng mạch |
-| `\|s⟩` | Chồng chập đều trên mọi trạng thái cơ sở |
+| `U_f` | Oracle của hàm `f`: `\|x⟩\|y⟩ → \|x⟩\|y ⊕ f(x)⟩` |
+| `QFT` | Biến đổi Fourier lượng tử — biến đổi Fourier rời rạc được hiện thực dưới dạng mạch |
+| `\|s⟩` | Chồng chập đều trên mọi trạng thái cơ sở `N`, trong đó mọi trạng thái cơ sở đều mang cùng biên độ |
 | `Z` | Cổng Pauli-Z — lật **pha** mà không đổi bit |
-| `CZ` | Controlled-Z — áp dụng `Z` lên đích khi điều khiển bằng `1` |
-| `⊗` | Tích tensor — ghép các qubit thành trạng thái chung |
+| `CZ` | Controlled-Z — áp dụng `Z` lên qubit đích khi qubit điều khiển bằng `1` |
+| `⊗` | Tích tensor — ghép các trạng thái một qubit thành trạng thái chung của nhiều qubit |
 | Trạng thái Bell | Cặp rối cực đại, ví dụ <code>(\|00⟩ + \|11⟩)/√2</code> |
-| `I` | Phép đơn vị — "không làm gì" |
+| `I` | Phép đơn vị — "không làm gì", tức là phép toán giữ nguyên mọi trạng thái |
 | `U` | Cổng tổng quát, viết dưới dạng ma trận 2×2 |
 | `P(0)`, `P(1)` | Xác suất đo (quy tắc Born: biên độ bình phương) |
 | Mặt cầu Bloch | Hình học mô tả trạng thái của một qubit |
-| Độ trung thực | Độ chồng lấn của hai trạng thái, <code>\|⟨a\|b⟩\|²</code>; bằng 1 nghĩa là giống hệt |
-| Hạng Schmidt | 1 = trạng thái tích, 2 = rối (xem [ma trận hệ số](chapters/ch05-entanglement.md#trang-thai-tich-so-voi-trang-thai-roi)) |
+| Độ trung thực | Độ chồng lấn của hai trạng thái, <code>\|⟨a\|b⟩\|²</code>; bằng 1 nghĩa là hai trạng thái trùng nhau |
+| Hạng Schmidt | 1 ứng với trạng thái tích còn 2 ứng với trạng thái rối (xem phần về [ma trận hệ số](chapters/ch05-entanglement.md#trang-thai-tich-so-voi-trang-thai-roi)) |

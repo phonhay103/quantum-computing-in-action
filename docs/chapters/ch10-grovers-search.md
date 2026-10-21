@@ -2,64 +2,79 @@
 
 !!! abstract "In one sentence"
     Given a list with no structure and only a test that recognises the answer,
-    Grover finds it in about `(π/4)·√N` steps instead of the classical `N/2` — a
-    **quadratic** speed-up, and the best an unordered list allows.
+    Grover's algorithm locates that answer in about `(π/4)·√N` steps instead of
+    the classical `N/2` — a **quadratic** speed-up, and the best achievable
+    outcome that an unordered list allows. The chapter builds the algorithm
+    from its two operators, works each round out by hand on small instances,
+    and measures the result on a list of 64 items.
 
 ## The question this chapter answers
 
 Chapter 9 ended with an oracle that could be asked one global question about a
-function — constant or balanced — in a single query. This chapter asks the
-question every database user actually has, in three steps:
+function — constant or balanced — in a single query. This chapter addresses the
+question that every database user actually has, and it develops the answer in
+three steps:
 
-1. **How do you find one wanted item in a list with no structure?** No sorted
-   key, nothing to exploit — just a pile of entries and a test that says "yes"
-   for exactly one of them. Classically the only plan is to look, entry after
-   entry, and that costs `N/2` tries on average.
+1. **How is one wanted item found in a list with no structure?** No sorted key
+   exists and nothing about the list can be exploited — there is only a pile of
+   entries and a test that says "yes" for exactly one of them. Classically the
+   only available plan is to look, entry after entry, and that inspection costs
+   `N/2` tries on average; in other words, half the list is examined before the
+   answer is met.
 2. **How can a hidden minus sign become a found item?** On a quantum register
    the test becomes an oracle that may only flip the **sign** of the wanted
-   state — and a sign changes no probability at all, so it is invisible to any
-   measurement. Grover's answer is a **two-step dance**, oracle then diffusion,
-   repeated a counted number of times.
+   state — and a sign change alters no probability whatsoever, so it remains
+   invisible to any measurement taken directly. Grover's answer is a
+   **two-step dance**, oracle followed by diffusion, repeated a counted number
+   of times; the dance converts the sign back into probability.
 3. **Why must the dance stop on time?** Each round rotates the amplitude vector
-   one fixed step toward the answer; past the answer, the same rotation points
-   *away* again, so over-rotating *reduces* the success probability.
+   one fixed step toward the answer; past the answer, the very same rotation
+   points *away* again, so over-rotating *reduces* the success probability. The
+   number of rounds is therefore part of the algorithm, not a free parameter to
+   be increased at will.
 
-After this chapter you will be able to:
+After this chapter, the following abilities have been established:
 
-- say what an **unstructured search** costs classically, and justify the
-  `N/2`-on-average baseline;
+- state the classical cost of an **unstructured search**, and justify the
+  `N/2`-on-average baseline with a simple averaging argument;
 - explain the oracle as "flip the sign of the marked state — and nothing else",
-  and why a sign flip is a **reflection**;
-- work Grover's round **by hand on four states**: amplitudes `0.5` each →
+  including why such a sign flip constitutes a **reflection**;
+- carry out a Grover round **by hand on four states**: amplitudes `0.5` each →
   oracle → mean `0.25` → the marked state at `1.0` after a single round;
 - explain **diffusion** as "reflect every amplitude about the mean"
-  (`a → 2·mean − a`), and why it pushes amplitude *into* the state the oracle
-  marked;
-- choose the round count — about `(π/4)·√N` — and explain why more rounds
-  eventually *hurt*.
+  (`a → 2·mean − a`), together with the reason it pushes amplitude *into* the
+  state the oracle marked;
+- choose the round count — about `(π/4)·√N` — and explain why further rounds
+  eventually *hurt* rather than help.
 
-You need three things from earlier chapters, each in one line: `H` on every
-qubit makes the uniform superposition, every state amplitude `1/√N`
-([Chapter 4](ch04-superposition.md)); an oracle is a **reversible** circuit,
-and **phase kickback** turns its answer into a sign
-([Chapter 9](ch09-deutsch-jozsa.md)); and a program's state can be read after
-every step ([Chapter 7](ch07-helloworld-explained.md)) — which is how this
-chapter watches every amplitude move.
+Three prerequisites from earlier chapters are required, each summarised in one
+line: `H` on every qubit produces the uniform superposition, with every state
+amplitude `1/√N` ([Chapter 4](ch04-superposition.md), which introduces
+superposition and its uniform special case); an oracle is a **reversible**
+circuit, and **phase kickback** turns its answer into a sign
+([Chapter 9](ch09-deutsch-jozsa.md), the chapter on the Deutsch–Jozsa test and
+oracles); and a program's state can be read after every step
+([Chapter 7](ch07-helloworld-explained.md), the first program dissected step by
+step) — which is precisely how this chapter observes every amplitude move from
+one stage of the dance to the next.
 
 !!! note "One bit of bookkeeping: amplitudes, signs, labels"
     This chapter prints **amplitudes**, which may be negative, and
     **probabilities**, which are the amplitude squared — so
-    `(−1/2)² = 1/4 = (1/2)²`. Basis-state labels read **`q0` first**, left to
-    right, the book's order: the marked index `7` on six qubits means
-    `q0 = q1 = q2 = 1` and prints as `111000`. And `N` always counts the list:
-    `N = 2^n` items for `n` qubits.
+    `(−1/2)² = 1/4 = (1/2)²`. In other words, two different amplitudes can
+    correspond to the same probability, and the distinction lost in squaring is
+    exactly the one the oracle works with. Basis-state labels read **`q0`
+    first**, left to right, following the book's order: the marked index `7` on
+    six qubits means `q0 = q1 = q2 = 1` and prints as `111000`. Furthermore, `N`
+    always counts the items of the list: `N = 2^n` items for `n` qubits.
 
 ## Unstructured search
 
-The book's example is a small address book and one question — *who is 29 and
-lives in Mexico?* The frustrating part is not the question but the list: age is
-not sorted, country is not sorted, so there is no key to binary-search. A
-classical program can only look, entry after entry:
+The book's example is a small address book together with one question — *who is
+29 and lives in Mexico?* The frustrating part lies not in the question but in
+the list: age is not sorted, country is not sorted, and consequently there is no
+key on which a binary search could operate. A classical program has no option
+other than to look, entry after entry:
 
 | Entry | Name | Age | Country |
 |---|---|---|---|
@@ -72,12 +87,15 @@ classical program can only look, entry after entry:
 | 6 | Marie | 15 | Russia |
 | 7 | Janice | 52 | China |
 
-Work the scan by hand: Alice — miss. Bob — miss. Eve — miss. Niels — miss.
-Albert — hit. The match sits at position 4, so the scan takes **5 tries**.
+The scan can be carried out by hand: Alice — a miss. Bob — a miss. Eve — a
+miss. Niels — a miss. Albert — a hit. The match sits at position 4, so the scan
+takes **5 tries**. Each failed check eliminates exactly one candidate and tells
+nothing about where the remaining ones sit.
 
-But 5 is luck, not cost. Shuffle the same list and the target lands at each of
-the 8 positions equally often, so the honest classical price is the average
-`(1 + 2 + … + 8)/8 = 36/8 = 4.5` tries.
+But 5 is luck, not cost. If the same list is shuffled, the target lands at each
+of the 8 positions equally often, so the honest classical price is the average
+`(1 + 2 + … + 8)/8 = 36/8 = 4.5` tries. Averaging over orders matters because,
+before the list is known, every order is as likely as every other.
 
 ![Classical scan: how many tries to find the target](../assets/ch10-classical-tries.png){ width="560" }
 
@@ -88,26 +106,31 @@ tries is
 $$(1 + 2 + \dots + N)\,/\,N = (N+1)/2 \;\approx\; N/2,$$
 
 and no classical trick beats it, because on an unstructured list each check
-rules out exactly one entry. That `N/2` is the bar Grover has to beat.
+rules out exactly one entry and leaves the other `N−1` equally plausible. That
+`N/2` figure is the bar Grover has to beat.
 
 ??? question "Check yourself — the target never moves: it is always Albert at index 4. So where does the 4.5 come from?"
-    From the *shuffling*, not the data. In one fixed order you always take
-    5 tries — but you might equally have been handed any other order. Averaging
-    over all orders puts the target at each position equally often:
+    It comes from the *shuffling*, not from the data. With one fixed order, the
+    scan always takes 5 tries — but any other order could equally well have been
+    handed over instead, and nothing in the list announces which one it will be.
+    Averaging over all possible orders places the target at each position
+    equally often:
     `(1 + 2 + … + 8)/8 = 4.5`. The 4.5 is the price of *not knowing where to
-    look*, which is exactly what "unstructured" means.
+    look*, which is exactly what "unstructured" means: the cost is set by the
+    absence of a key, not by the particular order shown here.
 
 ## The oracle: a sign, and nothing else
 
-Grover never sees the list. All it gets is an **oracle** — Chapter 9's
-reversible black box — that recognises the answer, and the only thing it is
-allowed to do is mark it:
+Grover never sees the list. All it receives is an **oracle** — the reversible
+black box of Chapter 9 — that recognises the answer, and the only action it is
+permitted to take is to mark it:
 
 $$U_w : |x\rangle \longrightarrow (-1)^{[x = w]}\,|x\rangle$$
 
-Read that as a promise made to a clerk: *you may not point at the record; you
-may only write a small minus sign on it.* Every state keeps its amplitude; the
-marked state alone gets its sign flipped.
+This can be read as a promise made to a clerk: pointing at the record is not
+allowed; writing a small minus sign on it is. Every state keeps its amplitude
+unchanged in size; the marked state alone gets its sign flipped. The oracle
+conveys its knowledge purely through that sign.
 
 Concrete example: two qubits, four states, `|11⟩` marked. The oracle is a
 diagonal matrix with a single `-1`:
@@ -121,59 +144,71 @@ diagonal matrix with a single `-1`:
 
 ![Grover's oracle: one sign flip, nothing measurable](../assets/ch10-oracle-matrix.png){ width="420" }
 
-Apply it to the uniform state — amplitudes `(0.5, 0.5, 0.5, 0.5)` — and you get
-`(0.5, 0.5, 0.5, −0.5)`. Nothing changed size; one direction reversed. That is
-why a sign flip is a **reflection**: multiplying one coordinate by `-1` mirrors
-that coordinate about zero, the same way a mirror reverses a drawing — same
-distance, other side.
+Applied to the uniform state — amplitudes `(0.5, 0.5, 0.5, 0.5)` — the oracle
+yields `(0.5, 0.5, 0.5, −0.5)`. Nothing changed in magnitude; exactly one
+direction reversed. That is why a sign flip is a **reflection**: multiplying
+one coordinate by `-1` mirrors that coordinate about zero, in the same way a
+mirror reverses a drawing — same distance, other side.
 
 And that is the catch: the sign is invisible on its own. Probability is
 amplitude squared, and `(−0.5)² = 0.25 = (0.5)²`, so measuring before and after
 the oracle returns the *same* histogram. The whole of Grover's remaining work
-is turning this one hidden sign into a large probability.
+consists in turning this one hidden sign into a large probability — that is, in
+converting phase information into amplitude information that a measurement can
+read.
 
-Two remarks on how such an oracle is actually built:
+Two remarks concern how such an oracle is actually built:
 
 - It must be a **circuit of reversible gates** — Chapter 9's rule; a lookup
   that swallows its input is not allowed. The samples here bracket the marked
   state with `X` gates (mapping it to the all-ones state), flip its phase with
   a multi-controlled `Z`, then undo the brackets — reversible from end to end.
-- You will sometimes meet a phase oracle with **one extra qubit**, prepared in
-  `|−⟩` so the sign arrives by Chapter 9's phase kickback as `(-1)^f(x)`. Same
-  matrix, same promise; the bracketed multi-controlled `Z` used here does the
-  job with no extra qubit.
+  The bracketing is undone because a reversible circuit must return the
+  register's labels to their original values, leaving only the sign changed.
+- A phase oracle with **one extra qubit**, prepared in `|−⟩` so that the sign
+  arrives via Chapter 9's phase kickback as `(-1)^f(x)`, is sometimes
+  encountered. It is the same matrix carrying the same promise; the bracketed
+  multi-controlled `Z` used here performs the task with no extra qubit, which
+  matters when qubits are counted as a resource.
 
 ??? question "Check yourself — the oracle recognises the answer. Why can't it just tell us which state is marked?"
     Because "telling" would mean changing amplitudes, and the oracle only
-    changes a sign. The sign lives in the amplitude, and every measurement
-    reads probability — the amplitude *squared* — where `(−0.5)² = (0.5)²`:
-    the minus vanishes. Read the state after the oracle and the chances are
-    exactly what they were before it. The sign is real information, but it is
-    stored in a form no single measurement can see; Grover's trick is to make
-    the *other* states interfere with it until it surfaces.
+    changes a sign. The sign lives inside the amplitude, whereas every
+    measurement reads probability — the amplitude *squared* — where
+    `(−0.5)² = (0.5)²`:
+    the minus vanishes. Reading the state after the oracle therefore yields
+    exactly the same chances as before it. The sign is real information, but it
+    is stored in a form that no single measurement can reveal; Grover's trick
+    is to make the *other* states interfere with it until it surfaces as a
+    probability difference.
 
 ## Diffusion: reflecting about the mean
 
 The oracle's minus sign would stay hidden forever if Grover did not add a
-second move: the **diffusion** operator, whose idea is easier than its formula.
-Think of a class where the average score is 7:
+second move: the **diffusion** operator, whose idea is simpler than its
+formula. Consider a class whose average score is 7:
 
-- you scored **5** — two points *below* the mean;
-- reflecting your score about the mean gives `2·7 − 5 = 9` — two points
+- a score of **5** sits two points *below* the mean;
+- reflecting that score about the mean gives `2·7 − 5 = 9` — two points
   *above* it.
 
 That rule, `a → 2·mean − a`, applied to *every* amplitude at once, is the
 diffusion: compute the average of all the amplitudes, then move every amplitude
-to the point the same distance on the *other side* of that average. Whatever sat
-below the mean is pushed up; whatever sat above it is pulled down.
+to the point the same distance away on the *other side* of that average.
+Whatever sat below the mean is pushed up; whatever sat above it is pulled
+down. In one operation, amplitudes on either side of the average trade places
+symmetrically.
 
 $$D = H^{\otimes n}\bigl(2|0\rangle\langle 0| - I\bigr)H^{\otimes n} = 2|s\rangle\langle s| - I$$
 
-(The formula says the same thing in fancier clothes: reflect about the uniform
-superposition `|s⟩`, which for amplitudes is exactly "reflect about the mean".)
+(The formula states the same thing in fancier clothing: a reflection about the
+uniform superposition `|s⟩`, which for amplitudes amounts exactly to "reflect
+about the mean". The two descriptions differ only in viewpoint — the operator
+acts on the state, the rule acts on the list of amplitude values.)
 
-Watch it work on the oracle's output. After the oracle the four amplitudes are
-`(0.5, 0.5, 0.5, −0.5)` and the mean is `(0.5 + 0.5 + 0.5 − 0.5)/4 = 0.25`:
+The oracle's output shows the operator at work. After the oracle the four
+amplitudes are `(0.5, 0.5, 0.5, −0.5)` and the mean is
+`(0.5 + 0.5 + 0.5 − 0.5)/4 = 0.25`:
 
 | Amplitude | Reflect: `2·mean − a` | Result |
 |---|---|---|
@@ -182,40 +217,47 @@ Watch it work on the oracle's output. After the oracle the four amplitudes are
 | unmarked `+0.5` | `2(0.25) − 0.5` | `0.0` |
 | marked `−0.5` | `2(0.25) − (−0.5)` | `1.0` |
 
-Why it works: the reflection pushes amplitude **into** exactly the states that
-sit *below* the mean. After the oracle there is only one such state — the
+Why it works: the reflection pushes amplitude **into** exactly those states
+that sit *below* the mean. After the oracle there is only one such state — the
 marked one — so it is the only one that rises, and it rises past all the
-others. The unmarked states, all *above* the mean, sink together.
+others. The unmarked states, all *above* the mean, sink together. The single
+sign difference the oracle planted is thereby converted into a large amplitude
+difference — and amplitudes, unlike signs, are visible to a measurement through
+their squares.
 
-The two moves are a pair, and neither does the job alone — see the check below.
+The two moves form a pair, and neither accomplishes the task alone — see the
+check below.
 
 ??? question "Check yourself — what would the diffusion do if you ran it *first*, before any oracle, on the fresh uniform state?"
     Nothing at all. The amplitudes are `(0.5, 0.5, 0.5, 0.5)` and the mean is
     `0.5`, so every reflection gives `2(0.5) − 0.5 = 0.5`: the uniform state is
     a fixed point of the diffusion. The reflection only amplifies a state that
-    sits *away* from the mean — and it is the oracle that puts the marked state
-    below it. Neither move alone finds anything; the dance needs both steps.
+    sits *away* from the mean — and it is the oracle that places the marked
+    state below it. Neither move alone finds anything; the dance needs both
+    steps, in that order, every round.
 
 ## Step by step on two qubits
 
 Two qubits give four states — few enough to print every amplitude after every
-move, so let us do the whole algorithm by hand, with numbers. Mark `|11⟩` and
-start uniform.
+move, so the whole algorithm can be worked by hand, with numbers. Mark `|11⟩`
+and start uniform.
 
 **Move 0 — prepare.** `H` on both qubits:
 
 $$|s\rangle = \tfrac{1}{2}\bigl(|00\rangle + |01\rangle + |10\rangle + |11\rangle\bigr)$$
 
 Amplitudes `(0.5, 0.5, 0.5, 0.5)`, mean `0.5`, and `P(11) = 0.25` — the same
-chance as guessing.
+chance as random guessing. So far the program contains no information about
+where the answer lies.
 
 **Move 1 — the oracle flips one sign.**
 
 $$(0.5,\; 0.5,\; 0.5,\; 0.5) \;\longrightarrow\; (0.5,\; 0.5,\; 0.5,\; -0.5)$$
 
-Still nothing measurable — but the mean has quietly dropped to
+Still nothing is measurable — but the mean has quietly dropped to
 `(0.5 + 0.5 + 0.5 − 0.5)/4 = 0.25`, and the marked amplitude now sits *below*
-it.
+it. The information about the answer has entered the state, encoded in the
+mean.
 
 **Move 2 — the diffusion reflects about that mean**, `a → 2(0.25) − a`:
 
@@ -224,7 +266,7 @@ it.
 
 The state is now exactly `|11⟩` — probability `1.00`, measured with certainty.
 One round of the dance — one oracle, one diffusion — turned a 1-in-4 guess into
-a sure thing:
+a certainty:
 
 | Round | `00` | `01` | `10` | marked `11` |
 |---|---|---|---|---|
@@ -239,7 +281,9 @@ amplitude vector by a fixed angle `2θ`, where `sin θ = 1/√N` (here
 `sin θ = 1/2`, so `θ = 30°` and a round turns `60°`). The answer's probability
 after `k` rounds is `sin²((2k+1)θ)`, and with `N = 4` the arithmetic lands
 exactly on `sin²(90°) = 1` after one round — a perfect hit that only the
-smallest case allows.
+smallest case allows, because there the round angle happens to divide the
+quarter turn exactly. Larger lists almost never align so neatly, which is why
+the round count matters generally.
 
 **And a second round overshoots.** Run the same dance again from `(0, 0, 0, 1)`:
 
@@ -249,21 +293,25 @@ smallest case allows.
    `2(−0.25) − (−1.0) = +0.5`.
 
 The marked probability falls from `1` back to `0.25`. The rotation never knew
-it had arrived — it just carried on turning, straight past the answer. Running
-Grover too long makes it worse.
+it had arrived — it simply carried on turning, straight past the answer.
+Running Grover too long therefore makes the result worse, and the damage grows
+the further the rotation continues.
 
 ??? question "Check yourself — one round gives probability 1.00, a certain answer. Why does repeating the *same* round make it worse?"
     Because a round is a fixed rotation, not a homing missile. It turns the
-    amplitude vector by the same `60°` every time, and nothing tells it to stop
-    once the vector points at the answer. The second round turns *past* the
-    answer, and the arithmetic shows where it lands: `(−0.5, −0.5, −0.5, +0.5)`,
+    amplitude vector by the same `60°` every time, and nothing instructs it to
+    stop once the vector points at the answer. The second round turns *past*
+    the answer, and the arithmetic shows where it lands:
+    `(−0.5, −0.5, −0.5, +0.5)`,
     probability `0.25`. More rounds are not more effort spent finding — they
-    are more rotation, in a direction that now points away.
+    are more rotation, in a direction that now points away from the answer.
 
 ## Grover on 64 items
 
 Now the chapter's real experiment: six qubits, `N = 64` states, and state
 `index 7` — label `111000`, since `q0 = q1 = q2 = 1` — marked by the oracle.
+Six qubits already put the list far beyond what could comfortably be walked
+through by hand, so the simulator does the counting instead.
 
 The dance is the same but the angle is smaller: `sin θ = 1/√64 = 1/8` gives
 `θ ≈ 7.18°`, so each round rotates the amplitude vector by about
@@ -282,12 +330,13 @@ The simulator confirms it probability by probability (the answer follows
 
 ![Grover on 64 items: probability rises, then overshoots](../assets/ch10-grover-curve.png){ width="620" }
 
-Two numbers to take away from the experiment:
+Two numbers are worth carrying away from the experiment:
 
 - after **6 rounds**, `P(answer) = 0.997` — the search is effectively finished,
   against the classical average of **32** checks for the same list;
 - run too long and it *un*-finishes: 7 rounds drop to `0.907`, 9 rounds to
-  `0.475`. The rotation overshoots, so more rounds are not better rounds.
+  `0.475`. The rotation overshoots, so more rounds are not better rounds; each
+  one past the optimum spends rotation moving away from the answer.
 
 Measured 2000 times after 6 rounds, the answer comes back overwhelmingly —
 `1995` of the `2000` shots returned `111000`:
@@ -296,10 +345,13 @@ Measured 2000 times after 6 rounds, the answer comes back overwhelmingly —
 
 ![A small Grover circuit](../assets/ch10-grover-circuit.png){ width="620" }
 
-The circuit is the whole loop made visible: `H` on every qubit once, then one
-**oracle / diffusion** pair per round. The `H, X, MCZ, X, H` block at each round
-is the reflection about the mean — the same reflection, written with reversible
-gates; the single phase flip inside is the oracle.
+The circuit makes the whole loop visible: `H` acts on every qubit once, and
+each round thereafter consists of one **oracle / diffusion** pair. The `H, X,
+MCZ, X, H` block at each round is the reflection about the mean — the very same
+reflection as in the hand computation, written with reversible gates; the
+single phase flip inside it is the oracle. Reading the circuit from left to
+right therefore reads the algorithm itself: prepare, then dance the counted
+number of rounds.
 
 ## How big is the speed-up?
 
@@ -309,33 +361,53 @@ gates; the single phase flip inside is the oracle.
 | 64 | 32 | 6 |
 | 1 000 000 | 500 000 | 785 |
 
-The pattern is `N/2` against `(π/4)·√N`: **quadratic**, not exponential. Doubling
-the list multiplies the classical work by four but the quantum work by only about
-`√2`. That is the honest size of Grover's gift — real, useful, and modest — and it
-is provably the best possible for a list with no structure to exploit.
+The pattern is `N/2` against `(π/4)·√N`: **quadratic**, not exponential.
+Doubling the size of the list multiplies the classical work by four, but the
+quantum work by only about `√2`. That is the honest size of Grover's gain —
+real, useful, and modest — and it is provably the best possible for a list with
+no structure to exploit. Even so, working quadratically keeps the search
+feasible at list sizes where a full classical scan has long ceased to be
+practical.
 
 !!! note "Where the speed-up comes from"
-    Grover does not test items in parallel and read out the answers — a measurement
+    Grover does not test items in parallel and read out the answers — a
+    measurement
     returns one basis state. It runs the oracle **once per round** on the whole
-    superposition and lets *interference* concentrate the probability. The gain is
-    a square root because each round is one more rotation of the amplitude vector,
-    and the vector only has to rotate a quarter turn to point at the answer.
+    superposition and lets *interference* concentrate the probability. The gain
+    is a square root because each round is one more rotation of the amplitude
+    vector, and the vector only has to rotate a quarter turn to point at the
+    answer; the number of rounds is set by that geometry, not by the number of
+    entries.
 
 ## The diagrams
 
 ### The classical baseline
 
+The baseline figure is reproduced from the classical section: with the target
+equally likely at every position, the number of tries spreads uniformly rather
+than peaking anywhere.
+
 ![Classical scan: how many tries to find the target](../assets/ch10-classical-tries.png){ width="560" }
 
 ### The oracle
+
+The oracle figure shows the diagonal sign matrix of the two-qubit example: one
+entry turned negative, and nothing else altered.
 
 ![Grover's oracle: one sign flip, nothing measurable](../assets/ch10-oracle-matrix.png){ width="420" }
 
 ### Step by step
 
+The step-by-step figure plots the four amplitudes of the two-qubit walkthrough,
+round by round, up to the certain hit on the marked state and the fall that a
+second round causes.
+
 ![Grover on 2 qubits: the marked state takes all the probability](../assets/ch10-step-by-step.png){ width="620" }
 
 ### Grover on 64 items
+
+The three six-qubit figures belong together: the running circuit, the success
+curve over rounds, and the outcomes of the 2000-shot measurement.
 
 ![A small Grover circuit](../assets/ch10-grover-circuit.png){ width="620" }
 
@@ -346,7 +418,8 @@ is provably the best possible for a list with no structure to exploit.
 ## Key takeaways
 
 - **Unstructured search** has no sorted key to exploit: classically it costs
-  `(N+1)/2 ≈ N/2` checks on average, and no classical method does better.
+  `(N+1)/2 ≈ N/2` checks on average, and no classical method does better. This
+  baseline is what any search shortcut has to be measured against.
 - The **oracle** marks the answer with a **phase flip** — `(-1)^[x = w]` — and
   does nothing else. A sign flip is a reflection, and it is invisible on its
   own because probability squares the sign away.
@@ -365,7 +438,8 @@ is provably the best possible for a list with no structure to exploit.
 
 ## The code behind this chapter
 
-Four samples, from the classical baseline to the full algorithm:
+Four samples cover the ground from the classical baseline to the full
+algorithm, and each corresponds to one section above:
 
 - [`ch10/search.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch10/search.py)
   — the ``classicsearch`` and ``quantumsearch`` samples: the address book, the

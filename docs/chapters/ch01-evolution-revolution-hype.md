@@ -3,95 +3,125 @@
 !!! abstract "In one sentence"
     Quantum computing matters for one reason: **Shor's algorithm factors large
     numbers in polynomial time**, while the best classical algorithm needs
-    sub-exponential time — and modern encryption relies on factoring being hard.
+    sub-exponential time — and modern encryption relies on factoring being
+    hard. In other words, the security of widely deployed cryptosystems
+    currently rests on a computational difficulty assumption that a quantum
+    algorithm undermines, at least in principle.
 
 ## The evolution of computing
 
-Classical computing has grown for decades by making transistors smaller: more
-switches, faster clocks, cheaper work. That run is slowing down. Transistors are
-now a few atoms wide, and shrinking further runs into heat and quantum effects.
+Classical computing has advanced for decades along a single dominant
+strategy: making transistors ever smaller. Smaller transistors mean more
+switches per chip, faster clock rates, and cheaper computation per operation,
+and it is this combination that has produced the steady performance growth
+familiar from the history of the field. That run, however, is slowing down.
+Transistor features are now only a few atoms wide, and pushing them further
+runs into two obstacles at once: the heat generated per unit area becomes
+difficult to dissipate, and at atomic scales quantum effects begin to
+interfere with the reliable operation of a switch that is supposed to behave
+purely classically.
 
-Quantum computing is the next step in that evolution, but it changes the *kind*
-of machine we build. Instead of more classical switches, it uses **qubits** and
-the rules of quantum mechanics — superposition, interference, and entanglement —
-to compute in ways a classical computer cannot imitate efficiently. Those three
-words are unpacked one at a time in Chapters 2, 4, and 5.
+Quantum computing is the next step in that evolution, but it changes the
+*kind* of machine being built rather than merely its size. Instead of adding
+more classical switches, it employs **qubits** together with the rules of
+quantum mechanics — superposition, interference, and entanglement — to
+compute in ways that a classical computer cannot imitate efficiently. It is
+worth noting that these three notions are not decorative extras: each one is
+a computational resource, and each is unpacked in its own right in a later
+chapter, namely Chapters 2, 4, and 5.
 
 ## Revolution or hype?
 
-Both words get used, so it helps to separate the two. Read each row as a claim
-you might hear, and the verdict a fair look at the evidence gives it:
+Both labels circulate freely in public discussion of the field, so it helps
+to separate the two before using either. The table below presents each claim
+in the form in which it is typically heard, together with the verdict that a
+fair reading of the available evidence supports:
 
 | Claim | Verdict |
 |-------|---------|
-| "Quantum computers are faster at everything" | **Hype** — for most everyday tasks they are not |
-| "Some specific problems get a dramatic speed-up" | **Revolution** — factoring, search, simulation |
-| "You can use one today for production" | **Hype** — today's machines are small and noisy |
-| "The theory is sound and improving fast" | **Revolution** — the algorithms are real |
+| "Quantum computers are faster at everything" | **Hype** — for most everyday tasks a quantum machine offers no advantage |
+| "Some specific problems get a dramatic speed-up" | **Revolution** — factoring, search, and simulation genuinely accelerate |
+| "You can use one today for production" | **Hype** — today's machines are small, noisy, and unsuited to production workloads |
+| "The theory is sound and improving fast" | **Revolution** — the algorithms are mathematically rigorous and well established |
 
-The honest summary: a **revolution for a narrow set of problems**, not a
-universal speed-up. Knowing *which* problems is the whole point of this book.
+The honest summary is that quantum computing constitutes a **revolution for
+a narrow set of problems**, not a universal speed-up for computation in
+general. Identifying precisely *which* problems belong to that narrow set
+is, in fact, the central purpose of this book.
 
 ## Where quantum computers help
 
-The applications that motivate the field fall into a few families:
+The applications that originally motivated the field fall into a small
+number of families, each of which is anchored by a concrete algorithmic
+result:
 
-- **Cryptography** — Shor's algorithm breaks RSA-style public-key encryption;
-  quantum key distribution and post-quantum crypto respond to that threat.
-- **Simulation** — molecules and materials are quantum systems; a quantum
-  computer can model them natively (chemistry, drug discovery, materials). A
-  quantum system with `n` qubits lives in a space of `2^n` amplitudes, which is
-  what makes exact classical simulation so expensive.
+- **Cryptography** — Shor's algorithm breaks RSA-style public-key encryption
+  once a sufficiently large quantum computer is available; quantum key
+  distribution and post-quantum cryptography are the two main responses
+  developed to counter that threat.
+- **Simulation** — molecules and materials are themselves quantum systems,
+  and a quantum computer can therefore model them natively (this covers
+  chemistry, drug discovery, and materials science). A quantum system with
+  `n` qubits lives in a space of `2^n` amplitudes, and it is precisely this
+  exponential state space that makes exact classical simulation so
+  expensive.
 - **Search and optimisation** — Grover's algorithm speeds up unstructured
-  search and many optimisation problems.
-- **Sampling and machine learning** — still early, but an active area.
+  search, along with many related optimisation problems.
+- **Sampling and machine learning** — this family is still at an early
+  stage, but it remains an active area of research.
 
-The first three are the ones with the clearest algorithmic advantage, and they
-are exactly the algorithms this book walks through.
+The first three families exhibit the clearest algorithmic advantage, and
+they correspond exactly to the algorithms this book develops and walks
+through in detail.
 
-A related idea the book uses is **hybrid computing**: a small quantum device
-handles the part where quantum rules win, and a classical computer drives the
-rest.
+A related idea that the book uses throughout is **hybrid computing**: a
+small quantum device handles only the part of the computation where the
+quantum rules confer an advantage, while a classical computer drives
+everything else — typically pre-processing, control, and post-processing.
 
-Speed-ups are not all equal either. Shor's is **exponential**. Grover's is only
-**quadratic** — it cuts an `N`-step search to about `√N` steps, which is a
-square-root improvement, not an exponential one. So "faster" always needs a
-qualifier.
+Speed-ups, moreover, are not all of the same magnitude. Shor's advantage is
+**exponential**. Grover's, by contrast, is only **quadratic** — it cuts an
+`N`-step search down to about `√N` steps, which is a square-root improvement
+rather than an exponential one. For this reason, every statement that a
+quantum computer is "faster" requires a qualifier specifying how much faster,
+and for which problem.
 
 ## Why factoring is the hook
 
 Much of the internet's security, including **RSA**, rests on a simple
 asymmetry: multiplying two large primes is easy, but *undoing* that
-multiplication — factoring the product back into its primes — is believed to be
-very hard. "Hard" here is measured in **time**: how the work grows as the number
-gets bigger.
+multiplication — factoring the product back into its primes — is believed to
+be very hard. "Hard" is to be understood here in a specific sense: it is
+measured in **time**, that is, by how the required work grows as the number
+to be factored gets bigger.
 
 !!! note "What RSA relies on"
-    In RSA, your public key contains a number `N = p · q` that is the product of
-    two large primes. Anyone can encrypt a message using `N`, but decrypting it
-    needs `p` and `q` — that is, it needs the factors of `N`. As long as
-    factoring `N` is hard, the key stays safe. Shor's algorithm threatens exactly
-    this assumption.
+    In RSA, the public key contains a number `N = p · q` that is the product
+    of two large primes. Anyone can encrypt a message using `N`, but
+    decrypting it requires `p` and `q` — that is, decryption requires the
+    factors of `N`. As long as factoring `N` remains hard, the key remains
+    safe. Shor's algorithm threatens exactly this assumption.
 
-If factoring suddenly became fast, a lot of encryption would become fast to
-break. This is the most dramatic example of the evolution/revolution question, so
-the chapter starts here.
+If factoring were to become fast, a great deal of deployed encryption would
+consequently become fast to break. This is the most dramatic embodiment of
+the evolution/revolution question, which is why the chapter starts here.
 
 ## Measuring difficulty: how cost grows with size
 
-Let `b` be the number of bits in the number we want to factor. As `b` grows, we
-care less about the exact seconds and more about the **shape** of the growth
-(see [growth rates and Big-O](../foundations.md#growth-rates-and-big-o) in the
-foundations):
+Let `b` denote the number of bits of the number to be factored. As `b`
+grows, the exact number of seconds involved matters less than the **shape**
+of the growth (see
+[growth rates and Big-O](../foundations.md#growth-rates-and-big-o) in the
+foundations, where these notions are defined more formally):
 
 | Growth | Name | Intuition |
 |--------|------|-----------|
-| grows like `b`, `b²`, `b³` … | **polynomial** | Doubling `b` multiplies the work by a small constant factor — manageable |
-| grows like `2^b`, `e^b` … | **exponential** | Adding *one* bit can roughly double the work — quickly hopeless |
-| sits between the two | **sub-exponential** | Faster than any polynomial, slower than a true exponential |
+| grows like `b`, `b²`, `b³` … | **polynomial** | Doubling `b` multiplies the total work by a small constant factor — the growth stays manageable |
+| grows like `2^b`, `e^b` … | **exponential** | Adding *one* bit can roughly double the work — the difficulty quickly becomes hopeless |
+| sits between the two | **sub-exponential** | Faster than any polynomial, yet slower than a true exponential |
 
-The whole promise of quantum computing, in this chapter, is a jump from the
-bottom rows to the top one.
+The entire promise of quantum computing, as this chapter frames it, is a
+jump from the bottom rows of this table to the top one.
 
 ## The classical cost
 
@@ -100,22 +130,22 @@ sieve (GNFS)**. Its running time is roughly
 
 $$e^{\left(\tfrac{64}{9}\,b\,(\ln b)^2\right)^{1/3}}$$
 
-This is the book's simplified estimate of GNFS. The key detail is the
-`(ln b)^2` inside the root: the exponent itself grows with `b`, which makes the
-whole expression grow **sub-exponentially**.
+This is the book's simplified estimate of GNFS. The decisive detail is the
+`(ln b)^2` factor inside the root: the exponent itself grows with `b`, and
+it is this feature that makes the whole expression grow **sub-exponentially**.
 
-Sub-exponential is a precise term, and it is *not* the same as
-"super-polynomial". *Super-polynomial* only says the work grows faster than
-every polynomial. *Sub-exponential* says that **and** that it still grows
-slower than a true exponential such as `2^b` — the growth sits between the two.
-Both descriptions are true of GNFS, and the second one is the stronger (more
-informative) claim because it adds an upper bound as well as a lower one.
-The practical effect: adding bits does not just add work, it *multiplies* it —
-again and again.
+"Sub-exponential" is a precise term, and it is *not* synonymous with
+"super-polynomial". *Super-polynomial* states only that the work grows
+faster than every polynomial. *Sub-exponential* states that **and** that it
+still grows more slowly than a true exponential such as `2^b` — the growth
+sits between the two regimes. Both descriptions hold for GNFS, and the
+second is the stronger (more informative) claim, because it supplies an
+upper bound in addition to a lower one. The practical effect is that adding
+bits does not merely add work; it *multiplies* the work — again and again.
 
-Practical consequence: every few extra bits of key length make classical
-factoring dramatically more expensive. That is why keys of 2048 bits are
-considered safe today.
+The practical consequence is that every few additional bits of key length
+make classical factoring dramatically more expensive. For this reason, keys
+of 2048 bits are considered safe today.
 
 ## Shor's cost
 
@@ -125,51 +155,57 @@ $$b^3$$
 
 Cubic growth is gentle by comparison. Going from a 1024-bit number to a
 2048-bit one multiplies the work by roughly `2³ = 8`, whereas the classical
-method explodes far more violently.
+method explodes far more violently over the same doubling.
 
 !!! warning "Reality check"
-    "Polynomial" is not the same as "easy today". Shor still needs a large,
-    error-corrected quantum computer. Today's machines are **NISQ** — *Noisy
-    Intermediate-Scale Quantum*: a few hundred error-prone qubits with no error
-    correction at all. They spend many *physical* qubits to encode one reliable
-    **logical** qubit. The chapter is about the *asymptotic promise*, not about
-    breaking RSA on current hardware.
+    "Polynomial" is not the same as "easy today". Shor still requires a
+    large, error-corrected quantum computer. Today's machines are **NISQ** —
+    *Noisy Intermediate-Scale Quantum*: a few hundred error-prone qubits with
+    no error correction at all. Such devices spend many *physical* qubits to
+    encode one reliable **logical** qubit. This chapter is therefore about
+    the *asymptotic promise*, not about breaking RSA on current hardware.
 
 ## The diagrams
 
-The book draws **two** charts: one comparing both algorithms, and one showing the
-classical curve on its own so its shape is not hidden by the much lower Shor
-curve.
+The book draws **two** charts: one comparing both algorithms on the same
+axes, and one showing the classical curve on its own, so that its shape is
+not visually dominated by the much lower Shor curve.
 
 ![Classical vs. Shor factoring time](../assets/ch01-time-complexity.png){ width="520" }
 
 ![The classical curve on its own](../assets/ch01-time-complexity-classical.png){ width="520" }
 
-- The **classical** curve (yellow) climbs steeply — that is the sub-exponential
-  wall.
-- The **Shor** curve (green) stays low and almost flat by comparison — this is
-  the polynomial path.
+- The **classical** curve (yellow) climbs steeply — that is the
+  sub-exponential wall.
+- The **Shor** curve (green) stays low and almost flat by comparison — this
+  is the polynomial path.
 
-The widening gap between the two curves *is* the quantum speed-up.
+It is precisely the widening gap between the two curves that *is* the
+quantum speed-up.
 
 ## What the sample shows
 
-When you run the chapter it prints a table of estimates for 4, 8, 16, 32 and
-64 bits. Reading down the columns makes the two growth rates concrete: the
-classical column balloons to enormous numbers while the Shor column stays
-comparatively modest. The figures above tell the same story as a picture.
+When the chapter's program is executed, it prints a table of estimates for
+4, 8, 16, 32 and 64 bits. Reading down the columns makes the two growth
+rates concrete: the classical column balloons to enormous numbers, while the
+Shor column stays comparatively modest. The figures above tell the same
+story in pictorial form.
 
 ## Key takeaways
 
-- Quantum computing is an **evolution** with a **revolutionary** speed-up for a
-  narrow set of problems — not a universal faster computer.
-- The clearest wins are cryptography, quantum simulation, and search.
-- Classical GNFS is **sub-exponential**; Shor is **polynomial** (`b³`).
-- The speed-up is about *asymptotic growth*, not present-day machines.
-- This is exactly why post-quantum cryptography is an active field.
+- Quantum computing is an **evolution** in hardware terms combined with a
+  **revolutionary** speed-up for a narrow set of problems — it is not a
+  universally faster computer.
+- The clearest advantages lie in cryptography, quantum simulation, and
+  search.
+- Classical GNFS is **sub-exponential**; Shor's algorithm is **polynomial**
+  (`b³`).
+- The speed-up concerns *asymptotic growth*, not present-day machines.
+- This is exactly why post-quantum cryptography is an active field of
+  research.
 
 ## The code behind this chapter
 
 The sample that produces the table and the figures lives in
 [`src/quantum_computing_in_action/ch01/time_complexity.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch01/time_complexity.py).
-Run it with `make ch01`.
+It can be run with `make ch01`.

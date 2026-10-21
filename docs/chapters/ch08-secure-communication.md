@@ -3,47 +3,59 @@
 !!! abstract "In one sentence"
     Alice and Bob can agree on a **secret key** over a public line because a qubit
     only carries a bit *in a chosen base* — and an eavesdropper who does not know
-    the base must disturb the state, which shows up as a ~25% error rate.
+    the base must disturb the state, which shows up as a ~25% error rate. In other
+    words, the security rests not on the difficulty of a computation but on a
+    physical fact: reading a qubit without the right base is itself an observable
+    act.
 
 ## The question this chapter answers
 
-Alice and Bob have never met in private, yet they want a secret. Every wire between
-them is public: anything Alice sends, a third party — call her **Eve** — can look
-at. Classically this is hopeless in a specific, interesting way: reading a copy
-of a message leaves the original untouched, so Eve can copy quietly and nobody
-ever knows. The chapter asks four questions about that setup:
+Alice and Bob have never met in private, yet they need a secret. Every wire
+between them is public: anything Alice sends, a third party — call her **Eve** —
+can look at. Classically this situation is hopeless in a specific, interesting
+way: reading a copy of a message leaves the original untouched, so Eve can copy
+quietly and nobody ever knows, and no test performed on the delivered message
+can reveal afterwards that a copy was ever made. The participants are therefore
+left without any means of telling a private line from a tapped one. In other words, the obstacle is not that Eve is unusually clever,
+but that the participants possess no physical signal indicating whether she is
+listening at all. The chapter
+asks four questions about that setup:
 
-1. **How do you even write a bit so that reading it is a *choice*?** A qubit
+1. **How does one write a bit so that reading it is a *choice*?** A qubit
    carries a bit only relative to a **base**, and a reader who uses the wrong
    base gets a coin flip instead of the bit.
 2. **Why do the obvious designs fail?** Sending plain bits, hiding them in a
    random base, or spreading them over a superposition each look promising — and
-   each fails for a reason worth knowing before the fix makes sense.
+   each fails for a reason worth knowing before the fix can make sense.
 3. **How does a public conversation create a private key?** BB84: announce the
    **bases** (never the bits), keep the qubits where both sides chose the same
-   base, and the kept bits are identical.
+   base, and the kept bits are identical with certainty.
 4. **Why can't Eve hide?** She cannot copy a qubit, so she must measure it, in a
    base she can only guess — and her wrong guesses leave a fingerprint of about
    **25%** in the sifted key, where a clean line leaves exactly **0**.
 
-After this chapter you will be able to:
+After working through this chapter, the reader will be able to:
 
 - say what a **base** is (the Z base `|0⟩`, `|1⟩` vs. the X base `|+⟩`, `|−⟩`) and
-  compute, with numbers, what a measurement returns in each base;
+  compute, with explicit numbers, what a measurement returns in each base;
 - explain `H·H = I` as "the right base cancels, the wrong base doesn't", using
   the Hadamard round trip;
-- say precisely why plain bits, an unreconciled base, and a superposition each
+- state precisely why plain bits, an unreconciled base, and a superposition each
   fail to make a secret;
 - walk a full 8-qubit BB84 exchange row by row: which positions survive sifting
   and what key they produce;
 - compute the eavesdropper's error rate as `1/2 × 1/2 = 1/4`, and explain why a
   clean line sits at exactly 0.
 
-You need three things from earlier chapters, each in one line: `H` puts a qubit
-into an even 50/50 superposition ([Chapter 4](ch04-superposition.md));
-measuring a superposition collapses it, and an *unknown* state cannot be copied —
-only entangled ([Chapter 6](ch06-quantum-networking.md)); and a circuit's state
-can be read after every step ([Chapter 7](ch07-helloworld-explained.md)).
+Three results from earlier chapters serve as prerequisites, each summarised in
+one line: `H` puts a qubit
+into an even 50/50 superposition ([Chapter 4](ch04-superposition.md), which
+introduces superposition itself); measuring a superposition collapses it, and an
+*unknown* state cannot be copied — only entangled
+([Chapter 6](ch06-quantum-networking.md), which also explains the no-cloning
+theorem); and a circuit's state
+can be read after every step ([Chapter 7](ch07-helloworld-explained.md), where
+this inspection technique first appears).
 
 !!! note "How to read the tables in this chapter"
     - A **base** is the pair of states a measurement compares against. This
@@ -51,7 +63,9 @@ can be read after every step ([Chapter 7](ch07-helloworld-explained.md)).
       **X base** (`|+⟩`, `|−⟩` — a Hadamard away). `Z` and `X` name bases;
       `0` and `1` name bits.
     - The two-qubit round-trip table uses Qiskit's label order `q1 q0`: the
-      *right-hand* character is `q0`, the qubit carrying the bit.
+      *right-hand* character is `q0`, the qubit carrying the bit. This ordering
+      deserves attention, because it is reversed relative to the book's own
+      register convention.
     - Four-qubit register labels (e.g. `0110`) use the book's order, `q0` first —
       same convention as [Chapter 7](ch07-helloworld-explained.md).
     - Bit/base tables have one row per qubit position, position `0` first.
@@ -59,8 +73,11 @@ can be read after every step ([Chapter 7](ch07-helloworld-explained.md)).
 ## A qubit carries a bit only in a base
 
 A classical bit has exactly one alphabet: `0` and `1`, and every reader uses it.
-A qubit has (at least) two alphabets, and *which one you read in is a choice*.
-That choice is the whole chapter, so start concrete.
+A qubit has (at least) two alphabets, and *which one is read in is a choice*.
+That choice is the whole chapter, so it is worth starting in the most concrete
+terms possible. It follows from the table below that choosing an alphabet is
+not a formality: the same four vectors behave in two entirely different ways
+depending on this single choice.
 
 The four states Alice can send, written as vectors:
 
@@ -70,23 +87,31 @@ The four states Alice can send, written as vectors:
 | X | `|+⟩` = (1, 1)/√2 | `|−⟩` = (1, −1)/√2 |
 
 **A worked measurement.** Alice sends `|0⟩` — the *bit* is `0`, the *base* is Z.
+Two measurement choices then produce two fundamentally different kinds of
+answer:
 
 - Bob measures in **Z**: the probability of reading `0` is `|⟨0|0⟩|² = 1`.
-  Certain. This is the ordinary bit you already know.
+  Certain. This is the ordinary bit familiar from classical computing. Every
+  other reading has probability 0, so the preparation reproduces itself with
+  no statistical spread at all.
 - Bob measures in **X**: the possible outcomes are now `|+⟩` (bit `0`) and
   `|−⟩` (bit `1`). The probability of reading bit `0` is
 
 $$|\langle +|0\rangle|^2 = \left(\tfrac{1}{\sqrt{2}}\right)^2 = \tfrac{1}{2}$$
 
-  A 50/50 coin flip — about a perfectly definite state.
+  A 50/50 coin flip — thrown about a perfectly definite state, not an
+  uncertain preparation. This is the first indication that a base is not a
+  detail but a structural choice.
 
 **The general rule, now that the example is on the table.** Measuring in the
 base the qubit was prepared in returns the bit *with certainty* — all four
 states, both bits. Measuring in the other base returns a fair coin *no matter
 what the bit was*: `|⟨+|1⟩|² = 1/2` just as above, and
-`|⟨0|−⟩|² = |⟨1|−⟩|² = 1/2` too. Verified against the simulator
+`|⟨0|−⟩|² = |⟨1|−⟩|² = 1/2` too. Both claims are verified against the simulator
 (`protocol.state_probabilities`): every same-base measurement is certain, every
-cross-base measurement is `0.5 / 0.5`.
+cross-base measurement is `0.5 / 0.5`. It follows that the base acts as a
+shared reference frame: whoever decides how a qubit was prepared decides which
+of the two behaviours applies to anyone reading it.
 
 **Why the round trip matters: `H·H = I`.** The Hadamard gate moves a qubit from
 one base to the other (`H|0⟩ = |+⟩`, `H|1⟩ = |−⟩`), and it is its own inverse:
@@ -121,46 +146,57 @@ are invisible to a measurement — it only sees `|amplitude|²` — but they are
 lost: a Hadamard sees them. Apply `H` to both qubits again and the terms
 recombine into exactly `q0 = 1, q1 = 0`, label `01`, probability 1.00. Row 4 is
 row 2 again, digit for digit: **the detour through the X base left no trace.**
+In other words, the pattern of signs is where the memory of the detour is
+stored, and a Hadamard is precisely the operation that reconstructs a definite
+outcome from it.
 
 That is the "why it works". Read it as a rule about bases: if Bob measures in
 Alice's base, his Hadamard (into the Z alphabet, right before the measurement)
 undoes her Hadamard — `H·H = I`, the bit passes through untouched. If he
 measures in the *other* base, only one Hadamard acts: `H` alone, and the state
 he measures is a superposition *in his alphabet* — a coin flip. **Right base =
-`H·H`; wrong base = `H` alone.** A base is something you can hide behind,
-because leaving it costs the owner nothing and costs a stranger all certainty.
+`H·H`; wrong base = `H` alone.** In this sense a base is something one can hide
+behind, because leaving it costs the owner nothing and costs a stranger all
+certainty about the bit. This asymmetry between owner and stranger is the seed
+of the detection mechanism developed later in this chapter.
 
 ??? question "Check yourself — Alice sends `|−⟩` (bit `1`, X base). Bob measures in Z and gets `0`. Can he conclude the bit was `0`?"
     No — and worse, he has learned *nothing*. Whatever Alice sends, a Z
     measurement of an X-base state is a fair coin: `|⟨0|−⟩|² = 1/2` and
-    `|⟨1|−⟩|² = 1/2`. Bob's `0` was as likely if Alice sent `|+⟩` (bit `0`) as
-    if she sent `|−⟩` (bit `1`), so it carries zero information. And his
-    measurement has already collapsed the qubit to `|0⟩` — nobody can re-read
-    it in the right base afterwards. A wrong-base answer is not a noisy
-    version of the bit; it is a coin flip that destroys the original.
+    `|⟨1|−⟩|² = 1/2`. Bob's `0` is exactly as likely if Alice sent `|+⟩` (bit
+    `0`) as if she sent `|−⟩` (bit `1`), so it carries zero information about
+    the bit. Moreover, his measurement has already collapsed the qubit to
+    `|0⟩` — nobody can re-read it in the right base afterwards. A wrong-base
+    answer is not a noisy version of the bit; it is a coin flip that destroys
+    the original.
 
 ## Two attempts that do not work
 
 Before BB84, the book tries the obvious designs and watches each fail for a
-different reason. The numbers below are real runs of the chapter's modules.
+different reason. The numbers below are real runs of the chapter's modules,
+not idealised estimates.
 
 **Attempt 1 — no base at all.** Alice encodes each bit in Z (`|0⟩`/`|1⟩`) and
 sends. Bob measures in Z. A 64-qubit run: the raw error rate is **0.00** —
-every bit arrives intact. It looks perfect, and that is exactly the failure: a
+every bit arrives intact. It looks perfect, and that appearance is precisely
+the failure: a
 measurement of a plain bit disturbs nothing, so there is nothing to stop Eve
 from reading the same bits. **Anything Bob can read, Eve can read too.** Zero
 errors here means zero secrecy — an unwatched conversation, not a private one.
+Put differently, perfection in the error statistics is precisely the symptom
+of total exposure.
 
 **Attempt 2 — a base nobody reconciles.** Alice now flips a coin per qubit and
 prepares it in Z or X. Bob, never told which, measures everything in Z. When
 Alice used Z he is right; when she used X he gets a fair coin, and half the
-coins land on the wrong bit. The arithmetic:
+coins land on the wrong bit — so his margin of error is fixed by the protocol
+itself and no refinement of hardware can remove it. The arithmetic:
 
 $$\underbrace{\tfrac{1}{2}}_{\text{wrong base}} \times \underbrace{\tfrac{1}{2}}_{\text{coin lands wrong}} = \tfrac{1}{4}$$
 
 Real runs: a 64-qubit exchange came out at **0.36** (23 of 64 bits wrong — small
 samples bounce around), and an 800-qubit exchange at **0.235**, closing in on
-the predicted quarter.
+the predicted quarter as the sample grows.
 
 | Attempt | Raw error rate (observed) | Verdict |
 |---|---|---|
@@ -171,20 +207,25 @@ the predicted quarter.
 
 Attempt 2 is interesting because it fails in the *opposite* direction from
 Attempt 1: there is now something Eve does not know (the base), but Bob doesn't
-know it either, and a key that is wrong one bit in four is unusable. The fix is
+know it either, and a key that is wrong one bit in four is unusable. Bob's
+errors therefore stem from a missing step in the protocol — the reconciliation
+of bases — rather than from any flaw in his measuring apparatus. The fix is
 not more qubits. It is a short **public conversation about bases** — which is
-precisely what BB84 adds.
+precisely what BB84 adds. Because the missing ingredient is information about
+bases rather than additional hardware, no quantity of extra qubits would
+improve Attempt 2's error rate.
 
 ## Using superposition is not enough either
 
-The third obvious idea: if a plain bit is readable and a hidden base is not
-enough, send the bits **in superposition** — Hadamard every qubit so the
-register holds all `2^n` states at once. Eve surely cannot read a state that is
-still "in flux"?
+The third obvious idea: if a plain bit is readable by everyone and a hidden
+base is not enough, send the bits **in superposition** — Hadamard every qubit
+so the register holds all `2^n` states at once. Eve surely cannot read a state
+that is still "in flux"?
 
 It really does spread the register — and then it spreads right back, because of
-`H·H = I`. Watch the arithmetic on the sample's four qubits, prepared with bits
-`0110` (an `X` on each qubit whose bit is `1`):
+`H·H = I`. The claim therefore deserves a quantitative test rather than a
+qualitative impression. Consider the arithmetic on the sample's four qubits, prepared with
+bits `0110` (an `X` on each qubit whose bit is `1`):
 
 **Prepared.** One definite basis state, `|0110⟩`, probability 1.00.
 
@@ -198,11 +239,13 @@ $$\underbrace{\left(\tfrac{1}{\sqrt{2}}\right)^4}_{\text{amplitude}} = \tfrac{1}
 
 Sixteen states at `0.0625` each, and `16 × 0.0625 = 1`: the whole probability
 mass, evenly spread. This is what "the register is in all states at once"
-*means in numbers*.
+*means in numbers* — a uniform distribution over sixteen outcomes rather than a
+mysterious collective state.
 
 **After the second `H` round.** The second round is the inverse of the first
 (`H·H = I` on every qubit), so the amplitudes recombine into the prepared state
-exactly: `|0110⟩` with probability 1.00, and `0` everywhere else.
+exactly: `|0110⟩` with probability 1.00, and `0` everywhere else. Every trace of
+the detour vanishes, exactly as in the two-qubit case.
 
 ![A register in superposition, and the same register recovered](../assets/ch08-superposition-states.png){ width="620" }
 
@@ -216,31 +259,42 @@ exactly: `|0110⟩` with probability 1.00, and `0` everywhere else.
 
 So Bob — who knows the recipe, since Alice just applies `H` twice — reads the
 bits perfectly. The chapter's sample run: Alice sent `1000`, Bob received
-`1000`, four qubits, zero errors. Eve could do the same: the "spread" state is
-not hidden, it is *rotated*, and anyone who knows the rotation reads it.
+`1000`, four qubits, zero errors. Eve could do exactly the same: the "spread"
+state is not hidden, it is *rotated*, and anyone who knows the rotation reads
+it. In other words, for secrecy the reading step would have to fail for Eve —
+and nothing in this preparation makes it fail.
 
 A superposition is a genuine capability (Chapter 9 will use it hard), but it is
 not secrecy. Secrecy needs the one ingredient none of these attempts has: a
 base that Alice chooses at random and reveals **only after the qubits are
-gone**.
+gone**. That single scheduling choice — announcing the base after the
+transmission rather than before — is what separates BB84 from every attempt
+above.
 
 ## BB84: keep the qubits whose bases agree
 
 The protocol is a coin flip per qubit on each side, plus one public
-announcement:
+announcement. Formally:
 
 1. **Alice** picks a random bit *and* a random base, and prepares the qubit in
-   that base — one of `|0⟩`, `|1⟩`, `|+⟩`, `|−⟩`.
-2. **Bob** picks a random base and measures.
+   that base — one of `|0⟩`, `|1⟩`, `|+⟩`, `|−⟩`. The two choices are
+   independent of each other.
+2. **Bob** picks a random base and measures. He is not told Alice's choice, so
+   the two bases agree for roughly half of the qubits by chance.
 3. They **sift**: they announce their **bases** — never their bits — and keep
    only the qubits where the bases matched. On a match, Bob's measurement `H`
    undoes Alice's preparation `H` (`H·H = I`), so Bob's bit *is* Alice's bit
    with certainty.
 
+For this reason the sifted key is not merely a filtered copy of what Alice
+sent: it is a string both parties can be sure of, while Eve — who measured in
+bases she had to guess — holds only fragmentary, uncertain knowledge of it.
+
 ![One BB84 circuit](../assets/ch08-bb84-circuit.png){ width="620" }
 
 **A full worked exchange** — 8 qubits, produced with a fixed seed by the
-chapter's own code (`bb84.exchange(seed=2)`), so you can reproduce every cell:
+chapter's own code (`bb84.exchange(seed=2)`), so every cell can be reproduced
+independently:
 
 | # | Alice bit | Alice base | Bob base | Bob bit | verdict |
 |---|---|---|---|---|---|
@@ -253,14 +307,14 @@ chapter's own code (`bb84.exchange(seed=2)`), so you can reproduce every cell:
 | 6 | 0 | X | Z | 0 | discarded (bases differ) |
 | 7 | 0 | Z | Z | 0 | **kept** |
 
-Walk it row by row:
+The exchange is best understood position by position:
 
 - **Row 0:** Alice sends bit `1` in Z (`|1⟩`). Bob chose X. His `1` is a coin
-  flip (`|⟨−|1⟩|² = 1/2`) — it *happened* to agree, but it is not information,
-  so the position goes.
-- **Rows 1, 2, 4, 6:** Alice used X, Bob used Z. Note row 2: Bob's bit is `1`
-  where Alice's is `0` — exactly the coin-flip behaviour, and exactly why these
-  positions must go.
+  flip (`|⟨−|1⟩|² = 1/2`) — it *happened* to agree on this run, but agreement by
+  luck is not information, so the position goes.
+- **Rows 1, 2, 4, 6:** Alice used X, Bob used Z. Note row 2 in particular: Bob's
+  bit is `1` where Alice's is `0` — exactly the coin-flip behaviour, and exactly
+  why these positions must go.
 - **Row 3:** both chose X. Alice's preparation `H` and Bob's measurement `H`
   cancel: Bob reads her `0` with certainty. Kept.
 - **Row 5:** Alice in Z, Bob in X — differ, discard.
@@ -270,23 +324,28 @@ Walk it row by row:
 The sifted positions are `3` and `7`, so the key is Alice's bits there: `0` and
 `0`. Both keys read **`00`** — and on a clean line they always agree
 (over 200 exchanges, the average sifted error rate was exactly `0.000`). Two
-kept out of eight is a small-sample fluke of this seed; the long-run average is
-about half — measured at `4.0` kept per 8-qubit exchange over 200 runs — so an
-`N`-qubit exchange yields about `N/2` key bits.
+kept out of eight is a small-sample fluke of this particular seed; the long-run
+average is about half — measured at `4.0` kept per 8-qubit exchange over 200
+runs — so an
+`N`-qubit exchange yields about `N/2` key bits. The sifted bit is accordingly
+unpredictable in advance for both parties, which is exactly the requirement
+for a key rather than a message.
 
 ??? question "Check yourself — Bob's wrong-base bits are sometimes right by luck (rows 0, 1, 6). Why throw them away instead of correcting them?"
     Because "wrong" is not a *fixable* kind of wrong. A discarded bit is a coin
     flip — it agrees with Alice's bit with probability 1/2 *whatever she sent*,
-    so it contains no information to correct it *with*. To fix it, Bob would
-    have to know Alice's bit — which is the very thing they are trying to
-    share. And he cannot re-measure the qubit in the right base: the wrong-base
-    measurement already collapsed it. Discarding costs half the qubits and
-    keeps certainty; "correcting" would keep all the qubits and zero certainty.
+    so it contains no information that could serve to correct it. To fix it,
+    Bob would have to know Alice's bit — which is the very thing the protocol is
+    trying to share. And he cannot re-measure the qubit in the right base: the
+    wrong-base measurement already collapsed it. Discarding costs half the
+    qubits and keeps certainty; "correcting" would keep all the qubits and zero
+    certainty.
 
 !!! note "A key, not a message"
     BB84 produces a shared random **key**, not the message itself. The key is
     then used with an ordinary cipher — a one-time pad, say — so the quantum
-    part only has to solve the hard half: agreeing on a secret in public.
+    part only has to solve the hard half: agreeing on a secret in public. The
+    message itself travels through classical channels afterwards.
 
 ## The wiretap cannot hide
 
@@ -297,7 +356,9 @@ says an unknown state **cannot be duplicated** — and every state Alice sends i
 unknown to Eve, because she does not know the base. To learn anything at all,
 Eve must *measure*, and a measurement in a guessed base *disturbs* the qubit.
 Her best strategy is **intercept-resend**: measure each qubit in a base she
-guesses, then send on whatever state her measurement collapsed it to.
+guesses, then send on whatever state her measurement collapsed it to. It is
+worth noting what is excluded from the strategy list: because copying is
+impossible, observation without disturbance is simply not among Eve's options.
 
 **A worked wiretapped exchange** — same fixed-seed machinery, now with Eve in
 the middle (`bb84.exchange(seed=0, eavesdropper=True)`):
@@ -313,7 +374,8 @@ the middle (`bb84.exchange(seed=0, eavesdropper=True)`):
 | 6 | 0 | X | X | 0 | X | 0 | kept |
 | 7 | 0 | X | Z | 1 | Z | 1 | discarded (bases differ) |
 
-Eve guessed wrong twice — rows 3 and 7. Follow row 3 in state arithmetic,
+Eve guessed wrong twice — rows 3 and 7. Row 3 should be followed in explicit
+state arithmetic,
 because it shows the whole detection in one qubit:
 
 1. Alice sends bit `0` in the X base: `|−⟩`.
@@ -321,12 +383,17 @@ because it shows the whole detection in one qubit:
    and her measurement **collapses the qubit to `|0⟩`** — Alice's `|−⟩` no
    longer exists anywhere. She resends `|0⟩`.
 3. Bob measures in X (his base matches Alice's, so this position survives
-   sifting). The qubit is now `|0⟩`, not `|−⟩`: he reads `1` with probability
-   `|⟨−|0⟩|² = 1/2` — and does. Alice has `0`, Bob has `1`: **a key error.**
+   sifting). The qubit he now receives is `|0⟩`, not `|−⟩`: he reads `1` with
+   probability
+   `|⟨−|0⟩|² = 1/2` — and on this run he does. Alice has `0`, Bob has `1`:
+   **a key error.**
 
 Row 7 shows the flip side: Eve guessed wrong there too (read `1`, resent `|1⟩`)
 — but Bob's base (Z) differed from Alice's (X), so the position was discarded.
-A corrupted bit in a discarded position is harmless.
+A corrupted bit in a discarded position is harmless — which is also why the
+*observable* damage concentrates in the sifted key. Sifting also explains why
+Eve's tap is best judged on the sifted positions alone: those are the positions
+whose corruption can be measured directly.
 
 The verdict: sifted positions `(1, 2, 3, 5, 6)`, so Alice's key is `11000` and
 Bob's is `11100` — **1 of 5 bits wrong (20% this run)**.
@@ -334,7 +401,8 @@ Bob's is `11100` — **1 of 5 bits wrong (20% this run)**.
 **The 25% in general.** Take a kept bit — its position survived, so Alice and
 Bob used the same base. That bit was tapped. Eve guesses the wrong base with
 probability `1/2`. Given a wrong base (row-3 situation), Bob's outcome is a
-coin flip, so his bit is wrong with probability `1/2`:
+coin flip, so his bit is wrong with probability `1/2`. Consequently, each
+tapped kept bit is corrupted with probability `1/4` on average:
 
 $$\underbrace{\tfrac{1}{2}}_{\text{Eve's base wrong}} \times \underbrace{\tfrac{1}{2}}_{\text{Bob's coin lands wrong}} = \tfrac{1}{4}$$
 
@@ -350,7 +418,8 @@ statistics over 200 exchanges of 8 qubits (`bb84.mean_error_rate`,
 
 ![A clean line vs. a wiretap](../assets/ch08-eavesdropper-error.png){ width="620" }
 
-Two honest remarks about that distribution. First, 8 qubits is deliberately
+Two honest remarks are in order about that distribution. First, 8 qubits is
+deliberately
 tiny: in 73 of the 200 tapped runs Eve happened to leave 0 errors, so a single
 short exchange does not *guarantee* catching her — it is the average that
 separates (`0.000` vs `0.237`, about `0.96` errors on `4.0` kept bits per
@@ -361,7 +430,10 @@ line spreads around a quarter.
 
 Alice and Bob finish by comparing a sample of their sifted bits over a public
 channel. A few disagreements might be ordinary channel noise; a quarter is a
-wiretap, so they throw the key away and try again.
+wiretap, so the key is thrown away and the exchange is repeated. The comparison
+itself is cheap — only a sample of the sifted key is sacrificed — while the
+consequence of an elevated rate is total: the key must be discarded in its
+entirety, since no part of it can be certified as uncompromised.
 
 ??? question "Check yourself — why can't Eve copy the qubit, pass the original to Bob, and analyze her copy later?"
     The [no-cloning theorem](ch06-quantum-networking.md): an unknown quantum
@@ -419,7 +491,7 @@ probability 1.00 at both ends.
 ![One BB84 circuit](../assets/ch08-bb84-circuit.png){ width="620" }
 
 Alice's preparation (an `X` for a `1`, a Hadamard for the X base), Bob's base
-rotation, and the measurement.
+rotation, and the measurement — drawn for a single qubit of the exchange.
 
 ![A clean line vs. a wiretap](../assets/ch08-eavesdropper-error.png){ width="620" }
 

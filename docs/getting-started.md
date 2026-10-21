@@ -1,28 +1,45 @@
 # Getting started
 
-This page is only about **running the samples** and **regenerating the
-diagrams**. For the quantum-computing concepts, start at
-[Chapter 1](chapters/ch01-evolution-revolution-hype.md).
+This page is concerned solely with **running the samples** and
+**regenerating the diagrams**. The quantum-computing concepts themselves
+are introduced step by step in the chapters; to study them, begin at
+[Chapter 1](chapters/ch01-evolution-revolution-hype.md), which lays the
+foundations on which the later chapters build.
 
 ## Requirements
 
-- [uv](https://docs.astral.sh/uv/) — manages Python and dependencies
-- Python 3.14 (uv installs it automatically)
+- [uv](https://docs.astral.sh/uv/) — manages both the Python interpreter
+  and the project's dependencies, and is consequently the only tool that
+  must be available beforehand
+- Python 3.14 (uv installs it automatically, so no separate installation
+  step is required)
 
-The samples rely on [Qiskit](https://www.ibm.com/quantum/qiskit) for the
-circuits, [matplotlib](https://matplotlib.org/) for the figures, and
-[Rich](https://github.com/Textualize/rich) for the console output.
+The samples rely on [Qiskit](https://www.ibm.com/quantum/qiskit) to
+construct and simulate the quantum circuits, on
+[matplotlib](https://matplotlib.org/) to render the figures they
+produce, and on [Rich](https://github.com/Textualize/rich) to format the
+output printed to the console.
 
 ## Setup
+
+A single command prepares the environment:
 
 ```bash
 uv sync
 ```
 
+Specifically, this command creates an isolated environment, installs
+Python 3.14 when it is not already present, and downloads every
+dependency declared by the project.
+
 ## Run a chapter
 
-Each chapter prints a short explanation, a step-by-step breakdown, the numeric
-results, and the paths of the diagrams it saved.
+Each chapter corresponds to a self-contained sample program. When such a
+program is executed, it prints a short explanation of the concept being
+demonstrated, a step-by-step breakdown of the circuit construction, the
+numeric results of the simulation, and the paths of the diagram files it
+has written. The program can be invoked either through the module
+interface or through the matching Makefile target:
 
 ```bash
 # via the module
@@ -66,8 +83,9 @@ make ch11
 | 10 | `make ch10` | `ch10-classical-tries.png`, `ch10-oracle-matrix.png`, `ch10-step-by-step.png`, `ch10-grover-circuit.png`, `ch10-grover-curve.png`, `ch10-grover-outcomes.png` |
 | 11 | `make ch11` | `ch11-classical-factor.png`, `ch11-period-function.png`, `ch11-qft-circuit.png`, `ch11-qft-phase.png`, `ch11-order-circuit.png`, `ch11-order-peaks.png` |
 
-Chapters 6 through 11 each have several samples and run all of them; to run just
-one of them, invoke it directly:
+Chapters 6 through 11 each consist of several samples, and running the
+chapter executes all of them in sequence; consequently, a single sample
+can be examined in isolation by invoking its module directly:
 
 ```bash
 uv run python -m quantum_computing_in_action.ch06.teleportation
@@ -80,6 +98,9 @@ uv run python -m quantum_computing_in_action.ch11.shor
 
 ## Development
 
+The Makefile exposes the routine development tasks; each target wraps a
+single tool so that the task is performed consistently:
+
 ```bash
 make sync      # install dependencies
 make lint      # ruff + ty
@@ -91,6 +112,9 @@ make clean     # remove caches and generated artifacts
 ```
 
 ## Project layout
+
+The repository follows a conventional Python project structure; the tree
+below maps each directory and file to the role it plays:
 
 ```
 .
@@ -120,5 +144,7 @@ make clean     # remove caches and generated artifacts
 
 ## Documentation languages
 
-These notes are available in **English** (default) and **Tiếng Việt**. Use the
-language selector in the top bar; the Vietnamese pages live under `/vi/`.
+These notes are maintained in **English** (the default) and
+**Tiếng Việt**. The language selector in the top bar switches between
+them; the Vietnamese pages are served under the `/vi/` path, and each
+page in one language corresponds to exactly one page in the other.

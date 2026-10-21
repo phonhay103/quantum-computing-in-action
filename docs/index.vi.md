@@ -1,26 +1,35 @@
 # Quantum Computing in Action — ghi chú đồng hành
 
-Trang này giải thích các **ý tưởng** trong sách
+Trang này trình bày một cách có hệ thống các **ý tưởng** trong sách
 [_Quantum Computing in Action_](https://www.manning.com/books/quantum-computing-in-action)
-của Johan Vos, cho những chương đã được chuyển sang Python với
-[Qiskit](https://www.ibm.com/quantum/qiskit).
+của Johan Vos, dành cho những chương đã được chuyển sang Python với
+[Qiskit](https://www.ibm.com/quantum/qiskit). Mục đích không phải là thay thế
+cuốn sách mà là để đồng hành cùng nó: mỗi trang nêu các khái niệm mà chương đó
+giới thiệu, và chứng minh cách những khái niệm này biểu hiện trong một mô phỏng
+có thể chạy được.
 
 Sách dạy điện toán lượng tử bằng bộ mô phỏng [Strange](https://github.com/gluonhq/strange)
-viết bằng Java. Kho mã này giữ nguyên mạch kể chuyện đó nhưng dùng Qiskit, và vẽ
-kết quả của mỗi ví dụ thành sơ đồ để bạn *nhìn thấy* điều mà toán học mô tả. Nó chỉ
-dùng hai nguồn công khai: **mã nguồn** của sách và
-[trang Manning](https://www.manning.com/books/quantum-computing-in-action) của sách
-(bao gồm cả mục lục).
+viết bằng Java. Kho mã này giữ nguyên mạch kể chuyện đó nhưng thay Qiskit làm
+bộ máy mô phỏng, và vẽ kết quả của mỗi ví dụ thành sơ đồ, để điều mà toán học
+mô tả có thể được quan sát bằng thị giác chứ không chỉ qua ký hiệu. Cần lưu ý
+rằng tài liệu chỉ dựa trên đúng hai nguồn công khai: **mã nguồn** của sách và
+[trang Manning](https://www.manning.com/books/quantum-computing-in-action) của
+sách; trang sau cũng chứa mục lục, mà tên các chương dưới đây bám theo.
 
 !!! note "Ghi chú này là gì — và không phải là gì"
-    Các trang này trình bày **kiến thức điện toán lượng tử** của từng chương:
-    qubit là gì, cổng lượng tử làm gì, phép đo trả về gì, và vì sao điều đó quan
-    trọng. Chúng **không** đi qua từng dòng mã nguồn. Mỗi trang có liên kết tới
-    module tương ứng nếu bạn muốn đọc phần cài đặt.
+    Các trang này trình bày **kiến thức điện toán lượng tử** được phát triển
+    trong từng chương: qubit là gì, cổng lượng tử làm gì, phép đo trả về gì, và
+    vì sao từng điều đó quan trọng đối với lập luận chung của cuốn sách. Chúng
+    **không** đi qua từng dòng mã nguồn; phần cài đặt được xem là một mối quan
+    tâm riêng. Mỗi trang vẫn có liên kết tới module tương ứng, để phần cài đặt
+    có thể được tham khảo khi việc đọc nó là cần thiết.
 
 ## Các chương được trình bày
 
-Tên chương bám theo mục lục của sách.
+Tên chương bám theo mục lục của sách, nên vị trí của một chương trong các ghi
+chú này tương ứng chính xác với vị trí của nó trong sách. Mỗi hàng của bảng
+tóm tắt ý tưởng trung tâm của một chương trong một câu và liệt kê các sơ đồ
+đã được tạo cho chương đó.
 
 | Chương | Trạng thái | Ý tưởng trong một câu | Sơ đồ |
 |--------|-----------|-----------------------|-------|
@@ -38,8 +47,10 @@ Tên chương bám theo mục lục của sách.
 
 ## Thư viện sơ đồ
 
-Mỗi ví dụ ghi hình của nó vào `build/`, với tiền tố là số chương để một hình luôn
-cho biết nó đến từ đâu.
+Mỗi ví dụ ghi hình của nó vào `build/`, với tiền tố là số chương mà hình đó
+xuất xứ; kết quả là một hình luôn tự cho biết nó đến từ đâu mà không cần nhãn
+thêm. Các hình được sưu tập bên dưới theo thứ tự chương, nên thư viện này
+cũng có thể được đọc như một bản tóm tắt thị giác cô đọng của toàn bộ cuốn sách.
 
 ### Chương 1 — cổ điển so với Shor
 
@@ -117,12 +128,17 @@ cho biết nó đến từ đâu.
 
 ## Đi tiếp ở đâu
 
-- Mới bắt đầu? Xem **[Bắt đầu](getting-started.md)** để chạy ví dụ và vẽ lại sơ đồ.
-- Mới với các ý nền (bit, biên độ, pha, mặt cầu Bloch)? Đọc lướt trang
-  **[Kiến thức nền](foundations.md)**.
-- Vướng một từ như *độ trung thực*, *hạng Schmidt*, hay *dưới hàm mũ*? Tra trong
-  bảng **[Thuật ngữ](glossary.md)**.
-- Chỉ muốn phần khái niệm? Đi thẳng tới
+- Người mới bắt đầu ở đây có thể mở đầu bằng trang
+  **[Bắt đầu](getting-started.md)**, trang này giải thích cách chạy các ví dụ
+  và vẽ lại các sơ đồ từ chúng.
+- Với người mới làm quen với các ý nền (bit, biên độ, pha, mặt cầu Bloch),
+  trang **[Kiến thức nền](foundations.md)** cung cấp phần nền tảng cần thiết ở
+  dạng cô đọng.
+- Khi gặp một thuật ngữ lạ như *độ trung thực*, *hạng Schmidt*, hay *dưới hàm
+  mũ*, định nghĩa của nó có thể được tra cứu trong bảng
+  **[Thuật ngữ](glossary.md)**.
+- Ai chỉ quan tâm tới phần khái niệm có thể đi thẳng tới
   **[Chương 1](chapters/ch01-evolution-revolution-hype.md)**.
-- Tìm mã tạo ra một hình? Xem bảng trong **[Tham chiếu](reference.md)**, ánh xạ mỗi
-  chương với module, lệnh CLI và sơ đồ của nó.
+- Để xác định mã tạo ra một hình cho trước, bảng trong
+  **[Tham chiếu](reference.md)** ánh xạ mỗi chương với module, lệnh CLI và sơ
+  đồ của nó.

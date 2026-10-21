@@ -1,28 +1,44 @@
 # Bắt đầu
 
-Trang này chỉ nói về cách **chạy các ví dụ** và **vẽ lại sơ đồ**. Muốn hiểu kiến
-thức điện toán lượng tử, hãy bắt đầu từ
-[Chương 1](chapters/ch01-evolution-revolution-hype.md).
+Trang này chỉ đề cập đến việc **chạy các ví dụ** và **vẽ lại sơ đồ**. Các
+khái niệm điện toán lượng tử được giới thiệu từng bước ngay trong các
+chương; để nghiên cứu chúng, cần bắt đầu từ
+[Chương 1](chapters/ch01-evolution-revolution-hype.md), chương đặt nền
+móng cho toàn bộ các chương về sau.
 
 ## Yêu cầu
 
-- [uv](https://docs.astral.sh/uv/) — quản lý Python và các gói phụ thuộc
-- Python 3.14 (uv tự động cài)
+- [uv](https://docs.astral.sh/uv/) — quản lý cả trình thông dịch Python
+  và các gói phụ thuộc của dự án, do đó là công cụ duy nhất cần có sẵn
+  trước khi thiết lập
+- Python 3.14 (uv tự động cài đặt, vì vậy không cần một bước cài riêng
+  nào khác)
 
-Các ví dụ dùng [Qiskit](https://www.ibm.com/quantum/qiskit) để dựng mạch,
-[matplotlib](https://matplotlib.org/) để vẽ hình, và
-[Rich](https://github.com/Textualize/rich) để in ra console.
+Các ví dụ sử dụng [Qiskit](https://www.ibm.com/quantum/qiskit) để dựng và
+mô phỏng mạch lượng tử, [matplotlib](https://matplotlib.org/) để vẽ các
+hình mà chúng tạo ra, và [Rich](https://github.com/Textualize/rich) để
+định dạng đầu ra in ra console.
 
 ## Cài đặt
+
+Một lệnh duy nhất chuẩn bị môi trường:
 
 ```bash
 uv sync
 ```
 
+Cụ thể, lệnh này tạo một môi trường độc lập, cài Python 3.14 khi phiên
+bản đó chưa có sẵn, và tải mọi gói phụ thuộc đã được khai báo trong dự
+án.
+
 ## Chạy một chương
 
-Mỗi chương in ra phần giải thích ngắn, bảng từng bước, kết quả số, và đường dẫn
-các sơ đồ đã lưu.
+Mỗi chương tương ứng với một chương trình mẫu độc lập. Khi chương trình
+này được thực thi, nó in ra một phần giải thích ngắn về khái niệm đang
+được minh họa, bảng phân tích từng bước quá trình dựng mạch, kết quả số
+của mô phỏng, và đường dẫn của các tệp sơ đồ đã được ghi ra. Chương
+trình có thể được gọi qua giao diện module hoặc qua mục tiêu make tương
+ứng:
 
 ```bash
 # qua module
@@ -66,8 +82,9 @@ make ch11
 | 10 | `make ch10` | `ch10-classical-tries.png`, `ch10-oracle-matrix.png`, `ch10-step-by-step.png`, `ch10-grover-circuit.png`, `ch10-grover-curve.png`, `ch10-grover-outcomes.png` |
 | 11 | `make ch11` | `ch11-classical-factor.png`, `ch11-period-function.png`, `ch11-qft-circuit.png`, `ch11-qft-phase.png`, `ch11-order-circuit.png`, `ch11-order-peaks.png` |
 
-Chương 6 tới 11 đều có nhiều mẫu và chạy tất cả. Muốn chạy riêng một mẫu, gọi
-trực tiếp:
+Chương 6 tới 11 mỗi chương đều gồm nhiều mẫu, và việc chạy toàn bộ chương
+sẽ thực thi tất cả các mẫu đó lần lượt; do đó, một mẫu đơn lẻ có thể được
+xem xét riêng khi gọi trực tiếp module của nó:
 
 ```bash
 uv run python -m quantum_computing_in_action.ch06.teleportation
@@ -80,6 +97,9 @@ uv run python -m quantum_computing_in_action.ch11.shor
 
 ## Phát triển
 
+Makefile cung cấp các tác vụ phát triển thông dụng; mỗi mục tiêu bao bọc
+một công cụ duy nhất để tác vụ đó được thực hiện một cách nhất quán:
+
 ```bash
 make sync       # cài phụ thuộc
 make lint       # ruff + ty
@@ -91,6 +111,9 @@ make clean      # xoá cache và sản phẩm đã sinh
 ```
 
 ## Cấu trúc dự án
+
+Kho mã tuân theo cấu trúc dự án Python thông thường; sơ đồ dưới đây mô
+tả vai trò của từng thư mục và từng tệp:
 
 ```
 .
@@ -120,5 +143,7 @@ make clean      # xoá cache và sản phẩm đã sinh
 
 ## Ngôn ngữ tài liệu
 
-Ghi chú này có bằng **English** (mặc định) và **Tiếng Việt**. Dùng bộ chọn ngôn
-ngữ ở thanh trên cùng; các trang tiếng Việt nằm dưới `/vi/`.
+Ghi chú này được duy trì bằng **English** (mặc định) và **Tiếng Việt**.
+Bộ chọn ngôn ngữ ở thanh trên cùng cho phép chuyển đổi giữa hai bản; các
+trang tiếng Việt được phục vụ dưới đường dẫn `/vi/`, và mỗi trang bằng
+một ngôn ngữ tương ứng chính xác với đúng một trang bằng ngôn ngữ kia.

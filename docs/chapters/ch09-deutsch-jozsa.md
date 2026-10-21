@@ -7,24 +7,29 @@
 
 ## The question this chapter answers
 
-Suppose someone hands you a black box that computes a function `f`, and you are not
-allowed to open it. You may only feed it inputs and read its outputs. This chapter
+Imagine a black box that computes a function `f`, handed over under one strict
+condition: the box may not be opened or examined in any way. The only permitted
+interaction is to feed it inputs and read off the outputs it returns. This chapter
 asks — and answers — three questions about that box:
 
-1. **How can a quantum circuit "call" a function at all?** Chapter 7's rule says
-   every quantum gate is reversible and nothing may be erased — but a function
-   like `AND` erases its inputs. The answer is the **oracle**: a reversible
-   circuit that *keeps* the input and writes the answer onto a spare qubit.
+1. **How can a quantum circuit "call" a function at all?** The rule established
+   in Chapter 7 states that every quantum gate is reversible and that nothing may
+   be erased — yet a function such as `AND` discards its inputs, since several
+   distinct input pairs collapse onto the same output. The resolution is the
+   **oracle**: a reversible circuit that *keeps* the input intact and writes the
+   answer onto a spare qubit.
 2. **How many calls does it take to learn one *global* fact about `f`?** If `f` is
    promised to be **constant** (the same answer everywhere) or **balanced** (two
    different answers, half each), a classical check may need `2^(n-1) + 1` calls
-   before it is *certain*. The quantum circuit of this chapter needs **one**,
-   whatever the width of the input.
-3. **What does that single quantum call actually give you — and what does it not?**
-   Not the `2^n` answers (a measurement returns one outcome); it gives one bit of
-   global information, and **interference** is what distills it.
+   before it is *certain* of the verdict. In other words, the classical cost grows
+   with the width of the input. The quantum circuit of this chapter needs **one**
+   call, whatever the width of the input.
+3. **What does that single quantum call actually deliver — and what does it not?**
+   Not the `2^n` answers themselves: a measurement returns exactly one outcome.
+   It delivers one bit of global information about `f`, and **interference** is
+   the mechanism that distills that bit out of the surrounding superposition.
 
-After this chapter you will be able to:
+Working through this chapter builds four abilities:
 
 - read the oracle rule `U_f : |x⟩|y⟩ → |x⟩|y ⊕ f(x)⟩` and explain `⊕` as
   *"are the two bits different?"*;
@@ -35,16 +40,18 @@ After this chapter you will be able to:
 - state the Deutsch–Jozsa verdict — all zeros means constant — and the classical
   `2^(n-1) + 1` bound it beats.
 
-You need three things from earlier chapters, each in one line: `H` puts a qubit
-into an even 50/50 superposition ([Chapter 4](ch04-superposition.md)); `CNOT`
-flips its target when its control is `1` ([Chapter 5](ch05-entanglement.md)); and
-every quantum gate is reversible, with the **Toffoli** as the reversible `AND`
+Three results from earlier chapters are used throughout, and each can be stated
+in a single line: `H` puts a qubit into an even 50/50 superposition
+([Chapter 4](ch04-superposition.md)); `CNOT` flips its target whenever its
+control is `1` ([Chapter 5](ch05-entanglement.md)); and every quantum gate is
+reversible, with the **Toffoli** as the reversible `AND`
 ([Chapter 7](ch07-helloworld-explained.md)).
 
 !!! note "One bit of bookkeeping: notation and bit order"
     A label such as `01` always reads **`q0` first**, left to right — the book's
-    order, as in [Chapter 7](ch07-helloworld-explained.md). Three symbols used
-    all chapter:
+    order, as in [Chapter 7](ch07-helloworld-explained.md). Because every circuit
+    below is read in exactly this convention, it is worth fixing before any wire
+    is examined. Three symbols are used all chapter:
 
     - `⊕` is **XOR**: *are the two bits different?* `0⊕0 = 0`, `0⊕1 = 1`,
       `1⊕0 = 1`, `1⊕1 = 0` — addition modulo 2.
@@ -55,10 +62,13 @@ every quantum gate is reversible, with the **Toffoli** as the reversible `AND`
 
 ## Every gate is reversible
 
-A quantum circuit is built from **reversible** gates: apply one, and you can
-always run it backwards and recover exactly what you had. The constraint was
-stated in Chapter 7; here it becomes the design rule for the whole chapter, so it
-is worth seeing once more with numbers.
+A quantum circuit is built from **reversible** gates: apply one, and it can always
+be run backwards, recovering exactly what was there before. In this setting
+reversibility is not a stylistic preference but a mechanical property — a
+reversible gate carries all of its input information through to the output, so the
+input can be reconstructed from the output alone. The constraint was stated in
+Chapter 7; here it becomes the design rule for the whole chapter, so it is worth
+seeing once more with numbers.
 
 The simplest reversible operation is an `X` gate applied twice:
 
@@ -66,9 +76,13 @@ The simplest reversible operation is an `X` gate applied twice:
 
 $$|0\rangle \xrightarrow{\;X\;} |1\rangle \xrightarrow{\;X\;} |0\rangle$$
 
-Flip, flip back. Two flips cancel because `X` erases nothing: knowing that the
-qubit is now `1` tells you exactly what it was before (`0`). Run the circuit and
-measure: `0`, with certainty, every time.
+One flip, then another to undo it. The two flips cancel exactly because `X` erases
+nothing: knowing that the qubit now holds `1` reveals precisely what it held
+before, namely `0`. Run the circuit and measure: the outcome is `0` with
+certainty, on every repetition. Nothing about the outcome depends on how many
+times the pair is applied — the two gates cancel as a unit — and this ability
+to undo an operation is exactly the guarantee that every oracle later in the
+chapter must provide.
 
 Classical logic is not so careful. An `AND` gate takes two bits in and returns
 one:
@@ -80,33 +94,40 @@ one:
 | 1 | 0 | 0 | |
 | 1 | 1 | 1 | |
 
-Read the first three rows: three *different* inputs share the same output `0`.
-After the gate has run, the output does not say which input went in — the
-information is gone, and no circuit can bring it back. So `AND` cannot be
-reversed, and a quantum circuit cannot use it.
+Reading the first three rows shows the difficulty: three *different* inputs share
+the same output `0`. After the gate has run, the output does not say which input
+went in — the information is gone, and no circuit can bring it back. It follows
+that `AND` cannot be run in reverse, and consequently that a quantum circuit
+cannot use it. The culprit is erasure, not the particular table: any operation
+whose output no longer determines its input discards information in the same
+way.
 
 ??? question "Check yourself — `AND` is banned, yet Chapter 7 computed `a AND b` with a Toffoli gate. Why is that allowed?"
-    Because the Toffoli never throws anything away. It writes `a AND b` onto a
-    *third* qubit and leaves `a` and `b` where they were: `Toffoli(a, b, 0)` gives
-    `(a, b, a AND b)`. Given the output, you can read the inputs straight off it,
-    so the operation runs backwards. The rule is not "no `AND` ever" — it is "no
-    *erasing*". Pay one extra qubit, keep everything, and even `AND` becomes a
-    legal quantum gate.
+    The permission follows because the Toffoli never throws anything away. It
+    writes `a AND b` onto a *third* qubit and leaves `a` and `b` exactly where
+    they were: `Toffoli(a, b, 0)` gives `(a, b, a AND b)`. Given the output, the
+    inputs can be read straight off it, so the operation runs backwards. The rule
+    is not "no `AND` ever" — it is "no *erasing*". Pay one extra qubit, keep
+    everything, and even `AND` becomes a legal quantum gate.
 
 ## Oracles: reversible black boxes
 
 A quantum algorithm never sees the function it works on — it sees an **oracle**:
-the reversible circuit that evaluates it. What does a *callable* function look
-like when it has to obey the "nothing is erased" rule? Here is the answer, worked
-on the one function whose oracle is a single gate.
+the reversible circuit that evaluates it. The oracle is the interface between an
+ordinary function and the reversible world of quantum gates: inside it the
+function is computed as usual, while at the boundary every trace of the
+computation is preserved. What does a *callable* function look like when it has
+to obey the "nothing is erased" rule? The answer is worked out here on the one
+function whose oracle is a single gate.
 
 Take `f(x) = x` (one of the two balanced one-bit functions). Its oracle is one
 `CNOT`, with the input `x` on `q0` and a spare register `y` on `q1`:
 
 ![A balanced oracle: one CNOT](../assets/ch09-oracle-circuit.png){ width="420" }
 
-Run it on all four input pairs and watch the spare register. The rule is `y ⊕ f(x)`,
-and `⊕` answers one plain question: *are the two bits different?*
+Run it on all four input pairs and watch the spare register: the record obtained
+is the table below. The rule is `y ⊕ f(x)`, and `⊕` answers one plain question:
+*are the two bits different?*
 
 | x | y | y ⊕ f(x) | what happened |
 |---|---|---|---|
@@ -116,22 +137,28 @@ and `⊕` answers one plain question: *are the two bits different?*
 | 1 | 1 | 0 | `f(1) = 1`: the spare flips back |
 
 The input `x` comes back untouched in every row; the answer is folded into the
-spare. Only *now* state the general rule:
+spare register. Only *now* is the general rule stated:
 
 $$U_f : |x\rangle\,|y\rangle \longrightarrow |x\rangle\,|y \oplus f(x)\rangle$$
 
-Set `y = 0` and the spare holds `f(x)`; set `y = 1` and it holds `NOT f(x)`.
-Either way, nothing is erased.
+Set `y = 0` and the spare register holds `f(x)`; set `y = 1` and it holds
+`NOT f(x)`. In either configuration nothing is erased — the function has been
+evaluated and, at the same time, every input has been preserved, which is
+precisely the double bookkeeping the quantum rule demands.
 
 Why is this reversible? Because XOR undoes itself: `y ⊕ f(x) ⊕ f(x) = y`. Run the
-same oracle twice and the spare is back to its original value — the oracle is its
-own inverse. That is exactly what the reversibility rule demands, and it is why
-`U_f` is a legal quantum gate.
+same oracle twice and the spare register is back to its original value — the
+oracle is its own inverse. That is exactly what the reversibility rule demands,
+and it is why `U_f` is a legal quantum gate. This self-inverse quality is not an
+accident of the function chosen here: it follows from the XOR construction
+itself, and every oracle built on the same rule inherits it.
 
 ## The four one-bit functions
 
-There are only four functions of one bit — two answers, two inputs — and they
-split into two families:
+There are only four functions of one bit — two answers through two inputs — and
+they split into two families. Enumerating them takes one short table, and it is
+worth doing, because every argument in the rest of this chapter runs on exactly
+this list:
 
 | Function | f(0) | f(1) | Kind | Oracle circuit |
 |---|---|---|---|---|
@@ -149,18 +176,20 @@ back.
 
 The two families differ in exactly one way: does the input change the answer? A
 **constant** function ignores `x` completely (`f(0) = f(1)`); a **balanced**
-function answers differently on `0` and on `1` (`f(0) ≠ f(1)`). Keep that
-question in mind — *"does the input matter?"* — because it is the entire thing the
-algorithms below manage to ask with a single query.
+function answers differently on `0` and on `1` (`f(0) ≠ f(1)`). That question —
+*"does the input matter?"* — is worth keeping in mind throughout, because it is
+the entire thing the algorithms below manage to ask with a single query. That question is notably a *global* one: it
+does not ask for the value of `f` at either input, only whether the two values
+move together.
 
 ## The trick: phase kickback
 
-The oracle writes its answer onto the spare register — but watch out: if the
-spare is a plain `|0⟩` or `|1⟩` and the input is in superposition, *measuring*
-the spare to read the answer would destroy the superposition. Deutsch's circuit
-needs the answer to show up somewhere that does not collapse the branches. The
-trick is to prepare the spare qubit in `|−⟩`, so that the oracle's flip turns
-into a *sign*.
+The oracle writes its answer onto the spare register — but a caution is in order:
+if the spare sits in a plain `|0⟩` or `|1⟩` while the input is in superposition,
+*measuring* the spare to read the answer would destroy the superposition.
+Deutsch's circuit needs the answer to show up somewhere that does not collapse
+the branches. The trick is to prepare the spare qubit in `|−⟩`, so that the
+oracle's flip turns into a *sign*.
 
 Start with the smallest fact, verified by direct multiplication. `X` swaps
 `|0⟩` and `|1⟩`, so applied to `|−⟩`:
@@ -170,27 +199,32 @@ $$X\,|-\rangle = X\,\frac{|0\rangle - |1\rangle}{\sqrt{2}}
 
 Flip both branches of `|−⟩` and the result is `|−⟩` back again, **times minus
 one**. Nothing visible changed — the 50/50 chances are the same — but the state
-picked up a sign.
+picked up a sign. In other words, the flip did not leave the quantum system; it
+was recorded in the only place a measurement cannot destroy it, the relative
+phase.
 
-Now run the oracle on `|x⟩|−⟩` for a definite `x`. The oracle flips the spare
-exactly when `f(x) = 1`, and a flip on `|−⟩` is a multiplication by `-1`:
+Now apply the oracle to `|x⟩|−⟩` for a definite `x`. The oracle flips the spare
+register exactly when `f(x) = 1`, and a flip on `|−⟩` is a multiplication by
+`-1`:
 
 - `f(x) = 0`: no flip, `|x⟩|−⟩ → |x⟩|−⟩` — sign `(-1)^0 = +1`;
 - `f(x) = 1`: one flip, `|x⟩|−⟩ → |x⟩·(-|−⟩) = -|x⟩|−⟩` — sign `(-1)^1 = -1`.
 
 $$U_f\,|x\rangle|-\rangle = (-1)^{f(x)}\,|x\rangle|-\rangle$$
 
-Worked on the balanced oracle `f(x) = x` with input `1`: the `CNOT` sees `x = 1`,
-flips the spare, and `|1⟩|−⟩` comes out as `-|1⟩|−⟩`. The value `f(1) = 1` is no
-longer a bit sitting on a wire — it has *moved into the sign* of the branch. That
-is **phase kickback**: the answer kicks back up into the phase of the input
-register, where the superposition survives.
+Worked on the balanced oracle `f(x) = x` with input `1`: the `CNOT` sees
+`x = 1`, flips the spare register, and `|1⟩|−⟩` comes out as `-|1⟩|−⟩`. The value
+`f(1) = 1` is no longer a bit sitting on a wire — it has *moved into the sign* of
+the branch. That is **phase kickback**: the answer kicks back up into the phase
+of the input register, where the superposition survives. The information is
+relocated rather than destroyed — placed exactly where the final Hadamard can
+still convert it into a readable bit.
 
 ??? question "Check yourself — why must the spare qubit start in `|−⟩` and not `|+⟩`?"
     Because `X` does different things to the two. On `|−⟩` a flip shows up as a
     sign: `X|−⟩ = -|−⟩`, so `f(x) = 1` leaves a visible `(-1)^f(x)` on the
-    branch. On `|+⟩` the flip is invisible: `X|+⟩ = |+⟩` — swap `|0⟩` and `|1⟩`
-    in `(|0⟩ + |1⟩)/√2` and you get the same state back, plus nothing. With the
+    branch. On `|+⟩` the flip is invisible: `X|+⟩ = |+⟩` — swapping `|0⟩` and
+    `|1⟩` in `(|0⟩ + |1⟩)/√2` returns the same state, plus nothing. With the
     spare in `|+⟩`, the oracle's action is `|x⟩|+⟩ → |x⟩|+⟩` whether `f(x)` is
     `0` or `1`, and no later gate can tell the two cases apart. The entire
     algorithm lives in that one minus sign, and `|−⟩` is the only state that
@@ -198,30 +232,39 @@ register, where the superposition survives.
 
 ## The Deutsch algorithm
 
-Deutsch's problem: you are handed one of the four oracles above, sealed, and
-asked only *which family* it belongs to — **constant** or **balanced**. You are
-not asked for `f(0)` or `f(1)`; only whether they are equal.
+Deutsch's problem takes the following form: one of the four oracles above is
+handed over, sealed, and the only question asked is *which family* it belongs to
+— **constant** or **balanced**. Neither `f(0)` nor `f(1)` is requested; only
+whether the two are equal matters. Nothing more specific is at stake, and this
+restriction is what makes a single query meaningful: the question has been
+trimmed to the size of one bit. Only the oracle's internals vary from one
+problem instance to another; the surrounding operations — preparation,
+superposition, interference, measurement — remain fixed.
 
-Classically this needs both inputs looked at: query `f(0)`, query `f(1)`, compare
-— two lookups, and there is no way around it, because one classical call tells
-you nothing about the other input. Quantumly, **one** query is enough:
+Classically this needs both inputs looked at: query `f(0)`, query `f(1)`,
+compare — two lookups, and there is no way around them, because one classical
+call reveals nothing about the other input. Quantumly, **one** query is enough, and the bulk of this chapter is spent on
+explaining why: the mechanism is interference, funnelled through a single
+final Hadamard.
 
 ![The Deutsch circuit](../assets/ch09-deutsch-circuit.png){ width="460" }
 
-The circuit, gate by gate, with `q0` the input register and `q1` the spare:
+The circuit, gate by gate, with `q0` the input register and `q1` the spare
+register:
 
-1. `X(1)` — the spare becomes `|1⟩`;
-2. `H(0), H(1)` — both registers into superposition, `q1` landing in `|−⟩`;
+1. `X(1)` — the spare register becomes `|1⟩`;
+2. `H(0), H(1)` — both registers enter superposition, `q1` landing in `|−⟩`;
 3. the oracle — **one** evaluation of `f`, on both inputs at the same time;
-4. `H(0)` — interfere the two branches;
+4. `H(0)` — the two branches are brought together to interfere;
 5. measure `q0`.
 
 ### The balanced case, `f(x) = x`, in amplitudes
 
-Every register starts at `|0⟩`, so the two-qubit state is `|00⟩`. Now follow each
-step — these are the exact amplitudes the simulator reports:
+Every register starts at `|0⟩`, so the two-qubit state is `|00⟩`. Each step can
+now be followed in detail — these are the exact amplitudes the simulator
+reports:
 
-**Step 1 — `X(1)`.** The spare flips: `q1 = 1`, the input is untouched.
+**Step 1 — `X(1)`.** The spare register flips: `q1 = 1`, the input is untouched.
 
 $$|00\rangle \;\xrightarrow{\;X(1)\;}\; |0\rangle|1\rangle$$
 
@@ -233,10 +276,12 @@ $$|0\rangle|1\rangle \;\xrightarrow{\;H,H\;}\;
 \;=\; \tfrac{1}{2}\left(|00\rangle - |01\rangle + |10\rangle - |11\rangle\right)$$
 
 Four basis states, amplitude `±1/2` each, probability `1/4` each. The two
-branches of `q0` are the `|0…⟩` pair and the `|1…⟩` pair.
+branches of `q0` are the `|0…⟩` pair and the `|1…⟩` pair. At this point the
+oracle has not yet acted: both input values are present at once, waiting for
+step 3 to mark them.
 
 **Step 3 — the oracle (a `CNOT` here).** It acts on each branch separately,
-XOR-ing `f(x)` onto the spare: `|00⟩→|00⟩`, `|01⟩→|01⟩`, `|10⟩→|11⟩`,
+XOR-ing `f(x)` onto the spare register: `|00⟩→|00⟩`, `|01⟩→|01⟩`, `|10⟩→|11⟩`,
 `|11⟩→|10⟩`:
 
 $$\tfrac{1}{2}\left(|00\rangle - |01\rangle + |10\rangle - |11\rangle\right)
@@ -271,14 +316,17 @@ $$\tfrac{1}{2}\left(|00\rangle - |01\rangle + |10\rangle - |11\rangle\right)
 
 Both branches of `q0` still carry `+1 = (-1)^f(0) = (-1)^f(1)` — the signs
 agree. Step 4 gives `H|+⟩ = |0⟩`, so the state becomes `|0⟩ ⊗ |−⟩`, and the
-measurement reads `0` with probability 1.00. Verdict: **constant**.
+measurement reads `0` with probability 1.00. Verdict: **constant**. The
+preparation is identical in the two runs, so whatever separates the families
+must be contributed by the oracle in step 3 — and for constant 0 that
+contribution is nothing at all.
 
 The other two functions behave the same way through their family:
 
-- **constant 1** — the oracle is an `X` on the spare, which turns `|−⟩` into
-  `-|−⟩`. Every branch flips sign, so the whole state is multiplied by `-1`.
-  That is a *global* phase — invisible to any measurement — and after the final
-  `H(0)` the qubit reads `0` all the same.
+- **constant 1** — the oracle is an `X` on the spare register, which turns
+  `|−⟩` into `-|−⟩`. Every branch flips sign, so the whole state is multiplied
+  by `-1`. That is a *global* phase — invisible to any measurement — and after
+  the final `H(0)` the qubit reads `0` all the same.
 - **`f(x) = NOT x`** — the branch `x = 0` flips sign (since `f(0) = 1`), the
   branch `x = 1` does not. The state after the oracle is
   `-|−⟩ ⊗ |−⟩` — the same as the balanced case up to an invisible global sign —
@@ -293,14 +341,16 @@ The other two functions behave the same way through their family:
 
 ![One query: constant measures 0, balanced measures 1](../assets/ch09-deutsch-outcomes.png){ width="620" }
 
-**Why it works, in words.** The oracle does not hand you `f`'s values — it hands
-you their *signs*, one per branch, thanks to the `|−⟩` spare. Equal signs
-(constant) mean the two branches still interfere the way `|+⟩` does, and `q0`
-returns to `|0⟩`. Opposite signs (balanced) mean the branches interfere *the
-other way*, exactly as `|−⟩` does, and `q0` ends at `|1⟩`. The final Hadamard is
-the translator: it converts a difference of signs — which no measurement can
-read directly — into a difference of bits, which one measurement settles with
-certainty.
+**Why it works, in words.** The oracle does not hand over `f`'s values — it hands
+over their *signs*, one per branch, thanks to the `|−⟩` spare register. Equal
+signs (constant) mean the two branches still interfere the way `|+⟩` does, and
+`q0` returns to `|0⟩`. Opposite signs (balanced) mean the branches interfere
+*the other way*, exactly as `|−⟩` does, and `q0` ends at `|1⟩`. The final
+Hadamard is the translator: it converts a difference of signs — which no
+measurement can read directly — into a difference of bits, which one measurement
+settles with certainty. The verdict is thus a property of the whole interference
+pattern, not of any single amplitude; nothing in the outcome says anything
+beyond which family the sealed oracle belongs to.
 
 ??? question "Check yourself — constant 1 multiplies the *whole* state by `-1`. Why doesn't the measurement notice?"
     A sign in front of the entire state is a **global phase**: every possible
@@ -317,25 +367,30 @@ certainty.
 The generalisation widens the input: `f : {0,1}^n → {0,1}`, still sealed in an
 oracle, still with a promise — **constant** (the same answer on every one of the
 `2^n` inputs) or **balanced** (`0` on exactly half of them, `1` on the other
-half). The circuit is Deutsch's with more wires:
+half). The promise is broader in scale but not in kind: constant still means one
+answer everywhere, and balanced still means a 50/50 split — now over the
+`2^n` inputs instead of two. The circuit is Deutsch's with more wires:
 
 ![Deutsch–Jozsa for n = 3](../assets/ch09-dj-circuit.png){ width="620" }
 
 1. `X` on the ancilla (the spare register, index `n`); `H` on all `n + 1` qubits;
-2. run the oracle **once** — on all `2^n` inputs at the same time;
+2. the oracle is run **once** — on all `2^n` inputs at the same time;
 3. `H` on the `n` input qubits;
 4. measure the input register.
 
 ### A worked case: `n = 2`, constant versus balanced
 
-Take `n = 2`, so the input register holds `q0 q1` and the ancilla is `q2`. After
-step 1 the input register is an even superposition of all four inputs and the
-ancilla is in `|−⟩` — factored, the state is
+Take `n = 2`, so the input register holds `q0 q1` and the ancilla is `q2`. This
+case is small enough to track by hand, and the hand computation matches the
+simulator exactly. After step 1 the input register is an even superposition of
+all four inputs and the ancilla is in `|−⟩`; factored out, the state is
 
 $$\frac{1}{2}\left(|00\rangle + |01\rangle + |10\rangle + |11\rangle\right) \otimes |-\rangle$$
 
-Each input branch has amplitude `1/2`. Now the oracle, and the answer lands in
-the branch signs `(-1)^f(x)`:
+Each input branch has amplitude `1/2`. For a balanced function the signs come in
+equal measure — exactly half `+1`, exactly half `-1` — a restatement of the
+promise that will matter directly once the signs are summed. Now comes the
+oracle, and the answer lands in the branch signs `(-1)^f(x)`:
 
 - **constant 0** — nothing happens; all four signs stay `+1`:
 
@@ -383,18 +438,20 @@ And the simulator agrees: the constant oracle measures `00` with probability
 Why might a classical check need `2^(n-1) + 1` calls? Because a balanced function
 is allowed to agree with a constant one for a *long* time: it answers `0` on
 exactly half of its inputs, so it can keep saying the same thing for
-`2^(n-1)` calls in a row and still be balanced. The moment you see two *different*
-answers you are done — it is balanced. But to conclude **constant** you must
-keep querying until more than half the inputs have agreed: after
-`2^(n-1) + 1` identical answers, a balanced function has no places left to hide,
-because its agreeing half is only `2^(n-1)` inputs. Half, then one more: either
-that one extra query finds the disagreement, or it rules balanced out. For
-`n = 1, 2, 3` that is `2, 3, 5` calls — and for `n = 10` it is already `513`. The
-quantum cost stays at **one** query no matter how wide the input is.
+`2^(n-1)` calls in a row and still be balanced. The moment two *different*
+answers appear, the case is settled — the function is balanced. But to conclude
+**constant**, the queries must continue until more than half of the inputs have
+agreed: after `2^(n-1) + 1` identical answers, a balanced function has no places
+left to hide, because its agreeing half is only `2^(n-1)` inputs. Half, then one
+more: either that one extra query finds the disagreement, or it rules balanced
+out. For `n = 1, 2, 3` that is `2, 3, 5` calls — and for `n = 10` it is already
+`513`. The quantum cost stays at **one** query no matter how wide the input is. In
+other words, the classical bound is not a penalty for carelessness; it is the
+exact price of demanding a *certain* verdict under the promise.
 
 !!! note "Quantum parallelism, and what it is not"
     The oracle really does evaluate `f` on all `2^n` inputs in a single pass —
-    that is **quantum parallelism**. But you cannot read all those values out: a
+    that is **quantum parallelism**. But those values cannot all be read out: a
     measurement returns one basis state. What the circuit extracts is not the
     answers but a single bit of **global** information about `f` (here, its
     constancy). Interference is what turns the parallel evaluation into that bit,
@@ -417,27 +474,28 @@ quantum cost stays at **one** query no matter how wide the input is.
 
 ![Two X gates](../assets/ch09-reversible-circuit.png){ width="360" }
 
-`X` twice returns the qubit to `|0⟩` with certainty: the smallest circuit that
-undoes itself, and the rule every oracle must obey.
+`X` applied twice returns the qubit to `|0⟩` with certainty: the smallest circuit
+that undoes itself, and the rule every oracle must obey.
 
 ### Oracles
 
 ![A balanced oracle: one CNOT](../assets/ch09-oracle-circuit.png){ width="420" }
 
-The oracle for `f(x) = x`: input `x` on `q0`, spare `y` on `q1`, one `CNOT`.
+The oracle for `f(x) = x`: input `x` on `q0`, spare register `y` on `q1`, one
+`CNOT`.
 
 ![The four oracle matrices](../assets/ch09-oracle-matrices.png){ width="620" }
 
 Four permutation matrices — one `1` per row and column. Constant oracles shuffle
-nothing (or swap within the spare); balanced oracles swap across the input's
-value.
+nothing (or swap within the spare register); balanced oracles swap across the
+input's value.
 
 ### Deutsch
 
 ![The Deutsch circuit](../assets/ch09-deutsch-circuit.png){ width="460" }
 
-`X(1)` prepares the spare, the Hadamards make `|+⟩|−⟩`, the oracle kicks the
-sign back onto `q0`, and the final `H(0)` reads it out.
+`X(1)` prepares the spare register, the Hadamards make `|+⟩|−⟩`, the oracle kicks
+the sign back onto `q0`, and the final `H(0)` reads it out.
 
 ![One query: constant measures 0, balanced measures 1](../assets/ch09-deutsch-outcomes.png){ width="620" }
 
@@ -453,8 +511,10 @@ on the input register.
 
 ![n = 2: a constant oracle returns 00, a balanced one never does](../assets/ch09-dj-outcomes.png){ width="620" }
 
-The `n = 2` measurement distributions: the constant oracle returns `00`; the
-balanced parity oracle returns `11` — and `00` is impossible.
+The `n = 2` measurement distributions: the constant oracle returns `00`, while
+the balanced parity oracle returns `11` — and `00` is impossible. The all-zero
+outcome is the linchpin of the verdict, which is why the entire test can be
+phrased about it alone.
 
 ## Key takeaways
 
@@ -481,7 +541,7 @@ balanced parity oracle returns `11` — and `00` is impossible.
 
 ## The code behind this chapter
 
-Four samples, from the rule up to the algorithm:
+Four samples, extending from the underlying rule up to the full algorithm:
 
 - [`ch09/reversible.py`](https://github.com/phonhay103/quantum-computing-in-action/blob/main/src/quantum_computing_in_action/ch09/reversible.py)
   — the ``reversibleX`` sample: `X·X = I`, and why `AND` cannot be an oracle.

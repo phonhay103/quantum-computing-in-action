@@ -11,24 +11,34 @@ Multiplying two primes is instant: `3 × 5 = 15`, done. Going backwards — give
 `15`, recover `3` and `5` — is believed to be hopeless for large numbers, and
 RSA-style public-key cryptography rests exactly on that gap. Shor's algorithm
 is the famous quantum crack in it, and this chapter asks the three questions
-you need in order to understand it honestly:
+that must be answered in order to understand it honestly. Each question builds
+on the previous one: the first locates where the classical difficulty actually
+lies, the second converts that difficulty into a different and more tractable
+problem, and the third shows precisely where the quantum computer enters.
 
 1. **Why is factoring the problem everyone cares about, and what makes it
-   hard?** The honest baseline is the trial division you learned in school —
+   hard?** The honest baseline is the trial division learned in school —
    try `2`, then `3`, then `5`, … It works, and it dies by the square root:
    work grows with `√N`, so a number twice as long costs astronomically more.
+   In other words, the difficulty is not conceptual but computational: the
+   answer is well defined and easy to verify, yet no efficient classical
+   procedure is known for producing it.
 2. **What does factoring have to do with periods?** Shor's reduction: do not
    hunt for a factor directly. Find the period `r` of the sequence
-   `a^x mod N`, and the factors fall out of two `gcd` calls. We work it fully
-   for `N = 15`, then on the book's larger example `N = 493`.
+   `a^x mod N`, and the factors fall out of two `gcd` calls. The chapter
+   works this out fully for `N = 15`, then for the book's larger example
+   `N = 493`, because the reduction only becomes convincing once every number
+   along the way has been produced explicitly.
 3. **How does a quantum computer find a period?** A superposition evaluates
    `a^x mod N` for *every* `x` at once, and the quantum Fourier transform is
    the piece that turns that hidden repetition into a few sharp, measurable
-   peaks. Reading one peak recovers `r` — and `r` cracks `N`.
+   peaks. Reading one peak recovers `r` — and `r` cracks `N`. It is worth
+   noting that the quantum computer solves but a single, sharply defined
+   subtask here; everything surrounding that subtask stays classical.
 
-After this chapter you will be able to:
+After this chapter, the following abilities are in place:
 
-- factor `15` by trial division and say exactly *when* that method dies;
+- factor `15` by trial division and state exactly *when* that method dies;
 - turn a period into factors with two `gcd` calls, and explain why an odd
   period means "unlucky, pick another `a`";
 - explain the QFT as "counting how often a pattern repeats", with worked
@@ -36,24 +46,29 @@ After this chapter you will be able to:
 - walk through the whole algorithm for `N = 15`, naming which steps are
   classical and which are genuinely quantum.
 
-You need four things from earlier chapters, each in one line: `H` puts a
-register into an even superposition of all its values at once, and
+Four ingredients from earlier chapters are required, each in one line: `H`
+puts a register into an even superposition of all its values at once, and
 measurement picks one outcome with probability = amplitude²
 ([Chapter 4](ch04-superposition.md)); a controlled gate acts on its target
 only when its control is `1` ([Chapter 3](ch03-qubits-and-gates.md)); a
-circuit is a program — an ordered list of steps you can read gate by gate
-([Chapter 7](ch07-helloworld-explained.md)); and an oracle computes `f` on
-every input at once inside one superposition ([Chapter 9](ch09-deutsch-jozsa.md)).
+circuit is a program — an ordered list of steps that can be read gate by
+gate ([Chapter 7](ch07-helloworld-explained.md)); and an oracle computes `f`
+on every input at once inside one superposition
+([Chapter 9](ch09-deutsch-jozsa.md)).
 
 !!! note "One bit of bookkeeping: the words and the notation"
     - `x mod N` is the *remainder* after dividing `x` by `N`: `16 mod 15 = 1`.
-      "Multiply mod N" just means "keep only the remainder".
+      "Multiply mod N" just means "keep only the remainder". So understood,
+      arithmetic modulo `N` never leaves the range `0 … N − 1`, no matter how
+      many multiplications are performed.
     - `gcd(u, v)` is the largest number dividing both: `gcd(12, 15) = 3`.
       If `gcd(a, N) = 1`, then `a` and `N` are **coprime** — they share no
-      factor.
+      factor. Coprimality is precisely the condition that makes the period
+      machinery of this chapter well defined.
     - The **period** of `a` modulo `N` — also called the **order** — is the
       smallest `r ≥ 1` with `a^r mod N = 1`. The whole chapter hunts this one
-      number.
+      number; everything else in the algorithm either helps find it or turns
+      it into factors afterwards.
     - Two registers throughout: the **counting** register holds the exponent
       `x`; the **work** register holds the value `a^x mod N`. A measured
       counting-register value `s` is always read as the fraction
@@ -61,22 +76,30 @@ every input at once inside one superposition ([Chapter 9](ch09-deutsch-jozsa.md)
 
 ## Factoring, and why it is hard
 
-Every number is a product of primes. For small numbers you can see the factors;
-for a 600-digit number, nobody knows how to find them. The best classical
-method — the **general number field sieve** — is still *sub-exponential*: its
-cost grows almost like `2^bits`. Shor's algorithm is *polynomial*, which is the
-whole fame of quantum computing in one sentence.
+Every number is a product of primes. For small numbers the factors are
+immediately visible; for a 600-digit number, nobody knows how to find them.
+The best classical method — the **general number field sieve** — is still
+*sub-exponential*: its cost grows almost like `2^bits`. Shor's algorithm is
+*polynomial*, which is the whole fame of quantum computing in one sentence.
+It follows that the contrast is not a matter of constant-factor improvement:
+the two growth rates belong to different worlds, and for cryptographically
+sized inputs the difference becomes a chasm.
 
-But before admiring the quantum answer, build the classical one and watch it
-fail. That is what the chapter (and the `ch11.classical` module) does first —
-because Shor's algorithm *is* the classical method with one step swapped out,
-and you cannot see which step until you have the classical method in hand.
+But before admiring the quantum answer, the classical one must be built and
+watched fail. That is what the chapter (and the `ch11.classical` module) does
+first — because Shor's algorithm *is* the classical method with one step
+swapped out, and no one can see which step until the classical method is in
+hand. Once the baseline exists, each classical ingredient of the quantum
+version can be traced back to it individually.
 
 ## Trial division: the honest classical baseline
 
-The naive method is easy to trust because you can check every move. To factor
-`N`: try `2`, then every odd number `3, 5, 7, …`, and stop at the first one
-that divides `N`.
+The naive method is easy to trust because every move can be checked by hand.
+To factor `N`: try `2`, then every odd number `3, 5, 7, …`, and stop at the
+first one that divides `N`. Nothing more sophisticated is going on — the
+method is simply an exhaustive, ordered search, and that very transparency is
+why it serves as the reference point against which the quantum speedup is
+measured.
 
 **Worked: `N = 15`.**
 
@@ -94,11 +117,14 @@ Two divisions, answer `15 = 3 × 5`. The module reports exactly this:
 - `5`: `91 = 5 × 18 + 1` — no;
 - `7`: `91 = 7 × 13` — yes.
 
-Four divisions, answer `91 = 7 × 13`.
+Four divisions, answer `91 = 7 × 13`. The two examples already reveal the
+pattern that matters: the number of divisions is set by *how far the first
+factor is from zero*, not by the size of `N` alone. A prime is the worst case,
+because the search only stops at `√N` with nothing having divided `N`.
 
 ![Classical trial division: work grows like sqrt(n)](../assets/ch11-classical-factor.png){ width="620" }
 
-**The general rule, and why it dies.** You only ever need to try divisors up to
+**The general rule, and why it dies.** Divisors only need to be tried up to
 `√N`, because divisors come in pairs: if `d` divides `N`, so does `N / d`, and
 the smaller of the pair is never above `√N`. (For `91`: `√91 ≈ 9.5`, and the
 smallest factor `7` is below it; had nothing divided `91` by then, `91` would
@@ -117,12 +143,14 @@ Doubling the number of digits multiplies the work by about `1000`, because
 module's `steps_curve` is `N = 169 = 13²` at 7 divisions — the curve is almost
 flat at this scale, and a 600-digit RSA modulus would need about `10^300`.
 Trial division is not the best classical method, but *every* known classical
-method explodes like this; only the exponent differs.
+method explodes like this; only the exponent differs. Consequently, the
+weakness lies in the growth law rather than in one particular implementation.
 
 ## The reduction: factoring becomes order finding
 
-Shor's insight is that you do not hunt for a factor directly. You hunt for a
-hidden rhythm in a sequence, and the factors fall out of it.
+Shor's insight is that a factor should not be hunted directly. Instead,
+one hunts for a hidden rhythm in a sequence — and the factors fall out of
+that rhythm as a byproduct, almost without extra work.
 
 Pick any `a` coprime to `N` — say `a = 2`, `N = 15` — and look at the sequence
 
@@ -140,8 +168,8 @@ the remainder):
 
 ![The period of 2^x mod 15 is 4](../assets/ch11-period-function.png){ width="620" }
 
-**Why the period gives the factors — worked.** We need one algebraic identity:
-difference of two squares.
+**Why the period gives the factors — worked.** One algebraic identity is
+needed: difference of two squares.
 
 $$a^r - 1 = \left(a^{r/2} - 1\right)\left(a^{r/2} + 1\right)$$
 
@@ -166,7 +194,9 @@ gives the trivial answer (`1` or `N`) — no information. The unlucky cases are
 real: for `a = 2`, `N = 7` the sequence is `2, 4, 1` with `r = 3` (odd —
 `a^(r/2)` is not even an integer power); and for `a = 2`, `N = 5` the period
 `r = 4` is even but `2^2 = 4 ≡ −1 (mod 5)`, so `gcd(3, 5) = 1` and
-`gcd(5, 5) = 5` — nothing learned. Retry with another `a`.
+`gcd(5, 5) = 5` — nothing learned. Retry with another `a`. Since most choices
+of `a` are not unlucky, a random choice and a bounded number of retries keep
+the overall procedure efficient.
 
 **The book's larger example, fully worked.** `a = 6`, `N = 493` (the numbers
 the book's `jshell` snippets check; `reduction_steps(6, 493)` reproduces them):
@@ -177,12 +207,14 @@ the book's `jshell` snippets check; `reduction_steps(6, 493)` reproduces them):
 - `gcd(407 + 1, 493) = gcd(408, 493) = 17`;
 - and indeed `493 = 17 × 29`.
 
-**The catch.** Finding `r` by brute force — multiplying `a` by itself until the
-remainder comes back to `1` — costs up to `r` multiplications, and `r` can be
-as large as `N`. It is *as hard as factoring*, so the reduction by itself buys
-nothing. What it does is isolate the one step a quantum computer can do well:
-**order finding**. Everything else in Shor's algorithm is the classical
-arithmetic you just read.
+**The catch.** Finding `r` by brute force — multiplying `a` by itself until
+the remainder comes back to `1` — costs up to `r` multiplications, and `r` can
+be as large as `N`. It is *as hard as factoring*, so the reduction by itself
+buys nothing. What it does do is isolate the one step a quantum computer
+handles well: **order finding**. Everything else in Shor's algorithm is the
+classical arithmetic already read above, and that division of labor —
+classical scaffolding around a single quantum step — is characteristic of
+most quantum algorithms of practical interest.
 
 ??? question "Check yourself — why must `a` be coprime to `N`?"
     If `gcd(a, N) = d > 1` then `d` **already is a factor** — e.g. `a = 5`,
@@ -203,11 +235,13 @@ arithmetic you just read.
 ## The quantum Fourier transform
 
 The plain-language goal of this section: **counting how often a pattern
-repeats**. A Fourier transform — the same mathematics that tells you a guitar
-string vibrates 440 times a second — takes a signal and answers "how often
-does this repeat?". The **quantum Fourier transform** (QFT) is the discrete
-Fourier transform written as a circuit, so a quantum register can ask that
-question about its own amplitudes.
+repeats**. A Fourier transform — the same mathematics that tells one that a
+guitar string vibrates 440 times a second — takes a signal and answers "how
+often does this repeat?". The **quantum Fourier transform** (QFT) is the
+discrete Fourier transform written as a circuit, so a quantum register can
+ask that question about its own amplitudes. It is worth emphasizing that no
+new mathematics enters here; the novelty lies entirely in evaluating a
+familiar transform on quantum amplitudes rather than on classical data.
 
 ![The three-qubit QFT circuit](../assets/ch11-qft-circuit.png){ width="620" }
 
@@ -229,28 +263,35 @@ $$\frac{0}{16} = 0,\qquad \frac{4}{16} = \frac{1}{4},\qquad
 
 Multiples of `1/4` — and `4` was the period. That is the entire trick: **the
 period moved from the *spacing* of the pattern into the *positions* of the
-peaks**, and peak positions are things you can measure.
+peaks**, and peak positions are things that can be measured. Consequently,
+the transform converts a *statistical* property (how amplitudes are spread
+out) into a *positional* one (where the outcomes concentrate), and only the
+latter is accessible after a measurement.
 
-**Why it works.** Each output amplitude is a sum of phase-stepped copies of the
-input, one copy per nonzero entry. At output `s`, consecutive copies (which
-live 4 positions apart) differ by a phase step of `e^{2πi·4·s/16} = e^{πis/2}`.
-When `s` is a multiple of `16/4 = 4` — at `s = 0, 4, 8, 12` — that step is a
-whole number of turns, all copies point the same way, and they add up. At every
-other `s` the copies rotate around the circle and cancel: e.g. at `s = 1` the
-four copies point at `0°, 90°, 180°, 270°` — a full set of compass
-directions that sums to zero. The peaks are constructive interference; the
-silence everywhere else is destructive interference.
+**Why it works.** Each output amplitude is a sum of phase-stepped copies of
+the input, one copy per nonzero entry. At output `s`, consecutive copies
+(which live 4 positions apart) differ by a phase step of
+`e^{2πi·4·s/16} = e^{πis/2}`. When `s` is a multiple of `16/4 = 4` — at
+`s = 0, 4, 8, 12` — that step is a whole number of turns, all copies point
+the same way, and they add up. At every other `s` the copies rotate around
+the circle and cancel: e.g. at `s = 1` the four copies point at
+`0°, 90°, 180°, 270°` — a full set of compass directions that sums to zero.
+The peaks are constructive interference; the silence everywhere else is
+destructive interference. It follows that the QFT does not compute anything
+a classical machine could not compute; what is remarkable is that it performs
+this computation on all amplitudes of a superposition in a single pass.
 
 ![QFT|1>: a uniform magnitude, a linear phase ramp](../assets/ch11-qft-phase.png){ width="620" }
 
-**On a single basis state, the same circuit does something you can write in a
-table.** The QFT of `|k⟩` spreads a **phase ramp** across all outputs:
+**On a single basis state, the same circuit does something that can be
+written in a table.** The QFT of `|k⟩` spreads a **phase ramp** across all
+outputs:
 
 $$\mathrm{QFT}\,|k\rangle = \frac{1}{\sqrt{N}}\sum_j e^{2\pi i j k / N} |j\rangle$$
 
-Feed the three-qubit circuit `|1⟩` (`k = 1`, `N = 8`) and every output gets the
-same magnitude `1/√8 ≈ 0.354`, while the phase climbs by `2π/8 = π/4` per step
-— measured by `phase_ramp(3)`:
+Feed the three-qubit circuit `|1⟩` (`k = 1`, `N = 8`) and every output gets
+the same magnitude `1/√8 ≈ 0.354`, while the phase climbs by `2π/8 = π/4`
+per step — measured by `phase_ramp(3)`:
 
 | `j` | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
 |---|---|---|---|---|---|---|---|---|
@@ -258,19 +299,23 @@ same magnitude `1/√8 ≈ 0.354`, while the phase climbs by `2π/8 = π/4` per 
 
 The last three entries have passed `π` and are printed wrapped into
 `(−π, π]`: the phase `−0.75π` is the same point on the circle as `1.25π`. The
-ramp climbs steadily; only the label wraps.
+ramp climbs steadily; only the label wraps. The magnitudes, by contrast,
+never change: a single basis state has all of its amplitude on outputs of
+equal size, and the entire Fourier information lives in the phases alone.
 
 The matrix behind all of this is the familiar Fourier matrix
 `F[j, k] = e^(2πi j k / N)/√N` — symmetric, **unitary**, and invertible by
 running the same circuit backwards (`qft_circuit(n, inverse=True)`). The
 unitarity is not decoration: it is why the (inverse) QFT can sit inside a
 quantum algorithm at all, and it is the (inverse) QFT that Shor applies — a
-*periodic* register is what it turns into the sharp peaks above.
+*periodic* register is what it turns into the sharp peaks above. A
+non-unitary transform would lose amplitude norm and could not appear as part
+of a reversible quantum circuit.
 
 ## Order finding: the period as peaks
 
-Now assemble the period-finder. The circuit uses **two registers**, and each
-has one plain-language job:
+Now the period-finder is assembled. The circuit uses **two registers**, and
+each has one plain-language job:
 
 - the **counting register** — `m` qubits — *counts* `x = 0, 1, 2, …`. Hadamards
   put it into an even superposition of **every exponent at once** (`2^m` of
@@ -280,17 +325,22 @@ has one plain-language job:
   multiplications `|y⟩ → |a^(2^j)·y mod N⟩` write `f` into it: counting-qubit
   `j` multiplies the work register by `a^(2^j)` when it is `1`.
 
-This is the Deutsch–Jozsa pattern again ([Chapter 9](ch09-deutsch-jozsa.md)):
-one circuit evaluates `f` on every input at once. For `a = 2`, `N = 15`,
-`m = 8`: the counting register holds all `256` exponents, and the work register
-holds `2^x mod 15` next to each one — the periodic sequence
-`1, 2, 4, 8, 1, 2, 4, 8, …` written across a superposition.
+This is the Deutsch–Jozsa pattern again ([Chapter 9](ch09-deutsch-jozsa.md),
+which introduces function evaluation inside one superposition): one circuit
+evaluates `f` on every input at once. For `a = 2`, `N = 15`, `m = 8`: the
+counting register holds all `256` exponents, and the work register holds
+`2^x mod 15` next to each one — the periodic sequence
+`1, 2, 4, 8, 1, 2, 4, 8, …` written across a superposition. In effect, the two
+register pair up every exponent with the value it produces, and the periodic
+structure of the sequence now lives in the *correlations* between the
+registers rather than in any single stored value.
 
 ![A compact order-finding circuit](../assets/ch11-order-circuit.png){ width="620" }
 
-Measuring the work register would collapse it to one value — useless. Instead
-the circuit applies the **inverse QFT** to the counting register, and the
-period hidden in it becomes readable peaks:
+Measuring the work register would collapse it to one value — useless, because
+a single value of `f(x)` carries no trace of the periodicity that the rest of
+the algorithm needs. Instead the circuit applies the **inverse QFT** to the
+counting register, and the period hidden in it becomes readable peaks:
 
 ![Inverse QFT of the periodic register: four peaks](../assets/ch11-order-peaks.png){ width="620" }
 
@@ -315,17 +365,20 @@ Worked, for `outcome = 64`: `64/256 = 0.25`, and Euclid on `(64, 256)` gives
 `256 = 4 × 64`, so `64/256 = 1/4` — denominator `4`. The check `2^4 mod 15 = 16
 mod 15 = 1` confirms it: `r = 4`. The two peaks whose numerator `k` shares a
 factor with `r` (`k = 0` and `k = 2`) give a *divisor* of `r` or nothing, and
-the `a^r ≡ 1` check rejects them.
+the `a^r ≡ 1` check rejects them. For this reason the classical check is not
+an optional decoration but an integral part of the period-finding procedure.
 
-**One run gives one peak.** A measurement returns a *single* outcome, sampled
-from the four at probability `0.25` each. You might get `64` — done in one
-shot. You might get `128`, whose candidate `r = 2` fails the check, or `0`,
-which says nothing. That is why Shor repeats the quantum part a few times:
-each shot is a lottery ticket on a peak, and only the peaks with `k` coprime
-to `r` pay out the period.
+**One run gives one peak.** A measurement returns a *single* outcome,
+sampled from the four at probability `0.25` each. One run may yield `64` —
+done in one shot. It may yield `128`, whose candidate `r = 2` fails the
+check, or `0`, which says nothing. That is why Shor repeats the quantum part
+a few times: each shot is a lottery ticket on a peak, and only the peaks with
+`k` coprime to `r` pay out the period. The expected number of shots is small
+and constant; this repetition is part of the algorithm's design, not a sign
+of unreliability.
 
 ??? question "Check yourself — the QFT peaks *encode* the period, so why does one measurement not simply hand it over?"
-    Because a measurement does not show you the distribution — it samples it.
+    Because a measurement does not show a distribution — it samples it.
     All four peaks sit in the register with probability `0.25` each, and
     measuring collapses the register to **one** of them, at random. Reading
     `outcome/2^m` only helps when that outcome landed on a peak with `k`
@@ -336,19 +389,24 @@ to `r` pay out the period.
 
 ## Assembling Shor
 
-End to end for the demo target `N = 15` — exactly what the `ch11.shor` module
-runs, with every number one you have already met:
+End to end for the demo target `N = 15` — exactly what the `ch11.shor`
+module runs, with every number one already met above. Reading the steps in
+sequence shows how little of the pipeline is quantum: of the seven stages
+below, only two carry qubits, and both revolve around the periodic register
+that the order-finding circuit produces.
 
 1. **Even check (classical).** `15` is odd, so the free shortcut does not
    apply — an even `N` is factored on the spot: `shor(14) → 2 × 7`.
-2. **Preprocess (classical).** Pick `a = 2`; `gcd(2, 15) = 1` — no free factor,
-   and `2` is usable.
+2. **Preprocess (classical).** Pick `a = 2`; `gcd(2, 15) = 1` — no free
+   factor, and `2` is usable.
 3. **Build the order-finding circuit (quantum).** Counting register
    `m = counting_width(15) = 8` qubits, work register `4` qubits. Hadamards
    spread all `256` exponents; the work register starts at `|1⟩`; controlled
    multiplications by `2^(2^j) mod 15` write `f(x)` in — only `j = 0` (× 2)
    and `j = 1` (× 4) exist, since `2^(2^2) = 16 ≡ 1` makes the rest the
-   identity.
+   identity. The collapse happens because multiplying by `16` modulo `15`
+   changes nothing, so every further control qubit would perform an
+   operation that leaves the work register untouched.
 4. **Inverse QFT (quantum).** The periodic counting register collapses to the
    four peaks `0, 64, 128, 192`.
 5. **Measure and read the period (quantum + classical).** One outcome, say
@@ -371,10 +429,12 @@ runs, with every number one you have already met:
 
 The same code then factors `21`: `a = 2` has period `r = 6`, `2^3 mod 21 = 8`,
 and `gcd(7, 21) = 7`, `gcd(9, 21) = 3` → `21 = 3 × 7`. One honest wrinkle
-shows up there: `2^m / r = 1024/6 ≈ 170.7` is not a whole number, so the peaks
-smear over neighboring outcomes (`171`, `341`, `683`, `853` instead of exact
-multiples) — close enough that continued fractions still recover `1/6`, hence
-`r = 6`.
+shows up there: `2^m / r = 1024/6 ≈ 170.7` is not a whole number, so the
+peaks smear over neighboring outcomes (`171`, `341`, `683`, `853` instead of
+exact multiples) — close enough that continued fractions still recover
+`1/6`, hence `r = 6`. This near miss is instructive: it shows that the
+procedure is tolerant of imperfect peaks, provided the continued-fraction
+expansion still identifies the intended fraction.
 
 !!! warning "Cost, honestly stated"
     The demo stops at `15` and `21`, and that is a limit of *this simulation*,
@@ -392,9 +452,9 @@ multiples) — close enough that continued fractions still recover `1/6`, hence
     No — it is the point. Shor's algorithm is *mostly classical*: the
     reduction, the guards, the `gcd`s, even the continued fractions are
     ordinary arithmetic. The only quantum step is the period **search**.
-    `semiclassic_factor` does everything classically and gets the same factors
-    — it just replaces the quantum period-finder with brute force, which is
-    why it would take forever on a large `N`. The demo pair
+    `semiclassic_factor` does everything classically and gets the same
+    factors — it just replaces the quantum period-finder with brute force,
+    which is why it would take forever on a large `N`. The demo pair
     (`semiclassic_factor` and `shor`) exists precisely to show which step the
     quantum computer replaces, and nothing else.
 
@@ -405,57 +465,77 @@ multiples) — close enough that continued fractions still recover `1/6`, hence
 ![Classical trial division: work grows like sqrt(n)](../assets/ch11-classical-factor.png){ width="620" }
 
 Trial divisions per `n` up to 120 — the `steps_curve` of the module. Nearly
-flat here; at 600 digits the same curve needs about `10^300` divisions.
+flat here; at 600 digits the same curve needs about `10^300` divisions. The
+visual point is precisely the contrast in steepness: the flatness at small
+`n` makes the later blow-up easy to underestimate, which is exactly why the
+classical difficulty is so easy to overlook.
 
 ![The period of 2^x mod 15 is 4](../assets/ch11-period-function.png){ width="620" }
 
 `2^x mod 15` for `x = 0 … 15`: the four-step rhythm `1, 2, 4, 8` — the number
-the whole algorithm is built to find.
+the whole algorithm is built to find. Each recurrence of the value `1` marks
+one completed period, which is why counting the rhythm visually is
+equivalent to computing the period itself.
 
 ### The quantum Fourier transform
 
 ![The three-qubit QFT circuit](../assets/ch11-qft-circuit.png){ width="620" }
 
 One Hadamard per qubit plus a controlled phase gate for every pair — a small
-circuit for the amount of mathematics it carries.
+circuit for the amount of mathematics it carries. The brevity is worth
+noting: the entire Fourier machinery reduces to controlled interference
+between pairs of wires.
 
 ![QFT|1>: a uniform magnitude, a linear phase ramp](../assets/ch11-qft-phase.png){ width="620" }
 
 `QFT|1⟩` on three qubits: every output magnitude `1/√8`, phase climbing `π/4`
-per step (wrapped past `π`).
+per step (wrapped past `π`). The stationary magnitudes make it plain that
+the transform operates on relative phases, not on amplitudes, when its input
+is a single basis state.
 
 ### Order finding
 
 ![A compact order-finding circuit](../assets/ch11-order-circuit.png){ width="620" }
 
 Counting register on top, work register below: Hadamards, two controlled
-modular multiplications (× 2 and × 4), then the inverse QFT.
+modular multiplications (× 2 and × 4), then the inverse QFT. Only the two
+multiplications depend on the choice of `N` and `a`; the rest of the circuit
+is generic.
 
 ![Inverse QFT of the periodic register: four peaks](../assets/ch11-order-peaks.png){ width="620" }
 
 The counting register after the inverse QFT: four peaks at `0, 64, 128, 192`,
-each probability `0.25` — the period `4` in peak form.
+each probability `0.25` — the period `4` in peak form. Reading any of the
+peaks as a fraction of `256` produces a fraction whose denominator is
+divisor-related to `4`, which is the fact the continued-fraction step
+exploits.
 
 ## Key takeaways
 
-- Factoring matters because RSA-style cryptography rests on it being hard.
-  Trial division costs about `√N`: 500 divisions for the 6-digit prime
-  `999983`, 500 000 for the 12-digit `999999999989` — twice the digits, a
-  thousand times the work.
+- Factoring matters because RSA-style cryptography rests on it being hard:
+  generating keys multiplies primes, and breaking keys must recover them, so
+  the security of the whole scheme reduces to the difficulty of one
+  arithmetic problem. Trial division costs about `√N`: 500 divisions for the
+  6-digit prime `999983`, 500 000 for the 12-digit `999999999989` — twice
+  the digits, a thousand times the work.
 - Shor's reduction: the period `r` of `a^x mod N` gives the factors through
   `gcd(a^(r/2) − 1, N)` and `gcd(a^(r/2) + 1, N)`, because `N` divides
   `a^r − 1 = (a^(r/2) − 1)(a^(r/2) + 1)` and splits between the brackets.
-  Retry with another `a` if `r` is odd or `a^(r/2) ≡ −1`.
+  Retry with another `a` if `r` is odd or `a^(r/2) ≡ −1`, since in either
+  case the two brackets fail to carry the split.
 - The **QFT** is "counting how often a pattern repeats": a register periodic
   with period `r` transforms into sharp **peaks** at multiples of
   `2^m / r` — constructive interference on the peaks, cancellation elsewhere.
+  The transform thereby relocates the period from the amplitude pattern into
+  the measurement outcomes.
 - **Order finding** prepares every exponent at once with Hadamards, records
   `a^x mod N` in a work register with controlled multiplications, then reads
   the period off the inverse-QFT peaks. One measurement gives one peak, so a
   few repeats are part of the design, not a failure.
 - Recovering `r` from a peak is classical: continued fractions of
   `outcome / 2^m`, checked with `a^r ≡ 1 (mod N)`. The guards and `gcd`s are
-  classical too — only the period *search* is quantum.
+  classical too — only the period *search* is quantum, which is why
+  classically simulated variants can reproduce every number in this chapter.
 - The demo stays at `15` and `21` because simulating modular-exponentiation
   circuits explodes; real Shor is polynomial but needs error-corrected
   hardware measured in thousands of logical qubits.

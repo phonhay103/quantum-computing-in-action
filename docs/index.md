@@ -1,27 +1,39 @@
 # Quantum Computing in Action — companion notes
 
-This site explains the **ideas** behind the book
+This site presents a systematic account of the **ideas** behind the book
 [_Quantum Computing in Action_](https://www.manning.com/books/quantum-computing-in-action)
-by Johan Vos, for the chapters ported to Python with
-[Qiskit](https://www.ibm.com/quantum/qiskit).
+by Johan Vos, prepared for the chapters that have been ported to Python with
+[Qiskit](https://www.ibm.com/quantum/qiskit). Its purpose is not to replace the
+book itself but to accompany it: each page sets out the concepts a chapter
+introduces and demonstrates how those concepts behave within an executable
+simulation.
 
 The book teaches quantum computing with the Java-based
-[Strange](https://github.com/gluonhq/strange) simulator. This repository keeps the
-same narrative but uses Qiskit, and renders the result of each sample as a
-diagram so you can *see* what the maths describes. It draws on only two public
-sources: the book's **source code** and its
-[Manning page](https://www.manning.com/books/quantum-computing-in-action), which
-includes the table of contents.
+[Strange](https://github.com/gluonhq/strange) simulator. This repository
+preserves the same narrative while substituting Qiskit as the simulation engine,
+and it renders the result of each sample as a diagram so that what the maths
+describes can be inspected visually as well as symbolically. It is worth noting
+that the material draws on exactly two public sources: the book's **source
+code** and its
+[Manning page](https://www.manning.com/books/quantum-computing-in-action), the
+latter of which also includes the table of contents on which the chapter titles
+below are based.
 
 !!! note "What these notes are — and are not"
-    These pages cover the **quantum-computing knowledge** of each chapter:
-    what a qubit is, what a gate does, what a measurement returns, and why it
-    matters. They deliberately do **not** walk through the source code. Each
-    page links to the matching module if you want to read the implementation.
+    These pages cover the **quantum-computing knowledge** developed in each
+    chapter: what a qubit is, what a gate does, what a measurement returns, and
+    why each of these matters for the argument of the book as a whole. They
+    deliberately do **not** walk through the source code; the implementation is
+    treated as a separate concern. Each page nevertheless links to the matching
+    module, so that the implementation can be consulted whenever reading it is
+    of interest.
 
 ## The chapters covered
 
-Chapter titles follow the book's table of contents.
+Chapter titles follow the book's table of contents, so that the position of a
+chapter in these notes corresponds exactly to its position in the book. Each
+row of the table condenses the central idea of a chapter into a single sentence
+and lists the diagrams that were generated for it.
 
 | Chapter | Status | Idea in one line | Diagrams |
 |---------|--------|------------------|----------|
@@ -39,8 +51,11 @@ Chapter titles follow the book's table of contents.
 
 ## Diagram gallery
 
-Every sample writes its figures to `build/`, prefixed with the chapter number so
-a figure always tells you where it came from.
+Every sample writes its figures to `build/`, prefixed with the chapter number
+from which the figure originates; it follows that a figure always reveals its
+own provenance without any further labelling. The figures are collected below
+in chapter order, so the gallery can also be read as a compressed visual
+summary of the book as a whole.
 
 ### Chapter 1 — classical vs. Shor
 
@@ -118,14 +133,17 @@ a figure always tells you where it came from.
 
 ## Where to go next
 
-- New here? Start with **[Getting started](getting-started.md)** to run the
-  samples and regenerate the diagrams.
-- New to the background ideas (bits, amplitudes, phases, the Bloch sphere)?
-  Skim the **[Foundations](foundations.md)** page.
-- Lost on a word like *fidelity*, *Schmidt rank*, or *sub-exponential*? Look it up
-  in the **[Glossary](glossary.md)**.
-- Want the concepts only? Jump straight to
+- Someone starting here for the first time may begin with the
+  **[Getting started](getting-started.md)** page, which explains how to run the
+  samples and regenerate the diagrams from them.
+- For readers who are new to the background ideas (bits, amplitudes, phases,
+  the Bloch sphere), the **[Foundations](foundations.md)** page supplies the
+  necessary groundwork in condensed form.
+- When an unfamiliar term such as *fidelity*, *Schmidt rank*, or
+  *sub-exponential* occurs, its definition can be looked up in the
+  **[Glossary](glossary.md)**.
+- Anyone interested in the concepts alone may proceed directly to
   **[Chapter 1](chapters/ch01-evolution-revolution-hype.md)**.
-- Looking for the code that produces a figure? See the
-  **[Reference](reference.md)** table, which maps each chapter to its module,
-  CLI command, and diagrams.
+- To locate the code that produces a given figure, the
+  **[Reference](reference.md)** table maps each chapter to its module, CLI
+  command, and diagrams.
