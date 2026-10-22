@@ -185,7 +185,10 @@ def test_qubit_state_rejects_bad_qubit_and_values() -> None:
 
 def _reference_probabilities(circuit) -> dict[str, float]:
     """Return Qiskit's own measurement probabilities for a set of qubits."""
-    return {label: float(value) for label, value in Statevector.from_instruction(circuit).probabilities_dict(qargs=[0, 1]).items()}
+    return {
+        label: float(value)
+        for label, value in Statevector.from_instruction(circuit).probabilities_dict(qargs=[0, 1]).items()
+    }
 
 
 def test_branch_probabilities_agree_with_qiskit() -> None:

@@ -41,8 +41,8 @@ vì thông tin cổ điển cho phép nhân bản mà không phải trả giá n
 
 ```python
 source = True
-copy = classic_copy(source)      # cả hai cùng tồn tại và dùng được
-copy = not copy                  # đổi bản sao không ảnh hưởng bản gốc
+copy = classic_copy(source)  # cả hai cùng tồn tại và dùng được
+copy = not copy  # đổi bản sao không ảnh hưởng bản gốc
 ```
 
 Cách xây dựng này hoạt động vì thao tác **đọc** một bit cổ điển không làm nhiễu

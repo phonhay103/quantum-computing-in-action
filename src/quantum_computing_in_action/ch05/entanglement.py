@@ -215,18 +215,14 @@ produce all four outcomes with equal probability.
         f"(01 and 10 never appear)."
     )
     console.print(
-        "Independent 1000 runs: "
-        + ", ".join(f"{label}={independent.get(label, 0)}" for label in states.BASIS_LABELS)
+        "Independent 1000 runs: " + ", ".join(f"{label}={independent.get(label, 0)}" for label in states.BASIS_LABELS)
     )
     console.print(
-        "Two classical coins: "
-        + ", ".join(f"{label}={coins.get(label, 0)}" for label in states.BASIS_LABELS)
+        "Two classical coins: " + ", ".join(f"{label}={coins.get(label, 0)}" for label in states.BASIS_LABELS)
     )
     console.print("[muted]The Bell qubits are correlated; the independent qubits and coins are not.[/muted]")
 
-    console.print(
-        Panel(str(bell_circuit().draw("text", reverse_bits=True)), title="Bell circuit", border_style="bits")
-    )
+    console.print(Panel(str(bell_circuit().draw("text", reverse_bits=True)), title="Bell circuit", border_style="bits"))
     console.print(
         Panel(str(cnot_circuit().draw("text", reverse_bits=True)), title="CNOT (control first)", border_style="bits")
     )

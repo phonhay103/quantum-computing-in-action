@@ -43,8 +43,8 @@ any penalty:
 
 ```python
 source = True
-copy = classic_copy(source)      # both now exist and work
-copy = not copy                  # changing the copy leaves the source alone
+copy = classic_copy(source)  # both now exist and work
+copy = not copy  # changing the copy leaves the source alone
 ```
 
 This construction works because the act of reading a classical bit does not
